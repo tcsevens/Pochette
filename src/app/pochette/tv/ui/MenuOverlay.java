@@ -534,6 +534,38 @@ public class MenuOverlay extends View {
 
         // ---------------------------------------------------------- transport
         if (!expanded) drawTransport(c, W, H, s);
+        if (expanded) drawSay(c, W, H, s);
+    }
+
+    private String sayTitle, sayText;
+    private long sayUntil;
+
+    /** Message shown above the menu itself (the screen's own toasts would sit behind it). */
+    public void say(String title, String text, long ms) {
+        sayTitle = title; sayText = text;
+        sayUntil = SystemClock.uptimeMillis() + ms;
+        invalidate();
+        postInvalidateDelayed(ms + 50);
+    }
+
+    private void drawSay(Canvas c, int W, int H, float s) {
+        if (sayText == null || SystemClock.uptimeMillis() > sayUntil) return;
+        float bw = Math.min(W * 0.62f, 820f * s), pad = 22f * s;
+        StaticLayout l = textLayout(sayText, bw - 2 * pad, s);
+        float th = sayTitle != null && sayTitle.length() > 0 ? 30f * s : 0f;
+        float bh = l.getHeight() + th + 2 * pad;
+        float bx = (W - bw) / 2f, by = H - 64f * s - bh;
+        rf.set(bx, by, bx + bw, by + bh);
+        fill.setColor(0xF2201722);
+        c.drawRoundRect(rf, 18f * s, 18f * s, fill);
+        stroke.setColor(FOCUS); stroke.setStrokeWidth(2f * s);
+        c.drawRoundRect(rf, 18f * s, 18f * s, stroke);
+        if (th > 0) {
+            resetTp();
+            tp.setTypeface(bold); tp.setTextSize(19f * s); tp.setColor(0xFFFFFFFF);
+            c.drawText(sayTitle, bx + pad, by + pad + 18f * s, tp);
+        }
+        c.save(); c.translate(bx + pad, by + pad + th); l.draw(c); c.restore();
     }
 
     /** Ambiance cards: three per row, across the whole free width. */

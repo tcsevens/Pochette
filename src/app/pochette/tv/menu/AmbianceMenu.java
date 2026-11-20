@@ -75,7 +75,7 @@ public final class AmbianceMenu {
             ambEdit = index;
             ambPick = true;
             favorites.load();
-            view.showToast(T.t("Choisis d'abord la playlist de « ") + a.name + T.t(" »"), 3000);
+            menu.say("", T.t("Choisis d'abord la playlist de « ") + a.name + T.t(" »"), 3000);
             menu.ambChanged();
             return;
         }

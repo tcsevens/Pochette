@@ -185,7 +185,7 @@ public final class SettingsMenu {
             prefs.autoLaunch(on);
             if (on) {
                 env.setAutoLaunch(true);
-                if (needsOverlayPermission()) view.showToast(T.t("Il manque une autorisation : voir « Autoriser l'affichage automatique »"), 4000);
+                if (needsOverlayPermission()) menu.say("", T.t("Il manque une autorisation : voir « Autoriser l'affichage automatique »"), 4000);
             } else {
                 env.setAutoLaunch(false);
             }
@@ -193,14 +193,14 @@ public final class SettingsMenu {
             try {
                 activity.startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity.getPackageName())));
             } catch (Exception ex) {
-                view.showToast(T.t("Écran absent sur cette télé : utilise la commande adb du guide"), 5000);
+                menu.say("", T.t("Écran absent sur cette télé : utilise la commande adb du guide"), 5000);
             }
         } else if ("ip".equals(id)) {
             askIp();
         } else if ("rescan".equals(id)) {
             prefs.lastIp("");
             if (env.poller() != null) env.poller().reset();
-            view.showToast(T.t("Recherche des enceintes…"));
+            menu.say("", T.t("Recherche des enceintes…"), 2500);
         }
     }
 
@@ -216,7 +216,7 @@ public final class SettingsMenu {
         if (Settings.System.canWrite(activity)) {
             try {
                 Settings.System.putInt(activity.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, on ? 0 : 1);
-                view.showToast(on ? T.t("Sons système désactivés") : T.t("Sons système réactivés"), 2500);
+                menu.say("", on ? T.t("Sons système désactivés") : T.t("Sons système réactivés"), 2500);
                 return;
             } catch (Exception ignored) {}
         }
@@ -225,9 +225,9 @@ public final class SettingsMenu {
                 + T.t("(ou depuis le PC : adb shell settings put system sound_effects_enabled 0).");
         try {
             activity.startActivity(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + activity.getPackageName())));
-            view.showNotice(T.t("Autorisation nécessaire"), help, 15000);
+            menu.say(T.t("Autorisation nécessaire"), help, 15000);
         } catch (Exception ex) {
-            view.showNotice(T.t("Impossible de les couper depuis l'appli"), help, 15000);
+            menu.say(T.t("Impossible de les couper depuis l'appli"), help, 15000);
         }
     }
     private int lyrOffIndex() {
