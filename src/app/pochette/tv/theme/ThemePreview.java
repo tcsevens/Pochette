@@ -44,20 +44,24 @@ public final class ThemePreview {
         return null;
     }
 
+    /** Forget a picture (the owner replaced or removed a custom video). */
+    public static synchronized void forget(int theme) { cache.remove(theme); }
+
     private static Bitmap build(int theme) throws Exception {
         String v = Themes.video(theme);
         if (v != null) {
-            int id = ctx.getResources().getIdentifier(v, "raw", ctx.getPackageName());
+            boolean file = v.startsWith("file:");
+            int id = file ? 1 : ctx.getResources().getIdentifier(v, "raw", ctx.getPackageName());
             if (id == 0) return null;
-            AssetFileDescriptor fd = ctx.getResources().openRawResourceFd(id);
+            AssetFileDescriptor fd = file ? null : ctx.getResources().openRawResourceFd(id);
             MediaMetadataRetriever mr = new MediaMetadataRetriever();
             try {
-                mr.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+                if (file) mr.setDataSource(v.substring(5)); else mr.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                 Bitmap f = mr.getFrameAtTime(1500000L, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
                 if (f == null) f = mr.getFrameAtTime();
                 if (f == null) return null;
                 return Bitmap.createScaledBitmap(f, W, H, true);
-            } finally { try { mr.release(); } catch (Throwable ignored) { } try { fd.close(); } catch (Throwable ignored) { } }
+            } finally { try { mr.release(); } catch (Throwable ignored) { } try { if (fd != null) fd.close(); } catch (Throwable ignored) { } }
         }
         Bitmap out = Bitmap.createBitmap(W, H, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(out);

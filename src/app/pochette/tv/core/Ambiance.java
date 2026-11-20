@@ -7,15 +7,26 @@ import java.util.List;
 
 /** A one-press preset: a Sonos favourite + rooms + volume + screen theme. */
 public final class Ambiance {
-    public static final int T_NORMAL = 0, T_SNOW = 1, T_MORNING = 2, T_SUMMER = 3, T_WAKE = 4, T_SOUL = 5, T_FIRE = 6, T_RAIN = 7, T_PLANET = 8, T_PARTY = 9, T_OFFICE = 10, T_MONTREAL = 11, T_CORSE = 12, T_XMAS = 13, T_RECORD = 14, T_AUTUMN = 15, T_HALLOWEEN = 16;
+    public static final int T_NORMAL = 0, T_SNOW = 1, T_MORNING = 2, T_SUMMER = 3, T_WAKE = 4, T_SOUL = 5, T_FIRE = 6, T_RAIN = 7, T_PLANET = 8, T_PARTY = 9, T_OFFICE = 10, T_MONTREAL = 11, T_CORSE = 12, T_XMAS = 13, T_RECORD = 14, T_AUTUMN = 15, T_HALLOWEEN = 16, T_CUSTOM1 = 17, T_CUSTOM2 = 18, T_CUSTOM3 = 19;
     /** Themes still offered (the others were removed; saved ones fall back to Normal). */
-    public static final int[] SHOWN = {T_NORMAL, T_SUMMER, T_AUTUMN, T_HALLOWEEN, T_SNOW, T_FIRE, T_XMAS, T_MORNING, T_WAKE, T_RAIN, T_PLANET, T_SOUL, T_RECORD, T_PARTY};
+    private static final int[] BASE = {T_NORMAL, T_SUMMER, T_AUTUMN, T_HALLOWEEN, T_SNOW, T_FIRE, T_XMAS, T_MORNING, T_WAKE, T_RAIN, T_PLANET, T_SOUL, T_RECORD, T_PARTY};
+    public static volatile int[] SHOWN = BASE;
+    /** Rebuilds the list: the built-in themes, then the owner's own videos that exist. */
+    public static void refresh() {
+        int n = 0;
+        for (int i = 0; i < CustomBg.SLOTS; i++) if (CustomBg.has(i)) n++;
+        int[] o = new int[BASE.length + n];
+        System.arraycopy(BASE, 0, o, 0, BASE.length);
+        int k = BASE.length;
+        for (int i = 0; i < CustomBg.SLOTS; i++) if (CustomBg.has(i)) o[k++] = CustomBg.themeOf(i);
+        SHOWN = o;
+    }
     public static boolean exists(int t) { for (int x : SHOWN) if (x == t) return true; return false; }
     public static int valid(int t) { return exists(t) ? t : T_NORMAL; }
     public static int toIndex(int t) { for (int i = 0; i < SHOWN.length; i++) if (SHOWN[i] == t) return i; return 0; }
     public static int fromIndex(int i) { return SHOWN[Math.max(0, Math.min(SHOWN.length - 1, i))]; }
     public static String[] shownNames() { String[] o = new String[SHOWN.length]; for (int i = 0; i < o.length; i++) o[i] = THEME_NAMES[SHOWN[i]]; return o; }
-    public static final String[] THEME_NAMES = {"Normal", "Chalet", "Lever de soleil", "Été", "Réveil", "Bar jazz", "Coin du feu", "Pluie", "Nuit étoilée", "Fête", "Bureau chill", "Feu de cheminée", "Corse", "Noël", "Disquaire", "Automne", "Halloween"};
+    public static final String[] THEME_NAMES = {"Normal", "Chalet", "Lever de soleil", "Été", "Réveil", "Bar jazz", "Coin du feu", "Pluie", "Nuit étoilée", "Fête", "Bureau chill", "Feu de cheminée", "Corse", "Noël", "Disquaire", "Automne", "Halloween", "Mon fond 1", "Mon fond 2", "Mon fond 3"};
 
     public String name = "Nouvelle ambiance";
     public int theme = T_NORMAL;

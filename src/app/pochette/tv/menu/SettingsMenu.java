@@ -1,12 +1,14 @@
 package app.pochette.tv.menu;
 
 import app.pochette.tv.core.Ambiance;
+import app.pochette.tv.core.CustomBg;
 import app.pochette.tv.core.Prefs;
 import app.pochette.tv.core.T;
 import app.pochette.tv.sonos.SonosClient;
 import app.pochette.tv.spotify.SetupServer;
 import app.pochette.tv.spotify.SpotifyClient;
 import app.pochette.tv.spotify.SpotifySetupView;
+import app.pochette.tv.party.BgSetupServer;
 import app.pochette.tv.party.WifiSetupServer;
 import app.pochette.tv.ui.MenuOverlay;
 import app.pochette.tv.ui.ShareView;
@@ -42,6 +44,7 @@ public final class SettingsMenu {
     private int setSub;
     private final ShareView shareView;
     private WifiSetupServer wifiServer;
+    private BgSetupServer bgServer;
 
     public SettingsMenu(MenuEnv env, SpotifySetupView spotifyView, ShareView shareView) {
         this.shareView = shareView;
@@ -105,6 +108,10 @@ public final class SettingsMenu {
                         out.add(MenuOverlay.Row.toggle("wifioffer", T.t("Proposer le QR Wi-Fi aux invités"), prefs.wifiOffer()));
                         out.add(MenuOverlay.Row.action("wififorget", T.t("Oublier le Wi-Fi des invités")));
                     }
+                    out.add(MenuOverlay.Row.head(T.t("Mes fonds d'écran")));
+                    out.add(MenuOverlay.Row.action("bgadd", T.t("Ajouter une vidéo depuis le téléphone…")));
+                    for (int i = 0; i < CustomBg.SLOTS; i++)
+                        if (CustomBg.has(i)) out.add(MenuOverlay.Row.action("bgdel:" + i, T.t("Supprimer « Mon fond ") + (i + 1) + " »"));
                     break;
                 }
                 List<SonosClient.Room> rs = env.rooms();
@@ -221,6 +228,17 @@ public final class SettingsMenu {
             menu.say("", T.t("Nouveau lien : les anciens ne marchent plus."), 3000);
         } else if ("wifi".equals(id)) {
             startWifiSetup();
+        } else if ("bgadd".equals(id)) {
+            if (bgServer == null) bgServer = new BgSetupServer();
+            if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
+            menu.hide();
+            shareView.openBg(bgServer);
+        } else if (id.startsWith("bgdel:")) {
+            int slot = Integer.parseInt(id.substring(6));
+            if (view.getTheme() == CustomBg.themeOf(slot)) { prefs.theme(0, ""); view.setTheme(0, ""); }
+            CustomBg.delete(slot);
+            app.pochette.tv.theme.ThemePreview.forget(CustomBg.themeOf(slot));
+            menu.refresh();
         } else if ("wifioffer".equals(id)) {
             prefs.wifiOffer(!prefs.wifiOffer());
         } else if ("wififorget".equals(id)) {

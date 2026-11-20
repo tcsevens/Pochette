@@ -29,7 +29,9 @@ public final class Themes {
             case Ambiance.T_XMAS: n = "vid_noel"; break;
             case Ambiance.T_AUTUMN: n = "vid_automne"; break;
             case Ambiance.T_HALLOWEEN: n = "vid_halloween"; break;
-            default: return null;
+            default:
+                int cs = app.pochette.tv.core.CustomBg.slotOf(theme);
+                return cs >= 0 && app.pochette.tv.core.CustomBg.has(cs) ? "file:" + app.pochette.tv.core.CustomBg.file(cs).getPath() : null;
         }
         return missing.contains(n) ? null : n;   // a build without the clips falls back to a plain gradient
     }
@@ -38,6 +40,7 @@ public final class Themes {
 
     /** Notes which bundled clips are absent (the source repository does not ship them). */
     public static void probe(android.content.Context c) {
+        app.pochette.tv.core.CustomBg.init(c);
         for (String n : new String[]{"vid_chalet", "vid_coin_du_feu", "vid_jazz", "vid_pluie", "vid_noel", "vid_automne", "vid_halloween"})
             if (c.getResources().getIdentifier(n, "raw", c.getPackageName()) == 0) missing.add(n);
     }

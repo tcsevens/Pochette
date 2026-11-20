@@ -41,13 +41,17 @@ public final class VideoBg implements TextureView.SurfaceTextureListener {
 
     private void start() {
         stop();
-        int id = ctx.getResources().getIdentifier(want, "raw", ctx.getPackageName());
+        boolean file = want.startsWith("file:");
+        int id = file ? 1 : ctx.getResources().getIdentifier(want, "raw", ctx.getPackageName());
         if (id == 0) return;
         try {
-            AssetFileDescriptor fd = ctx.getResources().openRawResourceFd(id);
             final MediaPlayer m = new MediaPlayer();
-            m.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
-            fd.close();
+            if (file) m.setDataSource(want.substring(5));
+            else {
+                AssetFileDescriptor fd = ctx.getResources().openRawResourceFd(id);
+                m.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+                fd.close();
+            }
             if (surface == null) surface = new Surface(st);
             m.setSurface(surface);
             m.setVolume(0f, 0f);
