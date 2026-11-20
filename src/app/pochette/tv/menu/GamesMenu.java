@@ -90,7 +90,12 @@ public final class GamesMenu {
         if (gameSel >= 4) {
             out.add(MenuOverlay.Row.button("pstart", T.t("▶  LANCER LA PARTIE")));
             out.add(MenuOverlay.Row.chips("pteams", T.t("Équipes"), new String[]{"2", "3", "4", "5", "6"}, Math.max(0, Math.min(4, prefs.gameInt("pteams", 3) - 2))));
-            if (gameSel == 4) out.add(MenuOverlay.Row.chips("pcat", T.t("Catégorie"), new String[]{T.t("Culture générale"), T.t("France"), T.t("Québec"), T.t("Pop & geek"), T.t("Tout")}, Math.max(0, Math.min(4, prefs.gameInt("pc", 4)))));
+            if (gameSel == 4) {
+                out.add(MenuOverlay.Row.text(T.t("Catégories (rien de coché = toutes)")));
+                String[] cn = {T.t("Culture générale"), T.t("France"), T.t("Québec"), T.t("Geek"), T.t("Pop")};
+                int m = prefs.gameInt("pm", 0);
+                for (int i = 0; i < 5; i++) out.add(MenuOverlay.Row.check("pcat:" + i, cn[i], (m & (1 << i)) != 0));
+            }
             if (gameSel == 4) out.add(MenuOverlay.Row.chips("prounds", T.t("Questions"), new String[]{"5", "10", "15", "20"}, Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))));
             else {
                 out.add(MenuOverlay.Row.chips("prounds", T.t("Tours par équipe"), new String[]{"1", "2", "3", "5"}, Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))));
@@ -133,7 +138,10 @@ public final class GamesMenu {
             menu.hide();
             partyView.setWifi(prefs.wifiQr(), prefs.wifiSsid());
             partyView.start(gameSel - 4, prefs.gameInt("pteams", 3), gameSel == 4 ? Q_ROUNDS[Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))] : TURN_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))],
-                    DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], Math.max(0, Math.min(4, prefs.gameInt("pc", 4))));
+                    DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], prefs.gameInt("pm", 0));
+        } else if (id.startsWith("pcat:")) {
+            prefs.setGameInt("pm", prefs.gameInt("pm", 0) ^ (1 << Integer.parseInt(id.substring(5))));
+            menu.refresh();
         } else if ("glaunch".equals(id)) {
             launchGame();
         }
@@ -219,7 +227,6 @@ public final class GamesMenu {
     /** Option of a row changed. */
     public void choice(String id, int index) {
         if ("pteams".equals(id)) prefs.setGameInt("pteams", index + 2);
-        else if ("pcat".equals(id)) prefs.setGameInt("pc", index);
         else if ("prounds".equals(id)) prefs.setGameInt(gameSel == 4 ? "pq" : "pt", index);
         else if ("pdur".equals(id)) prefs.setGameInt("pd", index);
         else if ("gmode".equals(id)) { prefs.setGameInt("mode", index); menu.refresh(); }

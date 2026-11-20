@@ -327,7 +327,7 @@ final class PartyData {
             if (id != 0) {
                 java.io.BufferedReader r = new java.io.BufferedReader(new java.io.InputStreamReader(appCtx.getResources().openRawResource(id), "UTF-8"));
                 String s;
-                while ((s = r.readLine()) != null) if (s.length() > 0 && s.charAt(0) != '#' && s.split("\\|").length == 6) o.add(s);
+                while ((s = r.readLine()) != null) if (s.length() > 0 && s.charAt(0) != '#' && s.split("\\|").length >= 6) o.add(s);
                 r.close();
             }
         } catch (Exception e) { app.pochette.tv.core.Journal.w("Quiz", e); }
@@ -335,14 +335,23 @@ final class PartyData {
         return OPEN[l];
     }
 
-    /** The questions of a category (0 general, 1 France, 2 Québec, 3 pop and geek, 4 everything) in the current language. */
-    static String[] quizPool(int cat) {
+    /** Category flags (a mask; 0 means everything). */
+    static final int C_GENERAL = 1, C_FRANCE = 2, C_QUEBEC = 4, C_GEEK = 8, C_POP = 16, C_ALL = 31;
+
+    /** The questions for the ticked categories in the current language. Open Trivia lines end with a tag: G, P or K. */
+    static String[] quizPool(int mask) {
         int l = L();
+        if (mask <= 0 || mask > C_ALL) mask = C_ALL;
         java.util.List<String> o = new java.util.ArrayList<String>();
-        if (cat == 0 || cat == 4) java.util.Collections.addAll(o, QUIZ[l]);
-        if (cat == 1 || cat == 4) java.util.Collections.addAll(o, FRA[l]);
-        if (cat == 2 || cat == 4) java.util.Collections.addAll(o, QUE[l]);
-        if (cat == 3 || cat == 4) java.util.Collections.addAll(o, openPool(l));
+        if ((mask & C_GENERAL) != 0) java.util.Collections.addAll(o, QUIZ[l]);
+        if ((mask & C_FRANCE) != 0) java.util.Collections.addAll(o, FRA[l]);
+        if ((mask & C_QUEBEC) != 0) java.util.Collections.addAll(o, QUE[l]);
+        for (String q : openPool(l)) {
+            int c = q.lastIndexOf('|');
+            String t = q.substring(c + 1);
+            int bit = "K".equals(t) ? C_GEEK : "P".equals(t) ? C_POP : "G".equals(t) ? C_GENERAL : C_GENERAL;
+            if ((mask & bit) != 0) o.add(t.length() == 1 && Character.isLetter(t.charAt(0)) ? q.substring(0, c) : q);
+        }
         if (o.isEmpty()) java.util.Collections.addAll(o, QUIZ[l]);
         return o.toArray(new String[0]);
     }
