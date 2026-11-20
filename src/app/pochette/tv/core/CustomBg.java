@@ -3,6 +3,8 @@ package app.pochette.tv.core;
 import android.content.Context;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /** Videos the owner sent from a phone, kept in the app's private storage (three slots). */
 public final class CustomBg {
@@ -35,7 +37,34 @@ public final class CustomBg {
     public static synchronized void delete(int slot) {
         file(slot).delete();
         temp(slot).delete();
+        nameFile(slot).delete();
         Ambiance.refresh();
+    }
+
+    private static File nameFile(int slot) { return new File(dir, "bg" + slot + ".name"); }
+
+    /** The name the owner gave (accents allowed), or "" when there is none. */
+    public static String name(int slot) {
+        if (dir == null) return "";
+        try {
+            FileInputStream in = new FileInputStream(nameFile(slot));
+            try {
+                byte[] b = new byte[200];
+                int n = in.read(b);
+                return n > 0 ? new String(b, 0, n, "UTF-8").trim() : "";
+            } finally { in.close(); }
+        } catch (Exception e) { return ""; }
+    }
+
+    public static synchronized void name(int slot, String n) {
+        if (dir == null) return;
+        n = n == null ? "" : n.replaceAll("[\\p{Cntrl}]", " ").trim();
+        if (n.length() > 24) n = n.substring(0, 24).trim();
+        try {
+            if (n.length() == 0) { nameFile(slot).delete(); return; }
+            FileOutputStream o = new FileOutputStream(nameFile(slot));
+            try { o.write(n.getBytes("UTF-8")); } finally { o.close(); }
+        } catch (Exception ignored) { }
     }
 
     /** First empty slot, or -1. */

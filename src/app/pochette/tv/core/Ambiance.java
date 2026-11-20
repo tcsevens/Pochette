@@ -25,7 +25,13 @@ public final class Ambiance {
     public static int valid(int t) { return exists(t) ? t : T_NORMAL; }
     public static int toIndex(int t) { for (int i = 0; i < SHOWN.length; i++) if (SHOWN[i] == t) return i; return 0; }
     public static int fromIndex(int i) { return SHOWN[Math.max(0, Math.min(SHOWN.length - 1, i))]; }
-    public static String[] shownNames() { String[] o = new String[SHOWN.length]; for (int i = 0; i < o.length; i++) o[i] = THEME_NAMES[SHOWN[i]]; return o; }
+    public static String[] shownNames() { String[] o = new String[SHOWN.length]; for (int i = 0; i < o.length; i++) o[i] = name(SHOWN[i]); return o; }
+    /** Display name of a theme (French key; the owner's own name for a custom background). */
+    public static String name(int t) {
+        int s = CustomBg.slotOf(t);
+        if (s >= 0 && CustomBg.name(s).length() > 0) return CustomBg.name(s);
+        return THEME_NAMES[Math.max(0, Math.min(t, THEME_NAMES.length - 1))];
+    }
     public static final String[] THEME_NAMES = {"Normal", "Chalet", "Lever de soleil", "Été", "Réveil", "Bar jazz", "Coin du feu", "Pluie", "Nuit étoilée", "Fête", "Bureau chill", "Feu de cheminée", "Corse", "Noël", "Disquaire", "Automne", "Halloween", "Mon fond 1", "Mon fond 2", "Mon fond 3"};
 
     public String name = "Nouvelle ambiance";

@@ -247,7 +247,7 @@ final class IdleScreen {
             tp.setTypeface(light);
             tp.setTextSize(H * 0.019f);
             tp.setColor(0xA0FFFFFF);
-            c.drawText(T.t(Ambiance.THEME_NAMES[Math.max(0, Math.min(a.theme, Ambiance.THEME_NAMES.length - 1))]), l + H * 0.015f, b - H * 0.018f, tp);
+            c.drawText(T.t(Ambiance.name(a.theme)), l + H * 0.015f, b - H * 0.018f, tp);
         }
         tp.setTextAlign(Paint.Align.CENTER);
         tp.setTypeface(light);

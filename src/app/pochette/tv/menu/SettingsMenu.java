@@ -111,7 +111,7 @@ public final class SettingsMenu {
                     out.add(MenuOverlay.Row.head(T.t("Mes fonds d'écran")));
                     out.add(MenuOverlay.Row.action("bgadd", T.t("Ajouter une vidéo depuis le téléphone…")));
                     for (int i = 0; i < CustomBg.SLOTS; i++)
-                        if (CustomBg.has(i)) out.add(MenuOverlay.Row.action("bgdel:" + i, T.t("Supprimer « Mon fond ") + (i + 1) + " »"));
+                        if (CustomBg.has(i)) out.add(MenuOverlay.Row.action("bgdel:" + i, T.t("Supprimer") + " « " + T.t(Ambiance.name(CustomBg.themeOf(i))) + " »"));
                     out.add(MenuOverlay.Row.head(T.t("Dépannage")));
                     out.add(MenuOverlay.Row.action("logview", T.t("Voir le journal…")));
                     out.add(MenuOverlay.Row.action("logclear", T.t("Effacer le journal")));

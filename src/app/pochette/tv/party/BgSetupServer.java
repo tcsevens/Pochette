@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
 
 /**
  * A small web page on the local network where the owner sends their own background videos from a phone.
@@ -80,6 +81,15 @@ public final class BgSetupServer {
         catch (Exception e) { return -1; }
     }
 
+    private static String nameOf(String path) {
+        int i = path.indexOf("name=");
+        if (i < 0) return "";
+        String v = path.substring(i + 5);
+        int e = v.indexOf('&');
+        if (e >= 0) v = v.substring(0, e);
+        try { return URLDecoder.decode(v, "UTF-8"); } catch (Exception ex) { return ""; }
+    }
+
     private void reply(OutputStream out, String status, String type, String body) throws Exception {
         byte[] b = body.getBytes("UTF-8");
         out.write(("HTTP/1.1 " + status + "\r\nContent-Type: " + type + "; charset=utf-8\r\nContent-Length: " + b.length + "\r\nConnection: close\r\n\r\n").getBytes("UTF-8"));
@@ -122,12 +132,17 @@ public final class BgSetupServer {
                 return;
             }
             CustomBg.commit(slot);
+            if (path.indexOf("name=") >= 0) CustomBg.name(slot, nameOf(path));
             ThemePreview.forget(CustomBg.themeOf(slot));
             error = "";
             received++;
             reply(out, "200 OK", "text/plain", "ok");
         } else if (path.startsWith("/log")) {
             reply(out, "200 OK", "text/plain", app.pochette.tv.core.Journal.full());
+        } else if ("POST".equals(method) && path.startsWith("/name")) {
+            int slot = slotOf(path);
+            if (slot >= 0 && CustomBg.has(slot)) { CustomBg.name(slot, nameOf(path)); received++; }
+            reply(out, "200 OK", "text/plain", "ok");
         } else if ("POST".equals(method) && path.startsWith("/del")) {
             int slot = slotOf(path);
             if (slot >= 0) { CustomBg.delete(slot); ThemePreview.forget(CustomBg.themeOf(slot)); received++; }
@@ -151,16 +166,18 @@ public final class BgSetupServer {
             h.append("<div class=\"s\"><b>").append(esc(T.t("Mon fond ") + (i + 1))).append("</b> · ");
             if (CustomBg.has(i)) h.append("<span class=\"k\">").append(esc(T.t("en place"))).append(" (").append(CustomBg.file(i).length() / 1048576).append(" Mo)</span>");
             else h.append(esc(T.t("libre")));
-            h.append("<br><input type=\"file\" accept=\"video/mp4,video/*\" id=\"f").append(i).append("\"><br>")
+            h.append("<br><input type=\"text\" maxlength=\"24\" id=\"n").append(i).append("\" placeholder=\"").append(esc(T.t("Nom du fond (facultatif)"))).append("\" value=\"").append(esc(CustomBg.name(i))).append("\" style=\"width:100%;box-sizing:border-box;padding:10px;font-size:16px;margin:8px 0\">")
+             .append("<input type=\"file\" accept=\"video/mp4,video/*\" id=\"f").append(i).append("\"><br>")
              .append("<button onclick=\"up(").append(i).append(")\">").append(esc(T.t("Envoyer"))).append("</button> ");
-            if (CustomBg.has(i)) h.append("<button class=\"g\" onclick=\"del(").append(i).append(")\">").append(esc(T.t("Supprimer"))).append("</button>");
+            if (CustomBg.has(i)) h.append("<button class=\"g\" onclick=\"ren(").append(i).append(")\">").append(esc(T.t("Renommer"))).append("</button> <button class=\"g\" onclick=\"del(").append(i).append(")\">").append(esc(T.t("Supprimer"))).append("</button>");
             h.append("<progress id=\"p").append(i).append("\" value=\"0\" max=\"1\" style=\"display:none\"></progress><div id=\"m").append(i).append("\"></div></div>");
         }
         h.append("<script>function up(i){var f=document.getElementById('f'+i).files[0];if(!f)return;var p=document.getElementById('p'+i),m=document.getElementById('m'+i);")
-         .append("p.style.display='block';var x=new XMLHttpRequest();x.open('POST','/up?slot='+i);")
+         .append("p.style.display='block';var x=new XMLHttpRequest();x.open('POST','/up?slot='+i+'&name='+encodeURIComponent(document.getElementById('n'+i).value));")
          .append("x.upload.onprogress=function(e){p.max=e.total;p.value=e.loaded};")
          .append("x.onload=function(){if(x.status==200)location.reload();else m.textContent=x.responseText};")
          .append("x.onerror=function(){m.textContent='Erreur'};x.send(f)}")
+         .append("function ren(i){var x=new XMLHttpRequest();x.open('POST','/name?slot='+i+'&name='+encodeURIComponent(document.getElementById('n'+i).value));x.onload=function(){location.reload()};x.send()}")
          .append("function del(i){var x=new XMLHttpRequest();x.open('POST','/del?slot='+i);x.onload=function(){location.reload()};x.send()}</script>")
          .append("</body></html>");
         return h.toString();

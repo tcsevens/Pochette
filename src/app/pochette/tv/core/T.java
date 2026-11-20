@@ -349,9 +349,10 @@ public final class T {
         add("Mon fond 2", "My background 2", "Mi fondo 2");
         add("Mon fond 3", "My background 3", "Mi fondo 3");
         add("Mon fond ", "My background ", "Mi fondo ");
+        add("Nom du fond (facultatif)", "Background name (optional)", "Nombre del fondo (opcional)");
+        add("Renommer", "Rename", "Renombrar");
         add("Mes fonds d'écran", "My backgrounds", "Mis fondos");
         add("Ajouter une vidéo depuis le téléphone…", "Add a video from your phone…", "Añadir un vídeo desde el móvil…");
-        add("Supprimer « Mon fond ", "Delete “My background ", "Eliminar «Mi fondo ");
         add("Fichier trop gros (300 Mo maximum).", "File too big (300 MB max).", "Archivo demasiado grande (300 MB máx.).");
         add("Ce fichier n'est pas une vidéo MP4.", "This file is not an MP4 video.", "Este archivo no es un vídeo MP4.");
         add("Envoie une vidéo MP4 (H.264, 720p ou 1080p, sans son de préférence, 300 Mo maximum). Elle reste sur la télé et boucle en fond. Utilise seulement des vidéos dont tu as le droit de te servir.", "Send an MP4 video (H.264, 720p or 1080p, preferably without sound, 300 MB max). It stays on the TV and loops in the background. Only use videos you are allowed to use.", "Envía un vídeo MP4 (H.264, 720p o 1080p, mejor sin sonido, 300 MB máx.). Se queda en la tele y se repite de fondo. Usa solo vídeos que tengas derecho a usar.");
