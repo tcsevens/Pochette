@@ -5,6 +5,7 @@ import app.pochette.tv.core.T;
 import app.pochette.tv.core.TrackState;
 import app.pochette.tv.media.Lyrics;
 import app.pochette.tv.sonos.Poller;
+import app.pochette.tv.sonos.VolumeRamp;
 import app.pochette.tv.theme.Scenes2;
 import app.pochette.tv.theme.ThemePreview;
 import app.pochette.tv.theme.Themes;
@@ -107,8 +108,8 @@ public class NowPlayingView extends View {
     private final Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final TextPaint tp = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     private final RectF rf = new RectF();
+    private final RadioScene radio = new RadioScene();
     private final Rect rs = new Rect();
-    private final Map<String, Bitmap> shadows = new HashMap<String, Bitmap>();
     private Bitmap sheen;
     private final SimpleDateFormat clockFmt = new SimpleDateFormat("HH:mm", T.locale());
     private final SimpleDateFormat dateFmt = new SimpleDateFormat(T.datePattern(), T.locale());
@@ -407,7 +408,7 @@ public class NowPlayingView extends View {
                 || (playingNow && mode == MODE_LYRICS && hasLyrics(cur) && lyricsMode == 0);
         boolean scrolling = !cur.idle && mode == MODE_LYRICS && lyricsAnimating;
         removeCallbacks(tick);
-        boolean themeAnim = cur.idle || (Themes.animated(theme) || (theme == Ambiance.T_WAKE && Poller.rampFraction() >= 0f));
+        boolean themeAnim = cur.idle || (Themes.animated(theme) || (theme == Ambiance.T_WAKE && VolumeRamp.fraction() >= 0f));
         if (prev != null || spinning || scrolling || anim || insetsMoving || holdSince >= 0 || themeAnim) {
             postInvalidateOnAnimation();
         } else {
@@ -712,7 +713,7 @@ public class NowPlayingView extends View {
             if (radioScene) {
                 A = H * 0.60f;
                 ay = (H - A) / 2f;
-                float right = drawRadioScene(c, sc, W * 0.06f, H);
+                float right = radio.draw(c, sc.st, sc.accent, W * 0.06f, H);
                 textX = right + W * 0.045f;
                 cover = H * 0.15f;
             } else if (mode == MODE_VINYL) {
@@ -803,7 +804,7 @@ public class NowPlayingView extends View {
         String hello = hour < 12 ? T.t("Bonjour !") : (hour < 18 ? T.t("Bon après-midi !") : T.t("Bonsoir !"));
         c.drawText(hello + "  " + date, W / 2f, H * 0.41f, tp);
 
-        float rampF = Poller.rampFraction();
+        float rampF = VolumeRamp.fraction();
         if (rampF >= 0f) {
             float bw = H * 0.72f, bx = (W - bw) / 2f, by = H * 0.53f, bh = H * 0.014f;
             resetTp();
@@ -813,12 +814,12 @@ public class NowPlayingView extends View {
             tp.setColor(0xFFFFFFFF);
             c.drawText(T.t("LE VOLUME MONTE DOUCEMENT"), bx, by - H * 0.02f, tp);
             tp.setTextAlign(Paint.Align.RIGHT);
-            c.drawText("vers " + Poller.rampTo + " %", bx + bw, by - H * 0.02f, tp);
+            c.drawText("vers " + VolumeRamp.rampTo + " %", bx + bw, by - H * 0.02f, tp);
             rf.set(bx, by, bx + bw, by + bh);
             fill.setColor(0x40FFFFFF);
             c.drawRoundRect(rf, bh / 2, bh / 2, fill);
-            float cur = Poller.rampFrom + (Poller.rampTo - Poller.rampFrom) * rampF;
-            rf.set(bx, by, bx + Math.max(bh, bw * cur / Math.max(1, Poller.rampTo)), by + bh);
+            float cur = VolumeRamp.rampFrom + (VolumeRamp.rampTo - VolumeRamp.rampFrom) * rampF;
+            rf.set(bx, by, bx + Math.max(bh, bw * cur / Math.max(1, VolumeRamp.rampTo)), by + bh);
             fill.setColor(0xFFFFFFFF);
             c.drawRoundRect(rf, bh / 2, bh / 2, fill);
         }
@@ -893,7 +894,7 @@ public class NowPlayingView extends View {
         boolean pulse = theme == Ambiance.T_PARTY && !paused;
         if (pulse) { float k = 1f + 0.02f * Scenes2.beat(partyNow / 1000.0); c.save(); c.scale(k, k, x + A / 2f, y + A / 2f); }
         float rad = A * 0.022f;
-        Bitmap sh = shadow("sq", (int) A, rad);
+        Bitmap sh = DiscArt.shadow("sq", (int) A, rad);
         float pad = (sh.getWidth() - A) / 2f;
         bmp.setAlpha(255);
         c.drawBitmap(sh, x - pad, y - pad + A * 0.025f, bmp);
@@ -934,10 +935,10 @@ public class NowPlayingView extends View {
     private void drawVinyl(Canvas c, Scene sc, float x, float y, float D) {
         int d = (int) D;
         if (sc.disc == null || sc.disc.getWidth() != d || sc.discStyle != vinylStyle) {
-            sc.disc = makeDisc(sc, vinylStyle, d);
+            sc.disc = DiscArt.makeDisc(sc.art, sc.accent, sc.palette, sc.st, vinylStyle, d);
             sc.discStyle = vinylStyle;
         }
-        Bitmap sh = shadow("ci", d, 0);
+        Bitmap sh = DiscArt.shadow("ci", d, 0);
         float pad = (sh.getWidth() - D) / 2f;
         bmp.setAlpha(255);
         c.drawBitmap(sh, x - pad, y - pad + D * 0.02f, bmp);
@@ -945,153 +946,8 @@ public class NowPlayingView extends View {
         c.rotate(vinylAngle, x + D / 2f, y + D / 2f);
         c.drawBitmap(sc.disc, x, y, bmp);
         c.restore();
-        if (sheen == null || sheen.getWidth() != d) sheen = makeSheen(d);
+        if (sheen == null || sheen.getWidth() != d) sheen = DiscArt.makeSheen(d);
         c.drawBitmap(sheen, x, y, bmp);
-    }
-
-    private Bitmap makeDisc(Scene sc, int style, int D) {
-        Bitmap art = sc.art;
-        int accent = sc.accent;
-        Bitmap b = Bitmap.createBitmap(D, D, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        float r = D / 2f;
-        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-        Shader.TileMode CL = Shader.TileMode.CLAMP;
-        int[] pal = sc.palette != null ? sc.palette : new int[]{accent, shade(accent, 0.6f), shade(accent, 1.25f), shade(accent, 0.4f)};
-
-        // 1. the vinyl itself
-        if (style == 1) {
-            // translucent coloured vinyl, in the album's dominant colour
-            p.setShader(new RadialGradient(r, r, r, new int[]{shade(accent, 1.25f), accent, shade(accent, 0.62f)},
-                    new float[]{0f, 0.55f, 1f}, CL));
-            c.drawCircle(r, r, r, p);
-        } else if (style == 2) {
-            // marbled: swirl of the artwork's colours
-            p.setShader(new SweepGradient(r * 0.94f, r * 1.05f,
-                    new int[]{pal[0], pal[1], pal[2], pal[3], pal[0], pal[2], pal[1], pal[0]}, null));
-            c.drawCircle(r, r, r, p);
-            float[][] blobs = {{0.30f, 0.70f, 0.42f}, {0.72f, 0.28f, 0.38f}, {0.70f, 0.75f, 0.30f}, {0.25f, 0.25f, 0.30f}};
-            for (int i = 0; i < blobs.length; i++) {
-                int col = pal[(i + 1) % 4];
-                p.setShader(new RadialGradient(D * blobs[i][0], D * blobs[i][1], D * blobs[i][2],
-                        (col & 0x00FFFFFF) | 0x99000000, col & 0x00FFFFFF, CL));
-                c.drawCircle(r, r, r, p);
-            }
-        } else if (style == 3 && art != null) {
-            // picture disc: the artwork printed on the whole record
-            c.save();
-            Path clip = new Path();
-            clip.addCircle(r, r, r, Path.Direction.CW);
-            c.clipPath(clip);
-            int w = art.getWidth(), h = art.getHeight(), s = Math.min(w, h);
-            p.setShader(null);
-            c.drawBitmap(art, new Rect((w - s) / 2, (h - s) / 2, (w - s) / 2 + s, (h - s) / 2 + s), new RectF(0, 0, D, D), new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            c.restore();
-        } else {
-            p.setShader(new RadialGradient(r, r, r, new int[]{0xFF202020, 0xFF0C0C0C, 0xFF181818, 0xFF0A0A0A},
-                    new float[]{0f, 0.45f, 0.93f, 1f}, CL));
-            c.drawCircle(r, r, r, p);
-        }
-        p.setShader(null);
-
-        // 2. grooves
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(Math.max(1f, D / 900f));
-        boolean dark = style == 0;
-        int i = 0;
-        float inner = style == 3 ? 0.16f : 0.40f;
-        for (float rr = r * inner; rr < r * 0.965f; rr += r * 0.0105f, i++) {
-            if (dark) p.setColor((i % 3 == 0) ? 0x22FFFFFF : 0x10FFFFFF);
-            else p.setColor((i % 3 == 0) ? 0x2A000000 : (style == 3 ? 0x12FFFFFF : 0x16000000));
-            c.drawCircle(r, r, rr, p);
-        }
-        p.setStrokeWidth(Math.max(1f, D / 300f));
-        p.setColor(dark ? 0x30FFFFFF : 0x40000000);
-        c.drawCircle(r, r, r - p.getStrokeWidth() / 2f, p);
-        p.setStyle(Paint.Style.FILL);
-
-        // 3. centre label
-        float lr = r * 0.36f;
-        if (style == 2) {
-            p.setColor(0xFFF1E6D2);
-            c.drawCircle(r, r, lr, p);
-            String name = sc.st != null && sc.st.artist.length() > 0 ? sc.st.artist : (sc.st != null ? sc.st.title : "");
-            StaticLayout l = layout(name.toUpperCase(T.locale()), bold, lr * 0.20f, shade(pal[0], 0.55f) | 0xFF000000,
-                    (int) (lr * 1.45f), 3, Layout.Alignment.ALIGN_CENTER, 0.08f);
-            c.save();
-            c.translate(r - lr * 0.725f, r - l.getHeight() / 2f - lr * 0.18f);
-            l.draw(c);
-            c.restore();
-        } else if (style == 3) {
-            p.setColor(0x55000000);
-            c.drawCircle(r, r, r * 0.09f, p);
-        } else {
-            c.save();
-            Path clip = new Path();
-            clip.addCircle(r, r, lr, Path.Direction.CW);
-            c.clipPath(clip);
-            if (art != null) {
-                int w = art.getWidth(), h = art.getHeight(), s = Math.min(w, h);
-                c.drawBitmap(art, new Rect((w - s) / 2, (h - s) / 2, (w - s) / 2 + s, (h - s) / 2 + s),
-                        new RectF(r - lr, r - lr, r + lr, r + lr), new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                // a printed label is a bit duller than the artwork on the sleeve
-                Paint dim = new Paint(Paint.ANTI_ALIAS_FLAG);
-                dim.setColor(0x38000000);
-                c.drawCircle(r, r, lr, dim);
-            } else {
-                p.setColor(accent);
-                c.drawCircle(r, r, lr, p);
-            }
-            c.restore();
-            p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(Math.max(1f, D / 500f));
-            p.setColor(0x33000000);
-            c.drawCircle(r, r, lr, p);
-            p.setStyle(Paint.Style.FILL);
-        }
-        p.setColor(0xFF0A0A0A);
-        c.drawCircle(r, r, r * 0.028f, p);
-        return b;
-    }
-
-    private static int shade(int c, float f) {
-        int r = Math.min(255, (int) (((c >> 16) & 255) * f));
-        int g = Math.min(255, (int) (((c >> 8) & 255) * f));
-        int b = Math.min(255, (int) ((c & 255) * f));
-        return 0xFF000000 | (r << 16) | (g << 8) | b;
-    }
-
-    private Bitmap makeSheen(int D) {
-        Bitmap b = Bitmap.createBitmap(D, D, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        float r = D / 2f;
-        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setShader(new SweepGradient(r, r,
-                new int[]{0x00FFFFFF, 0x1CFFFFFF, 0x00FFFFFF, 0x00FFFFFF, 0x1CFFFFFF, 0x00FFFFFF, 0x00FFFFFF},
-                new float[]{0f, 0.08f, 0.18f, 0.5f, 0.58f, 0.68f, 1f}));
-        c.drawCircle(r, r, r, p);
-        p.setShader(null);
-        p.setXfermode(new android.graphics.PorterDuffXfermode(android.graphics.PorterDuff.Mode.CLEAR));
-        c.drawCircle(r, r, r * 0.37f, p);
-        return b;
-    }
-
-    private Bitmap shadow(String kind, int size, float rad) {
-        String k = kind + size;
-        Bitmap b = shadows.get(k);
-        if (b != null) return b;
-        int blur = Math.max(4, size / 14);
-        int full = size + blur * 4;
-        b = Bitmap.createBitmap(full, full, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(0xB0000000);
-        p.setMaskFilter(new BlurMaskFilter(blur, BlurMaskFilter.Blur.NORMAL));
-        float o = blur * 2;
-        if ("ci".equals(kind)) c.drawCircle(full / 2f, full / 2f, size / 2f, p);
-        else c.drawRoundRect(new RectF(o, o, o + size, o + size), rad, rad, p);
-        shadows.put(k, b);
-        return b;
     }
 
     // ---------------------------------------------------------------- lyrics view without lyrics
@@ -1122,221 +978,6 @@ public class NowPlayingView extends View {
         drawProgress(c, sc, (W - pw) / 2f, y, pw, H, true);
     }
 
-    // ---------------------------------------------------------------- podcast / radio scene
-
-    /** A 1950s table radio with a steaming cup of coffee. Returns the right edge of the drawing. */
-    private float drawRadioScene(Canvas c, Scene sc, float bx, int H) {
-        TrackState st = sc.st;
-        boolean playing = st.isPlaying();
-        double t = SystemClock.uptimeMillis() / 1000.0;
-        float Rw = H * 0.62f, Rh = H * 0.46f;
-        float by = H * 0.53f - Rh / 2f, bottom = by + Rh;
-        Shader.TileMode CL = Shader.TileMode.CLAMP;
-
-        // soft shadow on the "table"
-        for (int i = 0; i < 6; i++) {
-            fill.setColor(0x12000000);
-            float k = H * 0.012f * i;
-            rf.set(bx - k, bottom - H * 0.004f, bx + Rw + H * 0.36f + k, bottom + H * 0.045f + k * 0.25f);
-            c.drawOval(rf, fill);
-        }
-        // feet
-        fill.setShader(null);
-        fill.setColor(0xFF24140A);
-        c.drawRect(bx + Rw * 0.10f, bottom - H * 0.01f, bx + Rw * 0.20f, bottom + H * 0.022f, fill);
-        c.drawRect(bx + Rw * 0.80f, bottom - H * 0.01f, bx + Rw * 0.90f, bottom + H * 0.022f, fill);
-
-        // wooden body
-        float rad = Rh * 0.17f;
-        rf.set(bx, by, bx + Rw, bottom);
-        fill.setShader(new LinearGradient(0, by, 0, bottom, new int[]{0xFF95603A, 0xFF6E4123, 0xFF472814},
-                new float[]{0f, 0.45f, 1f}, CL));
-        c.drawRoundRect(rf, rad, rad, fill);
-        fill.setShader(new LinearGradient(0, by, 0, by + Rh * 0.22f, 0x45FFFFFF, 0x00FFFFFF, CL));
-        c.drawRoundRect(rf, rad, rad, fill);
-        fill.setShader(null);
-        // wood grain
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeWidth(Math.max(1f, H * 0.0018f));
-        for (int i = 1; i < 14; i++) {
-            float gy = by + Rh * (i / 14f);
-            fill.setColor(i % 3 == 0 ? 0x1A000000 : 0x0FFFFFFF);
-            Path g = new Path();
-            g.moveTo(bx + rad * 0.4f, gy);
-            g.quadTo(bx + Rw * 0.5f, gy + (float) (Rh * 0.02f * Math.sin(i * 1.7)), bx + Rw - rad * 0.4f, gy);
-            c.drawPath(g, fill);
-        }
-        fill.setStyle(Paint.Style.FILL);
-
-        // cream bakelite front panel
-        float m = Rh * 0.075f;
-        rf.set(bx + m, by + m, bx + Rw - m, bottom - m * 1.5f);
-        fill.setShader(new LinearGradient(0, rf.top, 0, rf.bottom, 0xFFEFE4C6, 0xFFCDBC93, CL));
-        c.drawRoundRect(rf, rad * 0.7f, rad * 0.7f, fill);
-        fill.setShader(null);
-
-        // speaker grille with brass slats
-        float gx = bx + Rw * 0.31f, gy = by + Rh * 0.47f, gr = Rh * 0.31f;
-        if (playing) {
-            float pulse = (float) (0.5 + 0.5 * Math.sin(t * 5.0) * Math.sin(t * 1.3));
-            fill.setColor((sc.accent & 0x00FFFFFF) | ((int) (25 + 45 * pulse) << 24));
-            c.drawCircle(gx, gy, gr * 1.10f, fill);
-        }
-        fill.setColor(0xFF3A2B1F);
-        c.drawCircle(gx, gy, gr, fill);
-        c.save();
-        Path clip = new Path();
-        clip.addCircle(gx, gy, gr * 0.96f, Path.Direction.CW);
-        c.clipPath(clip);
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeWidth(Math.max(1f, H * 0.0015f));
-        fill.setColor(0x26FFFFFF);
-        for (float yy = gy - gr; yy < gy + gr; yy += gr * 0.06f) c.drawLine(gx - gr, yy, gx + gr, yy, fill);
-        fill.setStyle(Paint.Style.FILL);
-        for (int i = -3; i <= 3; i++) {
-            float yy = gy + i * gr * 0.26f;
-            rf.set(gx - gr, yy - gr * 0.035f, gx + gr, yy + gr * 0.035f);
-            fill.setShader(new LinearGradient(0, rf.top, 0, rf.bottom, 0xFFE8C877, 0xFF9C7A35, CL));
-            c.drawRect(rf, fill);
-        }
-        fill.setShader(null);
-        c.restore();
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeWidth(gr * 0.07f);
-        fill.setColor(0xFFB8913F);
-        c.drawCircle(gx, gy, gr, fill);
-        fill.setStyle(Paint.Style.FILL);
-
-        // tuning dial
-        float d0 = bx + Rw * 0.56f, d1 = bx + Rw * 0.90f, e0 = by + Rh * 0.19f, e1 = by + Rh * 0.47f;
-        rf.set(d0, e0, d1, e1);
-        int glow = playing ? 0xFFFFE7A8 : 0xFFE6D6AE;
-        fill.setShader(new LinearGradient(0, e0, 0, e1, glow, 0xFFE8C987, CL));
-        c.drawRoundRect(rf, Rh * 0.03f, Rh * 0.03f, fill);
-        fill.setShader(null);
-        fill.setColor((sc.accent & 0x00FFFFFF) | (playing ? 0x30000000 : 0x14000000));
-        c.drawRoundRect(rf, Rh * 0.03f, Rh * 0.03f, fill);
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeWidth(Rh * 0.022f);
-        fill.setColor(0xFFB8913F);
-        c.drawRoundRect(rf, Rh * 0.03f, Rh * 0.03f, fill);
-        float pad = (d1 - d0) * 0.08f;
-        fill.setStrokeWidth(Math.max(1f, H * 0.0022f));
-        fill.setColor(0xFF5A4630);
-        for (int i = 0; i <= 20; i++) {
-            float x = d0 + pad + i * (d1 - d0 - 2 * pad) / 20f;
-            float len = (i % 5 == 0) ? (e1 - e0) * 0.32f : (e1 - e0) * 0.16f;
-            c.drawLine(x, e0 + pad * 0.8f, x, e0 + pad * 0.8f + len, fill);
-        }
-        fill.setStyle(Paint.Style.FILL);
-        resetTp();
-        tp.setAntiAlias(true);
-        tp.setTypeface(medium);
-        tp.setTextSize(Rh * 0.058f);
-        tp.setColor(0xFF5A4630);
-        tp.setTextAlign(Paint.Align.CENTER);
-        String[] nums = {"88", "98", "108"};
-        for (int i = 0; i < 3; i++) {
-            float x = d0 + pad * 1.6f + i * (d1 - d0 - 3.2f * pad) / 2f;
-            c.drawText(nums[i], x, e1 - pad * 1.2f, tp);
-        }
-        String id = st.album.length() > 0 ? st.album : st.artist;
-        float frac = 0.12f + 0.76f * ((id.hashCode() & 0x7fffffff) % 1000) / 1000f;
-        float nx = d0 + pad + frac * (d1 - d0 - 2 * pad);
-        fill.setColor(0xFFC0392B);
-        c.drawRect(nx - H * 0.0022f, e0 + pad * 0.5f, nx + H * 0.0022f, e1 - pad * 0.5f, fill);
-
-        // knobs
-        float ky = by + Rh * 0.68f, kr = Rh * 0.085f;
-        float[] kxs = {bx + Rw * 0.63f, bx + Rw * 0.83f};
-        float[] angles = {-35f, 50f};
-        for (int i = 0; i < 2; i++) {
-            float kx = kxs[i];
-            fill.setColor(0x40000000);
-            c.drawCircle(kx, ky + kr * 0.15f, kr * 1.05f, fill);
-            fill.setShader(new RadialGradient(kx - kr * 0.3f, ky - kr * 0.3f, kr * 1.4f, 0xFF7A4E2E, 0xFF22130A, CL));
-            c.drawCircle(kx, ky, kr, fill);
-            fill.setShader(null);
-            fill.setColor(0xFFC9A45C);
-            c.drawCircle(kx, ky, kr * 0.35f, fill);
-            c.save();
-            c.rotate(angles[i], kx, ky);
-            fill.setColor(0xFFEFE4C6);
-            c.drawRect(kx - kr * 0.06f, ky - kr * 0.95f, kx + kr * 0.06f, ky - kr * 0.45f, fill);
-            c.restore();
-        }
-        tp.setTypeface(bold);
-        tp.setTextSize(Rh * 0.05f);
-        tp.setLetterSpacing(0.3f);
-        tp.setColor(0xFF9C7A35);
-        c.drawText("POCHETTE", (kxs[0] + kxs[1]) / 2f, by + Rh * 0.84f, tp);
-        tp.setLetterSpacing(0f);
-
-        // coffee cup on its saucer
-        float cupW = H * 0.13f, cupH = H * 0.10f;
-        float cx0 = bx + Rw + H * 0.07f;
-        float scx = cx0 + cupW / 2f;
-        float sw = cupW * 1.7f;
-        rf.set(scx - sw / 2f, bottom - H * 0.026f, scx + sw / 2f, bottom + H * 0.006f);
-        fill.setShader(new LinearGradient(0, rf.top, 0, rf.bottom, 0xFFF4EEE6, 0xFFB9AEA1, CL));
-        c.drawOval(rf, fill);
-        fill.setShader(null);
-        float ytop = bottom - H * 0.016f - cupH;
-        // handle
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeWidth(cupW * 0.09f);
-        fill.setColor(0xFFD9D1C5);
-        rf.set(cx0 + cupW * 0.78f, ytop + cupH * 0.14f, cx0 + cupW * 1.20f, ytop + cupH * 0.66f);
-        c.drawArc(rf, -80f, 160f, false, fill);
-        fill.setStyle(Paint.Style.FILL);
-        // body
-        Path cup = new Path();
-        cup.moveTo(cx0, ytop);
-        cup.lineTo(cx0 + cupW, ytop);
-        cup.cubicTo(cx0 + cupW, ytop + cupH * 0.78f, cx0 + cupW * 0.86f, ytop + cupH, cx0 + cupW * 0.5f, ytop + cupH);
-        cup.cubicTo(cx0 + cupW * 0.14f, ytop + cupH, cx0, ytop + cupH * 0.78f, cx0, ytop);
-        cup.close();
-        fill.setShader(new LinearGradient(cx0, 0, cx0 + cupW, 0, new int[]{0xFFC9BFB2, 0xFFFFFFFF, 0xFFE4DCD0, 0xFFAFA496},
-                new float[]{0f, 0.3f, 0.65f, 1f}, CL));
-        c.drawPath(cup, fill);
-        fill.setShader(null);
-        // rim and coffee
-        rf.set(cx0, ytop - cupH * 0.09f, cx0 + cupW, ytop + cupH * 0.09f);
-        fill.setColor(0xFFF2ECE3);
-        c.drawOval(rf, fill);
-        rf.set(cx0 + cupW * 0.07f, ytop - cupH * 0.06f, cx0 + cupW * 0.93f, ytop + cupH * 0.065f);
-        fill.setShader(new RadialGradient(scx, ytop, cupW * 0.45f, 0xFF8E5B2E, 0xFF3A2010, CL));
-        c.drawOval(rf, fill);
-        fill.setShader(null);
-
-        // steam: three wisps drifting upwards
-        float base = ytop - cupH * 0.04f, Hs = H * 0.26f;
-        fill.setStyle(Paint.Style.STROKE);
-        fill.setStrokeCap(Paint.Cap.ROUND);
-        fill.setStrokeWidth(H * 0.012f);
-        float[] offs = {0.30f, 0.52f, 0.72f};
-        for (int k = 0; k < 3; k++) {
-            double ph = k * 2.1;
-            float x0 = cx0 + cupW * offs[k];
-            Path w = new Path();
-            for (int j = 0; j <= 30; j++) {
-                float s = j / 30f;
-                float yy = base - s * Hs;
-                float xx = x0 + (float) (cupW * 0.30f * s * (0.5f + 0.5f * s) * Math.sin(6.5 * s - t * 1.7 + ph))
-                        + (float) (cupW * 0.08f * s * Math.sin(t * 0.4 + ph));
-                if (j == 0) w.moveTo(xx, yy); else w.lineTo(xx, yy);
-            }
-            int a = (int) (110 * (0.55 + 0.45 * Math.sin(t * 0.8 + ph * 1.3)));
-            fill.setShader(new LinearGradient(0, base, 0, base - Hs,
-                    new int[]{0x00FFFFFF, (a << 24) | 0xFFFFFF, ((a / 3) << 24) | 0xFFFFFF, 0x00FFFFFF},
-                    new float[]{0f, 0.18f, 0.6f, 1f}, CL));
-            c.drawPath(w, fill);
-        }
-        fill.setShader(null);
-        fill.setStyle(Paint.Style.FILL);
-        fill.setStrokeCap(Paint.Cap.BUTT);
-        return scx + sw / 2f;
-    }
 
     // ---------------------------------------------------------------- text
 
@@ -1351,39 +992,22 @@ public class NowPlayingView extends View {
         if (theme != Ambiance.T_NORMAL && themeName.length() > 0) lab = T.t("Ambiance ") + themeName + "  ·  " + lab;
         else if (st.source.length() > 0) lab += "  ·  " + st.source;
         if (st.transport == TrackState.PAUSED) lab = T.t("En pause  ·  ") + lab;
-        sc.label = layout(lab.toUpperCase(T.locale()), medium, H * 0.024f, theme == Ambiance.T_SNOW ? 0xFFF2C66B : ink(0xA6FFFFFF), width, 1, al, 0.14f);
+        sc.label = Draw.layout(lab.toUpperCase(T.locale()), medium, H * 0.024f, theme == Ambiance.T_SNOW ? 0xFFF2C66B : ink(0xA6FFFFFF), width, 1, al, 0.14f);
 
         boolean noLyr = key.endsWith("|nolyr");
         if (noLyr) { big = false; small = false; }
         String title = st.title.length() > 0 ? st.title : (st.isLineIn ? T.t("Entrée ligne") : T.t("Titre inconnu"));
         float ts = big ? H * 0.068f : (small ? H * 0.036f : (noLyr ? H * 0.05f : H * 0.058f));
         if (big && title.length() > 34) ts = H * 0.056f;
-        sc.title = layout(title, bold, ts, ink(0xFFFFFFFF), width, titleLines, al, -0.01f);
+        sc.title = Draw.layout(title, bold, ts, ink(0xFFFFFFFF), width, titleLines, al, -0.01f);
 
         String artist = st.artist;
         if (artist.length() == 0 && st.isRadio && st.album.length() > 0) artist = st.album;
-        sc.artist = layout(artist, regular, big ? H * 0.042f : (small ? H * 0.028f : (noLyr ? H * 0.032f : H * 0.036f)), ink(0xE6FFFFFF), width, 1, al, 0f);
+        sc.artist = Draw.layout(artist, regular, big ? H * 0.042f : (small ? H * 0.028f : (noLyr ? H * 0.032f : H * 0.036f)), ink(0xE6FFFFFF), width, 1, al, 0f);
 
         String album = st.album;
         if (album.equals(artist)) album = "";
-        sc.album = big && album.length() > 0 ? layout(album, light, H * 0.032f, ink(0x99FFFFFF), width, 1, al, 0f) : null;
-    }
-
-    private StaticLayout layout(String text, Typeface tf, float size, int color, int width, int maxLines,
-                                Layout.Alignment al, float spacing) {
-        TextPaint p = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        p.setTypeface(tf);
-        p.setTextSize(size);
-        p.setColor(color);
-        p.setLetterSpacing(spacing);
-        if (text == null) text = "";
-        return StaticLayout.Builder.obtain(text, 0, text.length(), p, Math.max(1, width))
-                .setAlignment(al)
-                .setMaxLines(maxLines)
-                .setEllipsize(TextUtils.TruncateAt.END)
-                .setIncludePad(false)
-                .setLineSpacing(0f, 0.95f)
-                .build();
+        sc.album = big && album.length() > 0 ? Draw.layout(album, light, H * 0.032f, ink(0x99FFFFFF), width, 1, al, 0f) : null;
     }
 
     private float drawLayout(Canvas c, StaticLayout l, float x, float y) {
@@ -1462,7 +1086,7 @@ public class NowPlayingView extends View {
             sc.lyrLayoutsW = lw;
             for (Lyrics.Line ln : sc.lyr.lines) {
                 String s = ln.text.length() == 0 ? "♪" : ln.text;
-                sc.lyrLayouts.add(layout(s, bold, H * 0.052f, ink(0xFFFFFFFF), lw, 4, Layout.Alignment.ALIGN_NORMAL, -0.01f));
+                sc.lyrLayouts.add(Draw.layout(s, bold, H * 0.052f, ink(0xFFFFFFFF), lw, 4, Layout.Alignment.ALIGN_NORMAL, -0.01f));
             }
             sc.lyrScroll = Float.NaN;
         }
@@ -1592,7 +1216,7 @@ public class NowPlayingView extends View {
         }
         if (notice != null && now < noticeUntil) {
             float cw = W * 0.56f, pad = H * 0.03f;
-            StaticLayout body = layout(noticeBody, regular, H * 0.026f, 0xE6FFFFFF, (int) (cw - 2 * pad - H * 0.05f), 6,
+            StaticLayout body = Draw.layout(noticeBody, regular, H * 0.026f, 0xE6FFFFFF, (int) (cw - 2 * pad - H * 0.05f), 6,
                     Layout.Alignment.ALIGN_NORMAL, 0f);
             float ch = pad * 2 + H * 0.04f + H * 0.012f + body.getHeight();
             float cx = (W - cw) / 2f, cy = H - H * 0.06f - ch;

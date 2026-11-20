@@ -668,56 +668,13 @@ public final class Poller {
         });
     }
 
-    // Slow volume rise (Wake-up). Static so that it finishes even if the screen is left.
-    private static volatile Thread rampThread;
-    public static volatile int rampFrom, rampTo;
-    public static volatile long rampStart, rampMs;
-
-    /** 0..1 while a slow volume rise is running, -1 otherwise. */
-    public static float rampFraction() {
-        if (rampThread == null || rampMs <= 0) return -1f;
-        return Math.max(0f, Math.min(1f, (SystemClock.elapsedRealtime() - rampStart) / (float) rampMs));
-    }
-
-    private static void cancelRamp() {
-        Thread t = rampThread;
-        rampThread = null;
-        if (t != null) t.interrupt();
-    }
-
-    private static void startRamp(final List<String> ips, int from, int to, long ms) {
-        cancelRamp();
-        rampFrom = from; rampTo = to; rampMs = ms; rampStart = SystemClock.elapsedRealtime();
-        Thread t = new Thread(new Runnable() {
-            @Override public void run() {
-                int last = rampFrom;
-                try {
-                    while (rampThread == Thread.currentThread()) {
-                        float f = Math.min(1f, (SystemClock.elapsedRealtime() - rampStart) / (float) rampMs);
-                        int v = Math.round(rampFrom + (rampTo - rampFrom) * f);
-                        if (v != last) {
-                            last = v;
-                            for (String ip : ips) { try { SonosClient.setVolume(ip, v); } catch (Exception ignored) {} }
-                        }
-                        if (f >= 1f) break;
-                        Thread.sleep(1000);
-                    }
-                } catch (InterruptedException ignored) {}
-                if (rampThread == Thread.currentThread()) rampThread = null;
-            }
-        }, "pochette-ramp");
-        t.setDaemon(true);
-        rampThread = t;
-        t.start();
-    }
-
     /** Rooms, volume, playlist, shuffle and sleep timer in one go. */
     public void launchAmbiance(final Ambiance a, final Done cb) {
         cmd.execute(new Runnable() {
             @Override public void run() {
                 String err = null;
                 try {
-                    cancelRamp();
+                    VolumeRamp.cancel();
                     SonosClient.Topology t = topo;
                     if (t == null || t.rooms.isEmpty()) throw new Exception(T.t("aucune enceinte trouvée"));
                     String anyIp = currentIp != null ? currentIp : t.rooms.get(0).ip;
@@ -778,7 +735,7 @@ public final class Poller {
                         if (target <= 0) target = 30;
                         int from = Math.min(5, target);
                         for (String i : ips) { try { SonosClient.setVolume(i, from); } catch (Exception ignored) {} }
-                        startRamp(ips, from, target, 180000);
+                        VolumeRamp.start(ips, from, target, 180000);
                     } else if (a.volume >= 0) {
                         for (String i : ips) { try { SonosClient.setVolume(i, a.volume); } catch (Exception ignored) {} }
                     }
