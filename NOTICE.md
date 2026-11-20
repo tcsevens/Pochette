@@ -5,19 +5,19 @@ The MIT license (see `LICENSE`) covers the source code and the artwork drawn in 
 
 ## Ambiance videos (`res/raw/vid_*.mp4`)
 
-The videos come from [Pexels](https://www.pexels.com) and [Pixabay](https://pixabay.com). They remain under the
-[Pexels License](https://www.pexels.com/license/) and the [Pixabay Content License](https://pixabay.com/service/license-summary/),
+The videos come from [Pixabay](https://pixabay.com). They remain under the
+[Pixabay Content License](https://pixabay.com/service/license-summary/),
 **not** under this project's MIT license. They are included only as backgrounds of the app. They have been resized to
 720p, muted and re-encoded to keep the app small. Do not extract them to redistribute them on their own.
-Thanks to their authors for the beautiful footage.
+Thanks to their authors for the beautiful footage. The videos come from Pixabay only.
 
 | Ambiance | File | Source | Author and link |
 |---|---|---|---|
-| Chalet | `vid_chalet.mp4` | TODO: Pexels or Pixabay | TODO |
-| Coin du feu | `vid_coin_du_feu.mp4` | TODO: Pexels or Pixabay | TODO |
-| Bar jazz | `vid_jazz.mp4` | TODO: Pexels or Pixabay | TODO |
-| Pluie | `vid_pluie.mp4` | TODO: Pexels or Pixabay | TODO |
-| Noël | `vid_noel.mp4` | TODO: Pexels or Pixabay | TODO |
+| Chalet | `vid_chalet.mp4` | Pixabay | [LofiPlace](https://pixabay.com/fr/users/lofiplace-35873928/) |
+| Coin du feu | `vid_coin_du_feu.mp4` | Pixabay | [Joe_hackney](https://pixabay.com/fr/users/joe_hackney-15024843/) |
+| Bar jazz | `vid_jazz.mp4` | Pixabay | [BackgroundsCHAIR](https://pixabay.com/fr/users/backgroundschair-41858752/) |
+| Pluie | `vid_pluie.mp4` | Pixabay | [JusticeTran](https://pixabay.com/fr/users/justicetran-45453295/) |
+| Noël | `vid_noel.mp4` | Pixabay | [Monk_Vadim](https://pixabay.com/fr/users/monk_vadim-23253177/) |
 
 If you fork this project, replace the videos with your own or keep these credits. The app also works without them
 (the ambiances then show a plain gradient).

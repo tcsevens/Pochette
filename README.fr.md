@@ -92,7 +92,7 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 ./build.sh
 ```
 `build.sh` crée une clé de signature `pochette.keystore` au premier lancement. Garde-la : sans elle, les mises à jour ne s'installent pas par-dessus l'ancienne version.
-Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence MIT : elles viennent de Pexels et Pixabay et gardent leurs licences (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
+Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence MIT : elles viennent de Pixabay et gardent leur licence (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
 
 ### Organisation du code
 - `SonosClient` : API locale Sonos (SOAP/UPnP sur le port 1400), découverte SSDP et balayage du sous-réseau.
@@ -116,4 +116,4 @@ Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence MIT : elles viennen
 Code sous licence MIT (voir `LICENSE`), sauf les vidéos (voir `NOTICE.md`). Contenus tiers et marques : voir `NOTICE.md`.
 
 ## Crédits
-Vidéos d'ambiance de [Pexels](https://www.pexels.com) et [Pixabay](https://pixabay.com), sous leurs licences. Merci à leurs auteurs (liste dans `NOTICE.md`).
+Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR (liens dans `NOTICE.md`).

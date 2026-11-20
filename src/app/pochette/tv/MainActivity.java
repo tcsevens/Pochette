@@ -866,7 +866,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
                 out.add(MenuOverlay.Row.text("Pochette " + versionName()));
                 out.add(MenuOverlay.Row.text(T.t("Un écran « en cours de lecture » pour tes enceintes Sonos, avec des ambiances et des jeux. Projet indépendant, non affilié à Sonos ni à Spotify.")));
                 out.add(MenuOverlay.Row.text(T.t("Vie privée : Pochette parle à tes enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles (lrclib.net) et les résumés (Wikipédia, CC BY-SA) sont cherchés en ligne, et Spotify si tu l'actives.")));
-                out.add(MenuOverlay.Row.text(T.t("Vidéos d'ambiance : Pexels et Pixabay, selon leurs licences. Merci à leurs auteurs.")));
+                out.add(MenuOverlay.Row.text(T.t("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR.")));
                 out.add(MenuOverlay.Row.text(T.t("Sonos et Spotify sont des marques de leurs propriétaires.")));
                 out.add(MenuOverlay.Row.text(T.t("Développé avec l'aide de Claude, l'assistant d'Anthropic.")));
                 break;

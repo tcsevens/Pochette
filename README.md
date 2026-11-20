@@ -38,7 +38,7 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 ./build.sh
 ```
 `build.sh` creates a signing key (`pochette.keystore`) on first run. Keep it: updates only install over an older build signed with the same key.
-The ambiance videos in `res/raw/` are not under the MIT license: they come from Pexels and Pixabay and keep their own licenses (see `NOTICE.md`). Without them the app still builds and the ambiances show a gradient.
+The ambiance videos in `res/raw/` are not under the MIT license: they come from Pixabay and keep their own license (see `NOTICE.md`). Without them the app still builds and the ambiances show a gradient.
 
 ## Layout of the code
 `SonosClient` (local UPnP/SOAP), `Poller` (state, queue, ambiances), `NowPlayingView` (all rendering), `MenuOverlay` (menu), `PartyView`/`PartyServer` (games and phone pages), `QueueServer` (shared queue), `SpotifyClient`, `Lyrics`, `Themes`/`Scenes*` (wallpapers), `T` (translations).
@@ -47,4 +47,4 @@ The ambiance videos in `res/raw/` are not under the MIT license: they come from 
 Independent project, not affiliated with Sonos or Spotify. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Built with the help of Claude (Anthropic).
 
 ## Credits
-Ambiance videos from [Pexels](https://www.pexels.com) and [Pixabay](https://pixabay.com), under their licenses. Thanks to their authors (list in `NOTICE.md`).
+Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney and BackgroundsCHAIR (links in `NOTICE.md`).
