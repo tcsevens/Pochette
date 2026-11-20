@@ -228,21 +228,28 @@ public final class SpotifyClient {
         it.kind = 4;
         it.title = t.optString("name");
         it.artist = names(t.optJSONArray("artists"));
-        JSONObject al = t.optJSONObject("album");
-        if (al != null) {
-            it.album = al.optString("name");
-            JSONArray im = al.optJSONArray("images");
-            String best = null;
-            int bw = Integer.MAX_VALUE;
-            if (im != null) for (int i = 0; i < im.length(); i++) {
-                JSONObject o = im.optJSONObject(i);
-                if (o == null) continue;
-                int w = o.optInt("width", 0);
-                if (w >= 100 && w < bw) { bw = w; best = o.optString("url"); }
-                else if (best == null) best = o.optString("url");
+        // A track carries its cover in "album"; a podcast episode carries it in "images" and names its "show".
+        JSONObject src = t.optJSONObject("album");
+        if (src != null) it.album = src.optString("name");
+        else {
+            JSONObject show = t.optJSONObject("show");
+            if (show != null) {
+                it.album = show.optString("name");
+                if (it.artist.length() == 0) it.artist = show.optString("publisher");
             }
-            it.artUrl = best;
+            src = t.optJSONArray("images") != null ? t : show;
         }
+        JSONArray im = src != null ? src.optJSONArray("images") : null;
+        String best = null;
+        int bw = Integer.MAX_VALUE;
+        if (im != null) for (int i = 0; i < im.length(); i++) {
+            JSONObject o = im.optJSONObject(i);
+            if (o == null) continue;
+            int w = o.optInt("width", 0);
+            if (w >= 100 && w < bw) { bw = w; best = o.optString("url"); }
+            else if (best == null) best = o.optString("url");
+        }
+        it.artUrl = best;
         it.uri = t.optString("uri");
         it.trackNr = nr;
         return it;

@@ -25,7 +25,7 @@ final class RadioScene {
         boolean playing = st.isPlaying();
         double t = SystemClock.uptimeMillis() / 1000.0;
         float u = H / 720f;                                   // 1 unit = 1px on a 720p screen
-        float w = H * 0.64f, h = H * 0.40f;
+        float w = H * 0.46f, h = H * 0.29f;
         float by = (H - h) / 2f + H * 0.02f;
         float lw = 2.5f * u;
         line.setStrokeWidth(lw);
