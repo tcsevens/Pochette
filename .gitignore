@@ -3,4 +3,3 @@ build/
 *.idsig
 *.keystore
 *.jks
-res/raw/*.mp4
