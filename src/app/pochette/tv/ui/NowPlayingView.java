@@ -370,6 +370,7 @@ public class NowPlayingView extends View {
         insL += (tInsL - insL) * ease; insR += (tInsR - insR) * ease; insB += (tInsB - insB) * ease;
         if (!insetsMoving) { insL = tInsL; insR = tInsR; insB = tInsB; }
 
+        updateSleep(now);
         boolean booting = !gotSnap && now - bootAt < 2500;   // plain black while Sonos is being found
         if (booting) {
             postInvalidateDelayed(120);
@@ -409,7 +410,10 @@ public class NowPlayingView extends View {
         boolean scrolling = !cur.idle && mode == MODE_LYRICS && lyricsAnimating;
         removeCallbacks(tick);
         boolean themeAnim = cur.idle || (Themes.animated(theme) || (theme == Ambiance.T_WAKE && VolumeRamp.fraction() >= 0f));
-        if (prev != null || spinning || scrolling || anim || insetsMoving || holdSince >= 0 || themeAnim) {
+        if (sleeping && prev == null && !insetsMoving) {
+            postDelayed(tick, 1000);
+            lastFrame = 0;
+        } else if (prev != null || spinning || scrolling || anim || insetsMoving || holdSince >= 0 || themeAnim) {
             postInvalidateOnAnimation();
         } else {
             postDelayed(tick, 250);
@@ -422,11 +426,66 @@ public class NowPlayingView extends View {
     private void drawScene(Canvas c, Scene sc, int W, int H, float alpha, long now, int part) {
         int save = -1;
         if (alpha < 0.999f) save = c.saveLayerAlpha(0, 0, W, H, (int) (alpha * 255), Canvas.ALL_SAVE_FLAG);
-        if (sc.idle) {
+        if (sc.idle && sleeping) {
+            if (part != PART_BG) drawSleepClock(c, W, H);
+        } else if (sc.idle) {
             if (part != PART_FG) drawIdleBg(c, W, H);
-            if (part != PART_BG) drawIdle(c, sc, W, H, now);
+            if (part != PART_BG) { shifted(c, H, true); drawIdle(c, sc, W, H, now); c.restore(); }
+        } else if (part == PART_ALL) {
+            drawPlaying(c, sc, W, H, now, PART_BG);
+            shifted(c, H, true);
+            drawPlaying(c, sc, W, H, now, PART_FG);
+            c.restore();
+        } else if (part == PART_FG) {
+            shifted(c, H, true);
+            drawPlaying(c, sc, W, H, now, part);
+            c.restore();
         } else drawPlaying(c, sc, W, H, now, part);
         if (save >= 0) c.restoreToCount(save);
+    }
+
+    // ---------------------------------------------------------------- burn-in protection
+
+    /** After this long with nothing playing the welcome screen gives way to a dark screen and a drifting clock. */
+    private static final long SLEEP_AFTER_MS = 10 * 60 * 1000L;
+    private long idleSince;
+    private boolean sleeping;
+
+    /** Any key press: leaves the sleep screen and restarts the countdown. */
+    public boolean isSleeping() { return sleeping; }
+
+    public void touch() {
+        idleSince = SystemClock.uptimeMillis();
+        if (sleeping) { sleeping = false; invalidate(); }
+    }
+
+    private void updateSleep(long now) {
+        boolean idleShown = cur.idle && !home;
+        if (!idleShown) { idleSince = 0; sleeping = false; return; }
+        if (idleSince == 0) idleSince = now;
+        sleeping = now - idleSince > SLEEP_AFTER_MS;
+    }
+
+    /** Saves the canvas and nudges the fixed foreground (clock, titles, bars) by a few pixels that change every few minutes. */
+    private void shifted(Canvas c, int H, boolean on) {
+        c.save();
+        if (!on) return;
+        double t = SystemClock.uptimeMillis() / 1000.0;
+        float s = H / 720f;
+        c.translate(Math.round(Math.sin(t / 400.0) * 6f * s), Math.round(Math.cos(t / 620.0) * 5f * s));
+    }
+
+    /** Dark screen with a dim clock drifting slowly over the whole display. */
+    private void drawSleepClock(Canvas c, int W, int H) {
+        double t = System.currentTimeMillis() / 1000.0;
+        float x = W * (0.5f + 0.28f * (float) Math.sin(t / 240.0)), y = H * (0.5f + 0.22f * (float) Math.cos(t / 330.0));
+        resetTp();
+        tp.setAntiAlias(true);
+        tp.setTextAlign(Paint.Align.CENTER);
+        tp.setTypeface(thin);
+        tp.setTextSize(H * 0.14f);
+        tp.setColor(0x80FFFFFF);
+        c.drawText(clockFmt.format(new Date()), Math.round(x), Math.round(y), tp);
     }
 
     // ---------------------------------------------------------------- idle (clock)

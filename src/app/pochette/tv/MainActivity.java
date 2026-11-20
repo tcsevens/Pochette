@@ -204,6 +204,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     }
 
     @Override public boolean onKeyDown(int code, KeyEvent e) {
+        if (view.isSleeping()) { view.touch(); return true; }   // the first key only wakes the screen
+        view.touch();
         if (shareView != null && shareView.active()) {
             if (e.getRepeatCount() == 0) { shareView.handleKey(code); if (code == KeyEvent.KEYCODE_BACK) backEaten = true; }
             return true;
