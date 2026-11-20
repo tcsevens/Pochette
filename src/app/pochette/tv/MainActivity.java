@@ -169,7 +169,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
             if (prefs.resumeOnOpen() && !playing) resume();
         }
         String tk = s.state != null && s.state.hasMusic() ? s.state.trackKey() : "";
-        if (!tk.equals(lastTrackKey)) { lastTrackKey = tk; menu.wake(); }
+        lastTrackKey = tk;   // the controls strip no longer pops up by itself when the track changes
         games.onSnapshot(s);
         view.setSnapshot(s);
         menu.invalidate();
