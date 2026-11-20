@@ -50,6 +50,8 @@ public class MenuOverlay extends View {
         public String[] options;
         public int selected;
         public boolean on;
+        /** Chips row drawn as a strip of preview cards instead of pills. */
+        public boolean cards;
         public int dot;     // text rows: 0 none, 1 green, 2 orange, 3 grey (a small flat square before the text)
 
         static Row make(String id, int kind, String label) {
@@ -60,6 +62,7 @@ public class MenuOverlay extends View {
         public static Row chips(String id, String label, String[] opts, int sel) {
             Row r = make(id, ROW_CHIPS, label); r.options = T.arr(opts); r.selected = sel; return r;
         }
+        public static Row cards(String id, String label, String[] opts, int sel) { Row r = chips(id, label, opts, sel); r.cards = true; return r; }
         public static Row toggle(String id, String label, boolean on) { Row r = make(id, ROW_TOGGLE, label); r.on = on; return r; }
         public static Row action(String id, String label) { return make(id, ROW_ACTION, label); }
         public static Row check(String id, String label, boolean on) { Row r = make(id, ROW_CHECK, label); r.on = on; return r; }
@@ -114,6 +117,8 @@ public class MenuOverlay extends View {
     private static final int Z_TRANSPORT = 0, Z_RAIL = 1, Z_PANEL = 2, Z_SEEK = 3, Z_GRID = 4, Z_QUEUE = 5;
     private static final long HIDE_TRANSPORT_MS = 6000, HIDE_MENU_MS = 30000;
     private static final int ACCENT = 0xFFE8664A;
+    /** One focus ring and one "selected" colour for every kind of control. */
+    private static final int FOCUS = 0xFFF2C66B, OK_GREEN = 0xFF34D27B;
 
     private final Host host;
     private boolean right;
@@ -565,9 +570,9 @@ public class MenuOverlay extends View {
             float x = px + pad + (i % 3) * (cw + gap), y = top + (i / 3 - gridRow0) * (ch + gap);
             boolean f = zone == Z_GRID && i == gridIdx;
             rf.set(x, y, x + cw, y + ch);
-            float rad = (games ? 0f : 30f) * s;
+            float rad = 30f * s;
             if (f) {
-                fill.setColor(0xFFF2C66B);
+                fill.setColor(FOCUS);
                 rf.inset(-7f * s, -7f * s);
                 c.drawRoundRect(rf, rad + 7f * s, rad + 7f * s, fill);
                 fill.setColor(0xFF120A0E);
@@ -578,7 +583,7 @@ public class MenuOverlay extends View {
             int fg = 0xFFFFFFFF;
             if (cd.icon >= 0) {
                 fill.setShader(new LinearGradient(x, y, x + cw, y + ch, cd.c0, cd.c1, Shader.TileMode.CLAMP));
-                c.drawRoundRect(rf, games ? 0f : rad, games ? 0f : rad, fill);
+                c.drawRoundRect(rf, rad, rad, fill);
                 fill.setShader(null);
                 icons.gameIcon(c, cd.icon, x + cw - 20f * s - 44f * s, y + 20f * s + 44f * s, 88f * s);
             } else if (cd.theme < 0) {
@@ -664,7 +669,7 @@ public class MenuOverlay extends View {
 
     private float rowHeight(Row r, float cw, float s) {
         switch (r.kind) {
-            case ROW_CHIPS: return 14f * s + 12f * s + chipLines(r, cw, s) * (40f * s) + (chipLines(r, cw, s) - 1) * 8f * s;
+            case ROW_CHIPS: if (r.cards) return 130f * s; return 14f * s + 12f * s + chipLines(r, cw, s) * (40f * s) + (chipLines(r, cw, s) - 1) * 8f * s;
             case ROW_TOGGLE: return 46f * s;
             case ROW_BUTTON: return 84f * s;
             case ROW_ACTION: case ROW_CHECK: return 50f * s;
@@ -696,7 +701,95 @@ public class MenuOverlay extends View {
                 .setLineSpacing(0f, 1.15f).setIncludePad(false).setEllipsize(TextUtils.TruncateAt.END).setMaxLines(12).build();
     }
 
+    /** Rounded plate behind a control; the focused one gets the gold ring. */
+    private void plate(Canvas c, float x, float y, float cw, float h, float s, boolean focused) {
+        rf.set(x - 14f * s, y - 6f * s, x + cw + 14f * s, y + h + 6f * s);
+        fill.setColor(0x14FFFFFF);
+        c.drawRoundRect(rf, 14f * s, 14f * s, fill);
+        if (focused) {
+            stroke.setColor(FOCUS); stroke.setStrokeWidth(3f * s);
+            c.drawRoundRect(rf, 14f * s, 14f * s, stroke);
+        }
+    }
+
+    /** Green round tick, or an empty circle, centred on (cx, cy). */
+    private void tick(Canvas c, boolean on, float cx, float cy, float r, float s) {
+        if (on) {
+            fill.setColor(OK_GREEN);
+            c.drawCircle(cx, cy, r, fill);
+            stroke.setColor(0xFF0B2A17); stroke.setStrokeWidth(2.4f * s);
+            Path p = new Path();
+            p.moveTo(cx - r * 0.45f, cy + r * 0.02f); p.lineTo(cx - r * 0.1f, cy + r * 0.38f); p.lineTo(cx + r * 0.5f, cy - r * 0.34f);
+            c.drawPath(p, stroke);
+        } else {
+            stroke.setColor(0x73FFFFFF); stroke.setStrokeWidth(2f * s);
+            c.drawCircle(cx, cy, r, stroke);
+        }
+    }
+
+    /** Strip of equal preview cards for a chips row (the display style picker). */
+    private void drawCardStrip(Canvas c, Row r, float x, float y, float cw, float s, boolean focused) {
+        resetTp();
+        tp.setTypeface(medium); tp.setTextSize(14f * s); tp.setLetterSpacing(0.1f);
+        tp.setColor(focused ? 0xFFFFFFFF : 0x99FFFFFF);
+        c.drawText(r.label.toUpperCase(T.locale()), x, y + 12f * s, tp);
+        tp.setLetterSpacing(0f);
+        int n = r.options.length;
+        float gap = 10f * s, w = (cw - (n - 1) * gap) / n, top = y + 26f * s, h = 92f * s;
+        int cursor = chipCursor < 0 ? r.selected : chipCursor;
+        for (int i = 0; i < n; i++) {
+            float cx = x + i * (w + gap);
+            boolean sel = i == r.selected;
+            rf.set(cx, top, cx + w, top + h);
+            fill.setColor(sel ? 0x2EFFFFFF : 0x1AFFFFFF);
+            c.drawRoundRect(rf, 12f * s, 12f * s, fill);
+            if (focused && i == cursor) {
+                stroke.setColor(FOCUS); stroke.setStrokeWidth(3f * s);
+                c.drawRoundRect(rf, 12f * s, 12f * s, stroke);
+            }
+            modePreview(c, i, cx + w * 0.18f, top + 10f * s, w * 0.64f, 44f * s, s);
+            resetTp();
+            tp.setTypeface(sel ? bold : regular); tp.setTextSize(13f * s); tp.setColor(0xFFFFFFFF);
+            tp.setTextAlign(Paint.Align.CENTER);
+            c.drawText(ellipsize(r.options[i], w - 8f * s), cx + w / 2f, top + h - 12f * s, tp);
+            tp.setTextAlign(Paint.Align.LEFT);
+            if (sel) tick(c, true, cx + w - 12f * s, top + 12f * s, 8f * s, s);
+        }
+    }
+
+    /** Tiny flat sketch of each display style (0 classic, 1 vinyl, 2 lyrics, 3 wallpaper only). */
+    private void modePreview(Canvas c, int mode, float x, float y, float w, float h, float s) {
+        fill.setColor(0x26FFFFFF);
+        switch (mode) {
+            case 0:
+                rf.set(x, y + h * 0.1f, x + h * 0.8f, y + h * 0.9f); c.drawRoundRect(rf, 3f * s, 3f * s, fill);
+                fill.setColor(0x80FFFFFF);
+                c.drawRect(x + h * 0.95f, y + h * 0.3f, x + w, y + h * 0.4f, fill);
+                c.drawRect(x + h * 0.95f, y + h * 0.55f, x + w * 0.85f, y + h * 0.63f, fill);
+                break;
+            case 1:
+                fill.setColor(0x80FFFFFF);
+                c.drawCircle(x + w / 2f, y + h / 2f, h * 0.45f, fill);
+                fill.setColor(0x26000000);
+                c.drawCircle(x + w / 2f, y + h / 2f, h * 0.12f, fill);
+                break;
+            case 2:
+                fill.setColor(0x59FFFFFF);
+                c.drawRect(x, y + h * 0.1f, x + w, y + h * 0.2f, fill);
+                c.drawRect(x, y + h * 0.7f, x + w * 0.8f, y + h * 0.8f, fill);
+                fill.setColor(OK_GREEN);
+                c.drawRect(x, y + h * 0.4f, x + w * 0.9f, y + h * 0.52f, fill);
+                break;
+            default:
+                fill.setShader(new LinearGradient(x, y, x + w, y + h, 0x66F2C66B, 0x666B7BD1, Shader.TileMode.CLAMP));
+                rf.set(x, y, x + w, y + h); c.drawRoundRect(rf, 5f * s, 5f * s, fill);
+                fill.setShader(null);
+        }
+    }
+
     private void drawRow(Canvas c, Row r, float x, float y, float cw, float h, float s, boolean focused) {
+        if (r.kind != ROW_TEXT && r.kind != ROW_BUTTON && !(r.kind == ROW_CHIPS && r.cards)) plate(c, x, y, cw, h, s, focused);
+        if (r.kind == ROW_CHIPS && r.cards) { drawCardStrip(c, r, x, y, cw, s, focused); return; }
         if (r.kind == ROW_CHIPS) {
             resetTp();
             tp.setTypeface(medium); tp.setTextSize(14f * s); tp.setLetterSpacing(0.1f);
@@ -712,17 +805,14 @@ public class MenuOverlay extends View {
                 float w = tp.measureText(r.options[i]) + 32f * s;
                 if (cx > x && cx + w > x + cw) { cx = x; cy += 48f * s; }
                 rf.set(cx, cy, cx + w, cy + 40f * s);
-                if (ring) {
-                    fill.setColor(ACCENT);
-                    rf.inset(-6f * s, -6f * s);
-                    c.drawRoundRect(rf, rf.height() / 2, rf.height() / 2, fill);
-                    fill.setColor(0xFF1A1014);
-                    rf.inset(3f * s, 3f * s);
-                    c.drawRoundRect(rf, rf.height() / 2, rf.height() / 2, fill);
-                    rf.inset(3f * s, 3f * s);
-                }
                 fill.setColor(sel ? 0xFFFFFFFF : 0x1AFFFFFF);
                 c.drawRoundRect(rf, rf.height() / 2, rf.height() / 2, fill);
+                if (ring) {
+                    stroke.setColor(FOCUS); stroke.setStrokeWidth(3f * s);
+                    rf.inset(-3f * s, -3f * s);
+                    c.drawRoundRect(rf, rf.height() / 2, rf.height() / 2, stroke);
+                    rf.inset(3f * s, 3f * s);
+                }
                 tp.setColor(sel ? 0xFF170D12 : 0xFFFFFFFF);
                 c.drawText(r.options[i], cx + 16f * s, cy + 25.5f * s, tp);
                 cx += w + 8f * s;
@@ -732,12 +822,11 @@ public class MenuOverlay extends View {
         if (r.kind == ROW_BUTTON) {
             float t = 6f * s;
             rf.set(x - 14f * s, y + t, x + cw + 14f * s, y + h - t);
-            fill.setColor(focused ? ACCENT : 0xFF8E4435);
-            c.drawRect(rf, fill);
+            fill.setColor(0xFF8E4435);
+            c.drawRoundRect(rf, 14f * s, 14f * s, fill);
             if (focused) {
-                fill.setColor(0xFFFFFFFF);
-                c.drawRect(rf.left, rf.top, rf.right, rf.top + 3f * s, fill);
-                c.drawRect(rf.left, rf.bottom - 3f * s, rf.right, rf.bottom, fill);
+                stroke.setColor(FOCUS); stroke.setStrokeWidth(3f * s);
+                c.drawRoundRect(rf, 14f * s, 14f * s, stroke);
             }
             resetTp();
             tp.setTypeface(bold); tp.setTextSize(24f * s); tp.setColor(0xFFFFFFFF);
@@ -766,34 +855,12 @@ public class MenuOverlay extends View {
             c.save(); c.translate(x + ind, y); l.draw(c); c.restore();
             return;
         }
-        if (focused) {
-            rf.set(x - 14f * s, y, x + cw + 14f * s, y + h);
-            fill.setColor(0x24FFFFFF);
-            c.drawRoundRect(rf, 12f * s, 12f * s, fill);
-            fill.setColor(ACCENT);
-            rf.set(x - 14f * s, y + 10f * s, x - 10f * s, y + h - 10f * s);
-            c.drawRect(rf, fill);
-        }
         resetTp();
         tp.setTypeface(focused ? medium : regular); tp.setTextSize(17f * s); tp.setColor(0xFFFFFFFF);
         float ty = y + h / 2f + 6f * s;
         if (r.kind == ROW_CHECK) {
-            float bs = 22f * s, bx = x, by = y + (h - bs) / 2f;
-            rf.set(bx, by, bx + bs, by + bs);
-            if (r.on) {
-                fill.setColor(ACCENT);
-                c.drawRoundRect(rf, 5f * s, 5f * s, fill);
-                stroke.setColor(0xFFFFFFFF); stroke.setStrokeWidth(2.6f * s);
-                Path p = new Path();
-                p.moveTo(bx + bs * 0.22f, by + bs * 0.52f);
-                p.lineTo(bx + bs * 0.42f, by + bs * 0.72f);
-                p.lineTo(bx + bs * 0.78f, by + bs * 0.30f);
-                c.drawPath(p, stroke);
-            } else {
-                stroke.setColor(0x99FFFFFF); stroke.setStrokeWidth(2f * s);
-                c.drawRoundRect(rf, 5f * s, 5f * s, stroke);
-            }
-            c.drawText(ellipsize(r.label, cw - 40f * s), x + 38f * s, ty, tp);
+            c.drawText(ellipsize(r.label, cw - 50f * s), x, ty, tp);
+            tick(c, r.on, x + cw - 11f * s, y + h / 2f, 11f * s, s);
             return;
         }
         c.drawText(ellipsize(r.label, cw - (r.kind == ROW_TOGGLE ? 70f * s : 24f * s)), x, ty, tp);

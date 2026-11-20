@@ -66,7 +66,7 @@ public final class SettingsMenu {
         switch (section) {
             case MenuOverlay.SEC_DISPLAY:
                 out.add(MenuOverlay.Row.head(T.t("Musique")));
-                out.add(MenuOverlay.Row.chips("style", T.t("Style"), NowPlayingView.MODE_NAMES, view.getMode()));
+                out.add(MenuOverlay.Row.cards("style", T.t("Style"), NowPlayingView.MODE_NAMES, view.getMode()));
                 out.add(MenuOverlay.Row.chips("vinyl", T.t("Couleur du vinyle"), NowPlayingView.VINYL_NAMES, prefs.vinylStyle()));
                 out.add(MenuOverlay.Row.head(T.t("Paroles")));
                 out.add(MenuOverlay.Row.chips("lyrics", T.t("Paroles"), NowPlayingView.LYRICS_NAMES, prefs.lyricsMode()));
