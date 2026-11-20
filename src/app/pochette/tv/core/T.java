@@ -111,7 +111,6 @@ public final class T {
         add("Jeu", "Game", "Juego");
         add("12 s pour deviner, 15 s de réponse : l'artiste, puis le titre. ◀ ▶ + OK donnent le point à une équipe. ▶ pendant le compte à rebours passe au morceau suivant.", "12 s to guess, 15 s for the answer: the artist, then the title. ◀ ▶ + OK give the point to a team. ▶ during the countdown skips to the next song.", "12 s para adivinar, 15 s de respuesta: el artista y luego el título. ◀ ▶ + OK dan el punto a un equipo. ▶ durante la cuenta atrás pasa a la siguiente canción.");
         add("La musique se coupe au hasard, entre 8 et 35 s après son départ. OK lance la musique suivante. ▶ pendant la musique la passe.", "The music stops at random, 8 to 35 s after it starts. OK starts the next song. ▶ while it plays skips the song.", "La música se corta al azar, entre 8 y 35 s después de empezar. OK inicia la siguiente. ▶ mientras suena la salta.");
-        add("La pochette apparaît en gros pixels et se précise en 20 s pendant que la musique joue. Idéal pour des musiques de film ou de dessins animés. ▶ passe au morceau suivant.", "The cover appears in big pixels and sharpens over 20 s while the music plays. Great for movie or cartoon soundtracks. ▶ skips to the next song.", "La portada aparece en píxeles grandes y se aclara en 20 s mientras suena la música. Ideal para bandas sonoras de películas o dibujos animados. ▶ pasa a la siguiente.");
         add("Le karaoké s'arrête sur une phrase importante après environ 30 s de chant : à vous de la finir. Il faut des paroles synchronisées. ▶ passe au morceau suivant.", "The karaoke stops on an important line after about 30 s of singing: you finish it. Needs synced lyrics. ▶ skips to the next song.", "El karaoke se detiene en una frase importante tras unos 30 s de canto: la terminas tú. Hacen falta letras sincronizadas. ▶ pasa a la siguiente.");
         add("Les jeux demandent une playlist ou un album Sonos (pas Spotify Connect ni une radio).", "Games need a Sonos playlist or album (not Spotify Connect or a radio).", "Los juegos necesitan una playlist o un álbum de Sonos (no Spotify Connect ni una radio).");
         add("Choisis d'abord la playlist du jeu", "First choose the game's playlist", "Primero elige la playlist del juego");
@@ -219,7 +218,6 @@ public final class T {
         add(" · métadonnées ", " · metadata ", " · metadatos ");
         add("Chaise musicale", "Musical chairs", "Sillas musicales");
         add("N'oubliez pas les paroles", "Finish the lyrics", "Completa la letra");
-        add("Pochette pixellisée", "Pixelated cover", "Portada pixelada");
         add("Rouge", "Red", "Rojo");
         add("Bleue", "Blue", "Azul");
         add("Verte", "Green", "Verde");
@@ -429,7 +427,6 @@ public final class T {
         add("Devinez le morceau", "Guess the song", "Adivina la canción");
         add("Dansez, stop !", "Dance, then freeze!", "¡Baila y para!");
         add("Finissez la phrase", "Finish the line", "Termina la frase");
-        add("Reconnaissez la pochette", "Recognise the cover", "Reconoce la portada");
         add("Culture générale", "General knowledge", "Cultura general");
         add("Faites deviner sans le dire", "Make them guess, no cheating", "Haz adivinar sin decirlo");
         add("Dessinez, les autres devinent", "Draw, the others guess", "Dibuja, los demás adivinan");

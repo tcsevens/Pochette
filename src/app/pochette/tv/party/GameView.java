@@ -143,7 +143,6 @@ public final class GameView extends View {
             case Game.P_REVEAL: drawReveal(c, W, H, s); break;
             case Game.P_DANCE: drawDance(c, W, H, s); break;
             case Game.P_STOP: drawStop(c, W, H, s); break;
-            case Game.P_PIXEL: drawPixel(c, W, H, s); break;
             case Game.P_LYR_PLAY:
             case Game.P_LYR_WAIT:
             case Game.P_LYR_REVEAL: drawLyrics(c, W, H, s); break;
@@ -195,13 +194,8 @@ public final class GameView extends View {
         }
         float tx = left + art + 36f * s;
         float maxW = W - tx - 70f * s;
-        if (game.mode == Game.PIXEL) {
-            text(c, game.album.length() > 0 ? game.album : game.title, tx, H * 0.17f + 100f * s, 50f * s, alpha(0xFFFFFFFF, a1), bold, Paint.Align.LEFT, maxW);
-            text(c, game.title + (game.artist.length() > 0 ? "  ·  " + game.artist : ""), tx, H * 0.17f + 160f * s, 28f * s, alpha(GOLD, a2), regular, Paint.Align.LEFT, maxW);
-        } else {
-            text(c, game.artist.length() > 0 ? game.artist : "—", tx, H * 0.17f + 100f * s, 54f * s, alpha(0xFFFFFFFF, a1), bold, Paint.Align.LEFT, maxW);
-            text(c, game.title, tx, H * 0.17f + 168f * s, 38f * s, alpha(GOLD, a2), regular, Paint.Align.LEFT, maxW);
-        }
+        text(c, game.artist.length() > 0 ? game.artist : "—", tx, H * 0.17f + 100f * s, 54f * s, alpha(0xFFFFFFFF, a1), bold, Paint.Align.LEFT, maxW);
+        text(c, game.title, tx, H * 0.17f + 168f * s, 38f * s, alpha(GOLD, a2), regular, Paint.Align.LEFT, maxW);
         chips(c, W, H * 0.67f, s, true);
         String hint = game.awarded ? T.t("Point donné · OK : manche suivante") : T.t("◀ ▶ équipe  ·  OK donne le point  ·  ▼ personne");
         text(c, hint, W / 2f, H * 0.67f + 98f * s, 18f * s, 0xFF9A8FC8, regular, Paint.Align.CENTER, 0);
@@ -219,40 +213,6 @@ public final class GameView extends View {
         text(c, T.t("Asseyez-vous"), W / 2f, H * 0.60f, 48f * s, 0xFFFFFFFF, light, Paint.Align.CENTER, 0);
         boolean blink = (SystemClock.uptimeMillis() / 700) % 2 == 0;
         text(c, T.t("OK : nouvelle musique"), W / 2f, H * 0.76f, 24f * s, blink ? 0xFFFFD0CA : 0xFFB07A74, regular, Paint.Align.CENTER, 0);
-    }
-
-    private Bitmap pxSrc, pxSmall;
-    private int pxN;
-    private final Paint hard = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-    private static final int[] PIXEL_STEPS = {5, 7, 10, 15, 22, 34, 52, 90};
-
-    private void drawPixel(Canvas c, float W, float H, float s) {
-        long el = game.phaseElapsed();
-        float frac = Math.max(0f, Math.min(1f, el / (float) Game.PIXEL_MS));
-        text(c, T.t("Devinez !"), W / 2f, H * 0.12f, 34f * s, 0xDDFFFFFF, light, Paint.Align.CENTER, 0);
-        float size = 470f * s;
-        float x = (W - size) / 2f, y = H * 0.19f;
-        Bitmap b = game.art;
-        if (b != null) {
-            int step = Math.min(PIXEL_STEPS.length - 1, (int) (frac * PIXEL_STEPS.length));
-            int n = PIXEL_STEPS[step];
-            if (b != pxSrc || n != pxN || pxSmall == null) {
-                int sz = Math.min(b.getWidth(), b.getHeight());
-                Bitmap sq = Bitmap.createBitmap(b, (b.getWidth() - sz) / 2, (b.getHeight() - sz) / 2, sz, sz);
-                pxSmall = Bitmap.createScaledBitmap(sq, n, n, true);
-                pxSrc = b;
-                pxN = n;
-            }
-            src.set(0, 0, pxSmall.getWidth(), pxSmall.getHeight());
-            rf.set(x, y, x + size, y + size);
-            hard.setFilterBitmap(false);
-            c.drawBitmap(pxSmall, src, rf, hard);
-        } else {
-            rect(c, x, y, x + size, y + size, alpha(0xFFFFFFFF, 0.06f));
-            text(c, T.t("Pas de pochette pour ce morceau"), W / 2f, y + size / 2f, 22f * s, 0x88FFFFFF, regular, Paint.Align.CENTER, size - 40f * s);
-        }
-        bar(c, W / 2f, H * 0.90f, 470f * s, 7f * s, 1f - frac, ACCENT);
     }
 
     private void drawLyrics(Canvas c, float W, float H, float s) {

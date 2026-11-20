@@ -20,12 +20,11 @@ import java.util.Random;
  * Pure logic: GameView draws it, MainActivity feeds it snapshots and keys. Timers use the real clock.
  */
 public final class Game {
-    public static final int BLIND = 0, CHAIRS = 1, LYRICS = 2, PIXEL = 3;
-    public static final String[] NAMES = {"Blind test", "Chaise musicale", "N'oubliez pas les paroles", "Pochette pixellisée"};
+    public static final int BLIND = 0, CHAIRS = 1, LYRICS = 2;
+    public static final String[] NAMES = {"Blind test", "Chaise musicale", "N'oubliez pas les paroles"};
 
     public static final int P_LOAD = 0, P_GUESS = 1, P_REVEAL = 2, P_DANCE = 3, P_STOP = 4,
-            P_LYR_PLAY = 5, P_LYR_WAIT = 6, P_LYR_REVEAL = 7, P_PODIUM = 8, P_ERROR = 9, P_PIXEL = 10;
-    public static final long PIXEL_MS = 20000;
+            P_LYR_PLAY = 5, P_LYR_WAIT = 6, P_LYR_REVEAL = 7, P_PODIUM = 8, P_ERROR = 9;
 
     public static final String[] TEAM_NAMES = {"Rouge", "Bleue", "Verte", "Jaune", "Violette", "Orange"};
     public static final int[] TEAM_COLORS = {0xFFE0524F, 0xFF3F8DE0, 0xFF3FB87A, 0xFFE8B93A, 0xFF9A6BE0, 0xFFFF8A3A};
@@ -200,15 +199,6 @@ public final class Game {
                     setPhase(P_GUESS, GUESS_MS);
                 }
             });
-        } else if (mode == PIXEL) {
-            final String key = st.trackKey();
-            Lyrics.fetch(st, new Lyrics.Callback() {
-                @Override public void onLyrics(Lyrics.Result r) {
-                    if (!active || track == null || !key.equals(track.trackKey()) || phase != P_LOAD) return;
-                    beginPlay(chorusStart(r, dur), st);
-                    setPhase(P_PIXEL, PIXEL_MS);
-                }
-            });
         } else if (mode == CHAIRS) {
             long cutS = CHAIR_MIN_S + rnd.nextInt((int) (CHAIR_MAX_S - CHAIR_MIN_S + 1));
             long need = (cutS + 4) * 1000;
@@ -363,7 +353,7 @@ public final class Game {
     public void tick() {
         if (!active) return;
         long now = SystemClock.elapsedRealtime();
-        if (audioPending && (phase == P_GUESS || phase == P_PIXEL || phase == P_DANCE)) {
+        if (audioPending && (phase == P_GUESS || phase == P_DANCE)) {
             boolean heard = lastState != null && lastState.isPlaying() && lastSnapAt > playIssuedAt + 300
                     && lastState.positionMs() >= playStartMs + 350;
             if (heard || now - playIssuedAt > 9000) audioPending = false;
@@ -399,9 +389,6 @@ public final class Game {
                 break;
             case P_LYR_REVEAL:
                 if (phaseElapsed() >= LYR_REVEAL_MS) nextRound(false);
-                break;
-            case P_PIXEL:
-                if (phaseElapsed() >= PIXEL_MS) setPhase(P_REVEAL, REVEAL_MS);
                 break;
         }
     }
@@ -463,10 +450,6 @@ public final class Game {
                 return true;
             case P_STOP:
                 if (ok || skip) nextRound(false);
-                return true;
-            case P_PIXEL:
-                if (right) skipTrack();
-                else if (ok || skip) setPhase(P_REVEAL, REVEAL_MS);
                 return true;
             case P_GUESS:
                 if (right) skipTrack();

@@ -64,11 +64,11 @@ public final class GamesMenu {
     }
     public List<MenuOverlay.Card> cards() {
         List<MenuOverlay.Card> out = new ArrayList<MenuOverlay.Card>();
-        String[] names = {"Blind test", T.t("Chaise musicale"), T.t("N'oubliez pas les paroles"), T.t("Pochette pixellisée"), "Quiz", T.t("Devine-moi !"), T.t("Dessine-moi !")};
-        String[] subs = {T.t("Devinez le morceau"), T.t("Dansez, stop !"), T.t("Finissez la phrase"), T.t("Reconnaissez la pochette"), T.t("Culture générale"), T.t("Faites deviner sans le dire"), T.t("Dessinez, les autres devinent")};
+        String[] names = {"Blind test", T.t("Chaise musicale"), T.t("N'oubliez pas les paroles"), "", "Quiz", T.t("Devine-moi !"), T.t("Dessine-moi !")};
+        String[] subs = {T.t("Devinez le morceau"), T.t("Dansez, stop !"), T.t("Finissez la phrase"), "", T.t("Culture générale"), T.t("Faites deviner sans le dire"), T.t("Dessinez, les autres devinent")};
         int[][] cols = {{0xFF8A3FD8, 0xFF2A0F4A}, {0xFFE8674A, 0xFF6A1E12}, {0xFF2B9FD0, 0xFF0F3050}, {0xFF3FC88A, 0xFF0C4028},
                 {0xFFF0BE3A, 0xFF7A4A08}, {0xFFE8524F, 0xFF5A0E1E}, {0xFF4A9AF0, 0xFF0F3070}};
-        for (int i = 0; i < names.length; i++) if (i != Game.PIXEL) out.add(new MenuOverlay.Card(T.t(names[i]), T.t(subs[i]), cols[i][0], cols[i][1], i));
+        for (int i = 0; i < names.length; i++) if (i != 3) out.add(new MenuOverlay.Card(T.t(names[i]), T.t(subs[i]), cols[i][0], cols[i][1], i));
         SpotifyClient sp = env.poller() != null ? env.poller().spotify : null;
         if (sp != null && sp.connected() && prefs.spotifyOn())
             out.add(new MenuOverlay.Card(T.t("File d'attente partagée"), T.t("Chacun ajoute un morceau"), 0xFF1DB954, 0xFF0B4A22, 7));
@@ -120,7 +120,6 @@ public final class GamesMenu {
         String help;
         if (mode == Game.BLIND) help = T.t("12 s pour deviner, 15 s de réponse : l'artiste, puis le titre. ◀ ▶ + OK donnent le point à une équipe. ▶ pendant le compte à rebours passe au morceau suivant.");
         else if (mode == Game.CHAIRS) help = T.t("La musique se coupe au hasard, entre 8 et 35 s après son départ. OK lance la musique suivante. ▶ pendant la musique la passe.");
-        else if (mode == Game.PIXEL) help = T.t("La pochette apparaît en gros pixels et se précise en 20 s pendant que la musique joue. Idéal pour des musiques de film ou de dessins animés. ▶ passe au morceau suivant.");
         else help = T.t("Le karaoké s'arrête sur une phrase importante après environ 30 s de chant : à vous de la finir. Il faut des paroles synchronisées. ▶ passe au morceau suivant.");
         out.add(MenuOverlay.Row.text(help));
         out.add(MenuOverlay.Row.text(T.t("Les jeux demandent une playlist ou un album Sonos (pas Spotify Connect ni une radio).")));
