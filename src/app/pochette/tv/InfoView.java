@@ -136,7 +136,7 @@ public final class InfoView extends View {
         String label = page == null ? T.t("Infos") : (which == 0 ? T.t("À propos de la chanson") : T.t("À propos du groupe"));
         text(c, label.toUpperCase(T.locale()), x, pt + 56f * s, 20f * s, GOLD, medium, Paint.Align.LEFT);
         if (page != null) {
-            text(c, ("Wikipédia · " + page.lang).toUpperCase(T.locale()), pr - pad, pt + 56f * s, 18f * s, LABEL, regular, Paint.Align.RIGHT);
+            text(c, ("Wikipédia · " + page.lang + " · CC BY-SA 4.0").toUpperCase(T.locale()), pr - pad, pt + 56f * s, 18f * s, LABEL, regular, Paint.Align.RIGHT);
         }
 
         String head = page != null ? page.title : (title.length() > 0 ? title : artist);
