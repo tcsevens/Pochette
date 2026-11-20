@@ -319,7 +319,6 @@ public final class PartyView extends View {
         txt(T.t("OK : démarrer le tour"), 130 * s, 860 * s, 40, 0xFFF2C66B, bold, Paint.Align.LEFT);
         drawQr(c, W - 90 * s - 560 * s, 260 * s, 560 * s);
         txt(server.url().replace("http://", "").replaceAll("/\\?t=.*", ""), W - 90 * s - 280 * s, 860 * s, 22, 0x90FFFFFF, regular, Paint.Align.CENTER);
-        if (server.altUrl().length() > 0) txt(T.t("ou ") + server.altUrl().replace("http://", "").replaceAll("/\\?t=.*", ""), W - 90 * s - 280 * s, 892 * s, 20, 0x70FFFFFF, regular, Paint.Align.CENTER);
     }
 
     // ---- taboo

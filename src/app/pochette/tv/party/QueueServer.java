@@ -55,9 +55,7 @@ public final class QueueServer {
         server = null;
     }
 
-    public String url() { return "http://" + LocalNet.host() + ":" + port + "/?t=" + token; }
-    /** Same page by IP address, for phones that cannot resolve the .local name ("" when url() already uses it). */
-    public String altUrl() { String h = LocalNet.fallbackHost(); return h.length() == 0 ? "" : "http://" + h + ":" + port + "/?t=" + token; }
+    public String url() { return "http://" + LocalNet.ip() + ":" + port + "/?t=" + token; }
     public synchronized List<String> recent() { return new ArrayList<String>(recent); }
 
     private void loop() {

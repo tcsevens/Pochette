@@ -90,7 +90,6 @@ public final class ShareView extends View {
             }
             qr(c, setup.url(), x0, y0, size);
             txt(c, setup.url().replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
-            if (setup.altUrl().length() > 0) txt(c, T.t("ou ") + setup.altUrl().replace("http://", ""), x0 + size / 2f, y0 + size + 84 * s, 22, 0x70FFFFFF, regular, Paint.Align.CENTER, s);
             txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
             postInvalidateDelayed(1000);
             return;
@@ -121,7 +120,6 @@ public final class ShareView extends View {
         }
         qr(c, server.url(), x0, y0, size);
         txt(c, server.url().replace("http://", "").replaceAll("/\\?t=.*", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
-        if (server.altUrl().length() > 0) txt(c, T.t("ou ") + server.altUrl().replace("http://", "").replaceAll("/\\?t=.*", ""), x0 + size / 2f, y0 + size + 84 * s, 22, 0x70FFFFFF, regular, Paint.Align.CENTER, s);
         txt(c, two ? T.t("◀ étape 1   ·   OK ou Retour : fermer (la file reste ouverte)") : T.t("OK ou Retour : fermer (la file reste ouverte)"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
         postInvalidateDelayed(1000);
     }

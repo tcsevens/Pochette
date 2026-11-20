@@ -33,9 +33,6 @@ public final class Prefs {
     /** Keep the shared-queue page up whenever Pochette is open, so saved links work. */
     public boolean queueKeep() { return p.getBoolean("queue_keep", true); }
     public void queueKeep(boolean v) { p.edit().putBoolean("queue_keep", v).apply(); }
-    /** Links use the IP address instead of the .local name. */
-    public boolean linkIp() { return p.getBoolean("link_ip", false); }
-    public void linkIp(boolean v) { p.edit().putBoolean("link_ip", v).apply(); LocalNet.setPreferIp(v); }
     public String manualIp() { return p.getString("manual_ip", ""); }
     public void manualIp(String v) { p.edit().putString("manual_ip", v).apply(); }
 

@@ -100,7 +100,6 @@ public final class SettingsMenu {
                     out.add(MenuOverlay.Row.head(T.t("Invités")));
                     out.add(MenuOverlay.Row.toggle("qkeep", T.t("File d'attente toujours active (lien permanent)"), prefs.queueKeep()));
                     out.add(MenuOverlay.Row.action("qrenew", T.t("Renouveler le lien d'invitation")));
-                    out.add(MenuOverlay.Row.toggle("linkip", T.t("Liens avec l'adresse IP (au lieu de pochette.local)"), prefs.linkIp()));
                     out.add(MenuOverlay.Row.action("wifi", T.t("Wi-Fi des invités : ") + (prefs.wifiSsid().length() > 0 ? prefs.wifiSsid() : T.t("non configuré"))));
                     if (prefs.wifiSsid().length() > 0) {
                         out.add(MenuOverlay.Row.toggle("wifioffer", T.t("Proposer le QR Wi-Fi aux invités"), prefs.wifiOffer()));
@@ -220,8 +219,6 @@ public final class SettingsMenu {
         } else if ("qrenew".equals(id)) {
             env.games().renewQueueLink();
             menu.say("", T.t("Nouveau lien : les anciens ne marchent plus."), 3000);
-        } else if ("linkip".equals(id)) {
-            prefs.linkIp(!prefs.linkIp());
         } else if ("wifi".equals(id)) {
             startWifiSetup();
         } else if ("wifioffer".equals(id)) {

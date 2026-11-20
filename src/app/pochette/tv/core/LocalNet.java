@@ -5,18 +5,11 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
-/** How guests reach the small web pages served by the TV: a friendly .local name, or the plain IP address. */
+/** The TV's address on the local network, used in the links and QR codes for the phone pages. */
 public final class LocalNet {
-    /** Name announced on the local network (see MdnsResponder). */
-    public static final String NAME = "pochette.local";
-    private static volatile boolean preferIp;
-
     private LocalNet() {}
 
-    public static void setPreferIp(boolean on) { preferIp = on; }
-    public static boolean preferIp() { return preferIp; }
-
-    /** The TV's address on the local network, or "?" when there is none. */
+    /** The address, or "?" when there is none. */
     public static String ip() {
         try {
             Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
@@ -32,9 +25,4 @@ public final class LocalNet {
         } catch (Exception ignored) {}
         return "?";
     }
-
-    /** Host used in links and QR codes. */
-    public static String host() { return preferIp ? ip() : NAME; }
-    /** The other way to reach the TV, shown small as a fallback; "" when links already use the IP. */
-    public static String fallbackHost() { return preferIp ? "" : ip(); }
 }

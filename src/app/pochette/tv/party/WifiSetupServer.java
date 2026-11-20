@@ -26,8 +26,7 @@ public final class WifiSetupServer {
     public boolean isRunning() { return running; }
     /** The phone has submitted the form. */
     public boolean saved() { return saved; }
-    public String url() { return "http://" + LocalNet.host() + ":" + port; }
-    public String altUrl() { String h = LocalNet.fallbackHost(); return h.length() == 0 ? "" : "http://" + h + ":" + port; }
+    public String url() { return "http://" + LocalNet.ip() + ":" + port; }
 
     public synchronized boolean start() {
         if (running) return true;
