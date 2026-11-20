@@ -7,7 +7,7 @@ It talks straight to your speakers on the local network. No account, no cloud. P
 Tested on a Google TV Chromecast; interface in English, French and Spanish.
 
 ## Features
-- **Four display styles**: classic, vinyl, lyrics, and wallpaper only. Up/Down switches style.
+- **Four display styles**: classic, illustrated (record, radio), lyrics, and wallpaper only. Up/Down switches style.
 - **Synced lyrics** from [LRCLIB](https://lrclib.net) (optional, can be turned off).
 - **Ambiances**: one OK starts a Sonos favourite (playlist), the rooms, the volume and a wallpaper (looping video or drawn scene), with an optional wake-up volume ramp and sleep timer. Back during playback opens the ambiance home.
 - **Games with the TV as game master**: blind test, musical chairs, finish-the-lyrics, pixelated cover, quiz (general, France, Québec), guess-the-word and draw-and-guess. Phones join by QR code on the same Wi-Fi.

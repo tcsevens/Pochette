@@ -40,8 +40,8 @@ import java.util.Map;
 
 /** Full-screen "now playing" canvas. Everything is drawn by hand and scaled to the screen height. */
 public class NowPlayingView extends View {
-    public static final int MODE_CLASSIC = 0, MODE_VINYL = 1, MODE_LYRICS = 2, MODE_BARE = 3, MODE_IMMERSIVE = -1;   // immersive layout retired (never selected)
-    public static final String[] MODE_NAMES = {"Classique", "Vinyle", "Paroles", "Fond d'écran"};
+    public static final int MODE_CLASSIC = 0, MODE_ILLUSTRATED = 1, MODE_LYRICS = 2, MODE_BARE = 3, MODE_IMMERSIVE = -1;   // immersive layout retired (never selected)
+    public static final String[] MODE_NAMES = {"Classique", "Illustré", "Paroles", "Fond d'écran"};
     public static final String[] VINYL_NAMES = {"Noir", "Couleur de l'album", "Marbré"};
     public static final String[] KARAOKE_COLOR_NAMES = {"Vert", "Blanc", "Jaune", "Corail", "Cyan", "Rose"};
     public static final int[] KARAOKE_COLORS = {0xFF3FD17A, 0xFFFFFFFF, 0xFFFFE066, 0xFFFF7A5C, 0xFF4FD8F0, 0xFFFF8FC8};
@@ -402,9 +402,9 @@ public class NowPlayingView extends View {
             }
         }
 
-        boolean radioScene = !cur.idle && mode == MODE_VINYL && cur.st != null && (cur.st.isPodcast || cur.st.isRadio);
+        boolean radioScene = !cur.idle && mode == MODE_ILLUSTRATED && cur.st != null && (cur.st.isPodcast || cur.st.isRadio);
         boolean playingNow = !cur.idle && cur.st != null && cur.st.isPlaying();
-        boolean spinning = radioScene || (playingNow && mode == MODE_VINYL)
+        boolean spinning = radioScene || (playingNow && mode == MODE_ILLUSTRATED)
                 || (playingNow && mode == MODE_LYRICS && lyrViewOf(cur) == 1 && noLyricsStyle == 1)
                 || (playingNow && mode == MODE_LYRICS && hasLyrics(cur) && lyricsMode == 0);
         boolean scrolling = !cur.idle && mode == MODE_LYRICS && lyricsAnimating;
@@ -768,14 +768,14 @@ public class NowPlayingView extends View {
             }
         } else {
             float A, ax, ay, textX, cover = 0;
-            boolean radioScene = mode == MODE_VINYL && (st.isPodcast || st.isRadio);
+            boolean radioScene = mode == MODE_ILLUSTRATED && (st.isPodcast || st.isRadio);
             if (radioScene) {
                 A = H * 0.60f;
                 ay = (H - A) / 2f;
                 float right = radio.draw(c, sc.st, sc.accent, W * 0.06f, H);
                 textX = right + W * 0.045f;
                 cover = H * 0.15f;
-            } else if (mode == MODE_VINYL) {
+            } else if (mode == MODE_ILLUSTRATED) {
                 // Sleeve with the record sliding out of it, spinning.
                 A = H * 0.60f;
                 ax = W * 0.06f;
@@ -1044,7 +1044,7 @@ public class NowPlayingView extends View {
         if (key.equals(sc.layoutKey)) return;
         sc.layoutKey = key;
         TrackState st = sc.st;
-        boolean big = mode == MODE_CLASSIC || mode == MODE_VINYL;
+        boolean big = mode == MODE_CLASSIC || mode == MODE_ILLUSTRATED;
         boolean small = mode == MODE_LYRICS;
 
         String lab = st.roomName;

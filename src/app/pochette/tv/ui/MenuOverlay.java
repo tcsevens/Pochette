@@ -789,7 +789,7 @@ public class MenuOverlay extends View {
         }
     }
 
-    /** Tiny flat sketch of each display style (0 classic, 1 vinyl, 2 lyrics, 3 wallpaper only). */
+    /** Tiny flat sketch of each display style (0 classic, 1 illustrated, 2 lyrics, 3 wallpaper only). */
     private void modePreview(Canvas c, int mode, float x, float y, float w, float h, float s) {
         fill.setColor(0x26FFFFFF);
         switch (mode) {

@@ -20,7 +20,7 @@ public final class Prefs {
     public String lastIp() { return p.getString("last_ip", ""); }
     public void lastIp(String v) { p.edit().putString("last_ip", v).apply(); }
 
-    /** Display style: 0 Classique, 1 Vinyle, 2 Paroles (the old "Immersif" was removed; old saved values are mapped). */
+    /** Display style: 0 Classic, 1 Illustrated, 2 Lyrics (the old "Immersif" was removed; old saved values are mapped). */
     public int mode() {
         if (p.getInt("mode_v", 0) >= 2) return Math.max(0, Math.min(2, p.getInt("mode2", 0)));
         int old = p.getInt("mode", 0);

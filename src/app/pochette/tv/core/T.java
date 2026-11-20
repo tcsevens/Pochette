@@ -174,7 +174,7 @@ public final class T {
         add("À SUIVRE", "UP NEXT", "A CONTINUACIÓN");
         add("▶  LANCER LA PARTIE", "▶  START THE GAME", "▶  EMPEZAR LA PARTIDA");
         add("Classique", "Classic", "Clásico");
-        add("Vinyle", "Vinyl", "Vinilo");
+        add("Illustré", "Illustrated", "Ilustrado");
         add("Noir", "Black", "Negro");
         add("Couleur de l'album", "Album color", "Color del álbum");
         add("Marbré", "Marbled", "Jaspeado");
