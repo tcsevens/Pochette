@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.pochette.tv"
-    android:versionCode="107"
-    android:versionName="2.96">
+    android:versionCode="108"
+    android:versionName="2.97">
 
-    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="28" />
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
@@ -37,7 +39,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".WatchService" android:exported="false" />
+        <service android:name=".WatchService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="Keeps reading what the Sonos speaker is playing so the TV can show it" />
+        </service>
 
         <service
             android:name=".NowPlayingDream"

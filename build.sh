@@ -4,8 +4,11 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 ANDROID_JAR=${ANDROID_JAR:-/usr/lib/android-sdk/platforms/android-23/android.jar}
+# Resources are compiled against a recent android.jar (new manifest attributes); code against API 23 so no newer API slips in.
+AAPT_JAR=${AAPT_JAR:-/home/claude/tools/sdk/android-34.jar}
+[ -f "$AAPT_JAR" ] || AAPT_JAR=$ANDROID_JAR
 B=build; rm -rf $B; mkdir -p $B/gen $B/classes $B/dex
-aapt package -f -m -J $B/gen -M AndroidManifest.xml -S res -I "$ANDROID_JAR" -F $B/unsigned.apk
+aapt package -f -m -J $B/gen -M AndroidManifest.xml -S res -I "$AAPT_JAR" -F $B/unsigned.apk
 javac -nowarn -Xlint:-options -source 8 -target 8 -encoding UTF-8 -bootclasspath "$ANDROID_JAR" -classpath "$ANDROID_JAR" \
       -d $B/classes $(find src $B/gen -name '*.java')
 dalvik-exchange --dex --min-sdk-version=23 --output=$B/dex/classes.dex $B/classes
