@@ -24,6 +24,14 @@ Thanks to their authors for the beautiful footage. The videos come from Pixabay 
 If you fork this project, replace the videos with your own or keep these credits. The app also works without them
 (the ambiances then show a plain gradient).
 
+## Quiz questions
+
+The "Pop & geek" quiz category uses questions from [Open Trivia DB](https://opentdb.com), released under the
+[Creative Commons Attribution-ShareAlike 4.0 International licence](https://creativecommons.org/licenses/by-sa/4.0/).
+They were selected, edited and translated into French for this project (`res/raw/quiz_open_fr.txt`, with the English
+originals in `res/raw/quiz_open_en.txt`). These two files stay under CC BY-SA 4.0 (not MIT): if you reuse or adapt them,
+credit Open Trivia DB, mention your changes and share them under the same licence.
+
 ## Other
 
 - **Lyrics** are fetched at run time from [LRCLIB](https://lrclib.net) and belong to their rights holders. Nothing is

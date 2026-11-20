@@ -378,6 +378,8 @@ public final class T {
         add("Journal", "Log", "Registro");
         add("Rien à signaler.", "Nothing to report.", "Nada que señalar.");
         add("Scanne le QR code pour lire tout le journal sur ton téléphone.", "Scan the QR code to read the whole log on your phone.", "Escanea el código QR para leer todo el registro en tu móvil.");
+        add("Pop & geek", "Pop & geek", "Pop y friki");
+        add("Questions du quiz « Pop & geek » : Open Trivia DB (opentdb.com), licence CC BY-SA 4.0, sélectionnées et traduites.", "Quiz questions “Pop & geek”: Open Trivia DB (opentdb.com), CC BY-SA 4.0 licence, selected and translated.", "Preguntas del quiz «Pop y friki»: Open Trivia DB (opentdb.com), licencia CC BY-SA 4.0, seleccionadas y traducidas.");
         add("Noël", "Christmas", "Navidad");
         add("Automne", "Autumn", "Otoño");
         add("Disquaire", "Record shop", "Tienda de discos");

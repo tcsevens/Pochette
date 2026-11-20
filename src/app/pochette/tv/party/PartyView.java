@@ -61,6 +61,7 @@ public final class PartyView extends View {
 
     public PartyView(Context c) {
         super(c);
+        PartyData.init(c);
         setFocusable(false);
         setSoundEffectsEnabled(false);
         setVisibility(GONE);

@@ -312,13 +312,37 @@ final class PartyData {
 
     private static int L() { return Math.max(0, Math.min(2, T.lang())); }
 
-    /** The questions of a category (0 general, 1 France, 2 Québec, 3 everything) in the current language. */
+    private static android.content.Context appCtx;
+    private static final String[][] OPEN = new String[3][];
+
+    static void init(android.content.Context c) { appCtx = c.getApplicationContext(); }
+
+    /** Pop-culture questions (Open Trivia DB, CC BY-SA 4.0) from res/raw: French, otherwise the English originals. */
+    private static String[] openPool(int l) {
+        if (OPEN[l] != null) return OPEN[l];
+        java.util.List<String> o = new java.util.ArrayList<String>();
+        try {
+            int id = appCtx == null ? 0 : appCtx.getResources().getIdentifier(l == 0 ? "quiz_open_fr" : "quiz_open_en", "raw", appCtx.getPackageName());
+            if (id != 0) {
+                java.io.BufferedReader r = new java.io.BufferedReader(new java.io.InputStreamReader(appCtx.getResources().openRawResource(id), "UTF-8"));
+                String s;
+                while ((s = r.readLine()) != null) if (s.length() > 0 && s.charAt(0) != '#' && s.split("\\|").length == 6) o.add(s);
+                r.close();
+            }
+        } catch (Exception e) { app.pochette.tv.core.Journal.w("Quiz", e); }
+        OPEN[l] = o.toArray(new String[0]);
+        return OPEN[l];
+    }
+
+    /** The questions of a category (0 general, 1 France, 2 Québec, 3 pop and geek, 4 everything) in the current language. */
     static String[] quizPool(int cat) {
         int l = L();
         java.util.List<String> o = new java.util.ArrayList<String>();
-        if (cat == 0 || cat == 3) java.util.Collections.addAll(o, QUIZ[l]);
-        if (cat == 1 || cat == 3) java.util.Collections.addAll(o, FRA[l]);
-        if (cat == 2 || cat == 3) java.util.Collections.addAll(o, QUE[l]);
+        if (cat == 0 || cat == 4) java.util.Collections.addAll(o, QUIZ[l]);
+        if (cat == 1 || cat == 4) java.util.Collections.addAll(o, FRA[l]);
+        if (cat == 2 || cat == 4) java.util.Collections.addAll(o, QUE[l]);
+        if (cat == 3 || cat == 4) java.util.Collections.addAll(o, openPool(l));
+        if (o.isEmpty()) java.util.Collections.addAll(o, QUIZ[l]);
         return o.toArray(new String[0]);
     }
 

@@ -90,7 +90,7 @@ public final class GamesMenu {
         if (gameSel >= 4) {
             out.add(MenuOverlay.Row.button("pstart", T.t("▶  LANCER LA PARTIE")));
             out.add(MenuOverlay.Row.chips("pteams", T.t("Équipes"), new String[]{"2", "3", "4", "5", "6"}, Math.max(0, Math.min(4, prefs.gameInt("pteams", 3) - 2))));
-            if (gameSel == 4) out.add(MenuOverlay.Row.chips("pcat", T.t("Catégorie"), new String[]{T.t("Culture générale"), T.t("France"), T.t("Québec"), T.t("Tout")}, Math.max(0, Math.min(3, prefs.gameInt("pc", 3)))));
+            if (gameSel == 4) out.add(MenuOverlay.Row.chips("pcat", T.t("Catégorie"), new String[]{T.t("Culture générale"), T.t("France"), T.t("Québec"), T.t("Pop & geek"), T.t("Tout")}, Math.max(0, Math.min(4, prefs.gameInt("pc", 4)))));
             if (gameSel == 4) out.add(MenuOverlay.Row.chips("prounds", T.t("Questions"), new String[]{"5", "10", "15", "20"}, Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))));
             else {
                 out.add(MenuOverlay.Row.chips("prounds", T.t("Tours par équipe"), new String[]{"1", "2", "3", "5"}, Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))));
@@ -133,7 +133,7 @@ public final class GamesMenu {
             menu.hide();
             partyView.setWifi(prefs.wifiQr(), prefs.wifiSsid());
             partyView.start(gameSel - 4, prefs.gameInt("pteams", 3), gameSel == 4 ? Q_ROUNDS[Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))] : TURN_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))],
-                    DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], Math.max(0, Math.min(3, prefs.gameInt("pc", 3))));
+                    DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], Math.max(0, Math.min(4, prefs.gameInt("pc", 4))));
         } else if ("glaunch".equals(id)) {
             launchGame();
         }
