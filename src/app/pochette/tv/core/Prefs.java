@@ -14,6 +14,14 @@ public final class Prefs {
     public String roomUuid() { return p.getString("room", ""); }
     public void roomUuid(String v) { p.edit().putString("room", v).apply(); }
 
+    /** Guest Wi-Fi shown to guests as a QR code (stored on this TV only). */
+    public String wifiSsid() { return p.getString("wifi_ssid", ""); }
+    public String wifiPass() { return p.getString("wifi_pass", ""); }
+    public void wifi(String ssid, String pass) { p.edit().putString("wifi_ssid", ssid).putString("wifi_pass", pass).apply(); }
+    public boolean wifiOffer() { return p.getBoolean("wifi_offer", true); }
+    public void wifiOffer(boolean v) { p.edit().putBoolean("wifi_offer", v).apply(); }
+    /** The QR payload to join the guest network, or "" when none is set up or offering is off. */
+    public String wifiQr() { return wifiOffer() && wifiSsid().length() > 0 ? WifiQr.payload(wifiSsid(), wifiPass()) : ""; }
     public String manualIp() { return p.getString("manual_ip", ""); }
     public void manualIp(String v) { p.edit().putString("manual_ip", v).apply(); }
 

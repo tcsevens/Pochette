@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         amb = new AmbianceMenu(this);
         games = new GamesMenu(this, gameView, partyView, shareView);
         roomsMenu = new RoomsMenu(this);
-        settings = new SettingsMenu(this, spotifyView);
+        settings = new SettingsMenu(this, spotifyView, shareView);
         view.setShortcuts(amb.list());
         setContentView(root);
         hideSystemUi();

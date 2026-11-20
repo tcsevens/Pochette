@@ -7,6 +7,7 @@ It talks straight to your speakers on the local network. No account, no cloud. P
 Tested on a Google TV Chromecast; interface in English, French and Spanish.
 
 ## Features
+- **Guest Wi-Fi QR**: optional first step of the invitation screen (set the network once from your phone in Settings › Advanced › Guests).
 - **Four display styles**: classic, illustrated (record, radio), lyrics, and wallpaper only. Up/Down switches style.
 - **Synced lyrics** from [LRCLIB](https://lrclib.net) (optional, can be turned off).
 - **Ambiances**: one OK starts a Sonos favourite (playlist), the rooms, the volume and a wallpaper (looping video or drawn scene), with an optional wake-up volume ramp and sleep timer. Back during playback opens the ambiance home.

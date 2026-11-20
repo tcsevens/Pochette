@@ -178,7 +178,7 @@ public final class GamesMenu {
             if (!queueServer.start()) { view.showToast(T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
         }
         menu.hide();
-        shareView.open(queueServer);
+        shareView.open(queueServer, prefs.wifiQr(), prefs.wifiSsid());
     }
 
     // ---- running game

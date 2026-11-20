@@ -433,5 +433,27 @@ public final class T {
         add("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR.", "Ambiance videos on Pixabay, thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney and BackgroundsCHAIR.", "Vídeos de ambiente en Pixabay, gracias a sus autores: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney y BackgroundsCHAIR.");
         add("Sonos et Spotify sont des marques de leurs propriétaires.", "Sonos and Spotify are trademarks of their respective owners.", "Sonos y Spotify son marcas de sus respectivos propietarios.");
         add("Développé avec l'IA Claude.", "Developed with the Claude AI.", "Desarrollado con la IA Claude.");
+        add("Wi-Fi des invités", "Guest Wi-Fi", "Wi-Fi de invitados");
+        add("Enregistré. Tu peux fermer cette page.", "Saved. You can close this page.", "Guardado. Puedes cerrar esta página.");
+        add("Ces informations restent sur la télé. Elles servent à afficher un QR code qui connecte tes invités. Idéalement, utilise ton réseau invités.", "This stays on the TV. It is used to show a QR code that connects your guests. Ideally, use your guest network.", "Esto se queda en la tele. Sirve para mostrar un código QR que conecta a tus invitados. Lo ideal es usar tu red de invitados.");
+        add("Nom du réseau", "Network name", "Nombre de la red");
+        add("Mot de passe (vide si le réseau est ouvert)", "Password (empty if the network is open)", "Contraseña (vacía si la red es abierta)");
+        add("Enregistré", "Saved", "Guardado");
+        add("Le QR code Wi-Fi sera proposé à tes invités.", "The Wi-Fi QR code will be offered to your guests.", "El código QR del Wi-Fi se ofrecerá a tus invitados.");
+        add("Tape le nom et le mot de passe du réseau invités sur la page qui s'ouvre.", "Type the guest network name and password on the page that opens.", "Escribe el nombre y la contraseña de la red de invitados en la página que se abre.");
+        add("Ils restent sur cette télé.", "They stay on this TV.", "Se quedan en esta tele.");
+        add("OK ou Retour : fermer", "OK or Back: close", "OK o Atrás: cerrar");
+        add("Étape 1 sur 2", "Step 1 of 2", "Paso 1 de 2");
+        add("Étape 2 sur 2", "Step 2 of 2", "Paso 2 de 2");
+        add("Rejoindre le Wi-Fi", "Join the Wi-Fi", "Unirse al Wi-Fi");
+        add("Scanne ce QR code avec l'appareil photo du téléphone.", "Scan this QR code with the phone's camera.", "Escanea este código QR con la cámara del móvil.");
+        add("Réseau : ", "Network: ", "Red: ");
+        add("Déjà connecté ? OK pour passer à l'étape 2", "Already connected? OK to go to step 2", "¿Ya conectado? OK para pasar al paso 2");
+        add("◀ étape 1   ·   OK ou Retour : fermer (la file reste ouverte)", "◀ step 1   ·   OK or Back: close (the queue stays open)", "◀ paso 1   ·   OK o Atrás: cerrar (la cola sigue abierta)");
+        add("Invités", "Guests", "Invitados");
+        add("Wi-Fi des invités : ", "Guest Wi-Fi: ", "Wi-Fi de invitados: ");
+        add("non configuré", "not set up", "sin configurar");
+        add("Proposer le QR Wi-Fi aux invités", "Offer the Wi-Fi QR to guests", "Ofrecer el QR del Wi-Fi a los invitados");
+        add("Oublier le Wi-Fi des invités", "Forget the guest Wi-Fi", "Olvidar el Wi-Fi de invitados");
     }
 }

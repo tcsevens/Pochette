@@ -7,7 +7,9 @@ import app.pochette.tv.sonos.SonosClient;
 import app.pochette.tv.spotify.SetupServer;
 import app.pochette.tv.spotify.SpotifyClient;
 import app.pochette.tv.spotify.SpotifySetupView;
+import app.pochette.tv.party.WifiSetupServer;
 import app.pochette.tv.ui.MenuOverlay;
+import app.pochette.tv.ui.ShareView;
 import app.pochette.tv.ui.NowPlayingView;
 
 import android.app.Activity;
@@ -38,8 +40,11 @@ public final class SettingsMenu {
     private SetupServer setupServer;
     /** Settings page shown: 0 main, 1 Spotify, 2 advanced. */
     private int setSub;
+    private final ShareView shareView;
+    private WifiSetupServer wifiServer;
 
-    public SettingsMenu(MenuEnv env, SpotifySetupView spotifyView) {
+    public SettingsMenu(MenuEnv env, SpotifySetupView spotifyView, ShareView shareView) {
+        this.shareView = shareView;
         this.env = env;
         activity = env.activity();
         prefs = env.prefs();
@@ -59,7 +64,10 @@ public final class SettingsMenu {
     }
 
     /** Stops the Spotify sign-in page server; used when the app stops. */
-    public void shutdown() { if (setupServer != null) setupServer.stop(); }
+    public void shutdown() {
+        if (setupServer != null) setupServer.stop();
+        if (wifiServer != null) wifiServer.stop();
+    }
 
     public List<MenuOverlay.Row> rows(int section) {
         List<MenuOverlay.Row> out = new ArrayList<MenuOverlay.Row>();
@@ -89,6 +97,12 @@ public final class SettingsMenu {
                     out.add(MenuOverlay.Row.toggle("sounds", T.t("Sons système de la télé") + (systemSoundsOn() ? "  ⚠" : ""), systemSoundsOn()));
                     String ip2 = prefs.manualIp().length() > 0 ? prefs.manualIp() : "auto";
                     out.add(MenuOverlay.Row.action("ip", T.t("Adresse IP de l'enceinte : ") + ip2));
+                    out.add(MenuOverlay.Row.head(T.t("Invités")));
+                    out.add(MenuOverlay.Row.action("wifi", T.t("Wi-Fi des invités : ") + (prefs.wifiSsid().length() > 0 ? prefs.wifiSsid() : T.t("non configuré"))));
+                    if (prefs.wifiSsid().length() > 0) {
+                        out.add(MenuOverlay.Row.toggle("wifioffer", T.t("Proposer le QR Wi-Fi aux invités"), prefs.wifiOffer()));
+                        out.add(MenuOverlay.Row.action("wififorget", T.t("Oublier le Wi-Fi des invités")));
+                    }
                     break;
                 }
                 List<SonosClient.Room> rs = env.rooms();
@@ -197,6 +211,13 @@ public final class SettingsMenu {
             }
         } else if ("ip".equals(id)) {
             askIp();
+        } else if ("wifi".equals(id)) {
+            startWifiSetup();
+        } else if ("wifioffer".equals(id)) {
+            prefs.wifiOffer(!prefs.wifiOffer());
+        } else if ("wififorget".equals(id)) {
+            prefs.wifi("", "");
+            menu.refresh();
         } else if ("rescan".equals(id)) {
             prefs.lastIp("");
             if (env.poller() != null) env.poller().reset();
@@ -270,6 +291,12 @@ public final class SettingsMenu {
         }
         menu.hide();
         spotifyView.open(setupServer, env.poller().spotify, !env.poller().spotify.configured());
+    }
+    private void startWifiSetup() {
+        if (wifiServer == null) wifiServer = new WifiSetupServer(prefs);
+        if (!wifiServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
+        menu.hide();
+        shareView.openSetup(wifiServer);
     }
     private void askIp() {
         final EditText et = new EditText(activity);
