@@ -376,7 +376,6 @@ public final class GameView extends View {
                 rect(c, x - t, baseY, x + colW + t, baseY + t, fc);
                 rect(c, x - t, baseY - h, x, baseY, fc);
                 rect(c, x + colW, baseY - h, x + colW + t, baseY, fc);
-                text(c, T.t("VAINQUEUR"), x + colW / 2f, baseY - h - 22f * s, 26f * s, flash ? 0xFFFFD84A : 0xFFFFFFFF, bold, Paint.Align.CENTER, colW + 40f * s);
             }
             fill.setColor(medal[Math.min(pos, 2)]);
             c.drawCircle(x + colW / 2f, baseY - h + 52f * s, 34f * s, fill);
