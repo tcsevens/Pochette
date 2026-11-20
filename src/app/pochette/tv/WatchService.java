@@ -1,5 +1,10 @@
 package app.pochette.tv;
 
+import app.pochette.tv.core.Prefs;
+import app.pochette.tv.core.T;
+import app.pochette.tv.core.TrackState;
+import app.pochette.tv.sonos.Poller;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -17,7 +22,6 @@ import android.provider.Settings;
  * leaving the screen with "Back" is respected for the rest of the listening session.
  */
 public class WatchService extends Service implements Poller.Listener {
-
     private static final String CHANNEL = "watch";
     private static final long REARM_MS = 45000;
 

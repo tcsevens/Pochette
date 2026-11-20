@@ -41,7 +41,16 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 The ambiance videos in `res/raw/` are not under the MIT license: they come from Pixabay and keep their own license (see `NOTICE.md`). Without them the app still builds and the ambiances show a gradient.
 
 ## Layout of the code
-`SonosClient` (local UPnP/SOAP), `Poller` (state, queue, ambiances), `NowPlayingView` (all rendering), `MenuOverlay` (menu), `PartyView`/`PartyServer` (games and phone pages), `QueueServer` (shared queue), `SpotifyClient`, `Lyrics`, `Themes`/`Scenes*` (wallpapers), `T` (translations).
+Sources live in `src/app/pochette/tv/`:
+- `core/` preferences, translations (`T`), track state, ambiance list, helpers
+- `sonos/` `SonosClient` (local UPnP/SOAP) and `Poller` (state, queue, ambiances)
+- `spotify/` Web API client and the phone-based setup flow
+- `media/` lyrics (LRCLIB) and artist bio
+- `ui/` `NowPlayingView` (rendering), `MenuOverlay`, info/share views, video background
+- `theme/` wallpapers: `Themes`, `Scenes*`, `ThemePreview`
+- `party/` games, phone pages and the shared queue server
+- `menu/` menu controllers (ambiances, games, rooms, settings, favorites)
+- `MainActivity` wires everything and routes remote-control keys
 
 ## Not affiliated
 Independent project, not affiliated with Sonos or Spotify. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Built with the help of Claude (Anthropic).

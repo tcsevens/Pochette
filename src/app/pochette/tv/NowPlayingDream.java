@@ -1,10 +1,14 @@
 package app.pochette.tv;
 
+import app.pochette.tv.core.Prefs;
+import app.pochette.tv.core.T;
+import app.pochette.tv.sonos.Poller;
+import app.pochette.tv.ui.NowPlayingView;
+
 import android.service.dreams.DreamService;
 
 /** Screensaver: shows the music when something plays, a drifting clock otherwise. */
 public class NowPlayingDream extends DreamService implements Poller.Listener {
-
     static volatile boolean active;
 
     private NowPlayingView view;

@@ -1,0 +1,96 @@
+package app.pochette.tv.core;
+
+import app.pochette.tv.sonos.SonosClient;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** A one-press preset: a Sonos favourite + rooms + volume + screen theme. */
+public final class Ambiance {
+    public static final int T_NORMAL = 0, T_SNOW = 1, T_MORNING = 2, T_SUMMER = 3, T_WAKE = 4, T_SOUL = 5, T_FIRE = 6, T_RAIN = 7, T_PLANET = 8, T_PARTY = 9, T_OFFICE = 10, T_MONTREAL = 11, T_CORSE = 12, T_XMAS = 13, T_RECORD = 14;
+    /** Themes still offered (the others were removed; saved ones fall back to Normal). */
+    public static final int[] SHOWN = {T_NORMAL, T_SNOW, T_MORNING, T_SUMMER, T_WAKE, T_SOUL, T_FIRE, T_RAIN, T_PLANET, T_PARTY, T_XMAS, T_RECORD};
+    public static boolean exists(int t) { for (int x : SHOWN) if (x == t) return true; return false; }
+    public static int valid(int t) { return exists(t) ? t : T_NORMAL; }
+    public static int toIndex(int t) { for (int i = 0; i < SHOWN.length; i++) if (SHOWN[i] == t) return i; return 0; }
+    public static int fromIndex(int i) { return SHOWN[Math.max(0, Math.min(SHOWN.length - 1, i))]; }
+    public static String[] shownNames() { String[] o = new String[SHOWN.length]; for (int i = 0; i < o.length; i++) o[i] = THEME_NAMES[SHOWN[i]]; return o; }
+    public static final String[] THEME_NAMES = {"Normal", "Chalet", "Lever de soleil", "Été", "Réveil", "Bar jazz", "Coin du feu", "Pluie", "Nuit étoilée", "Fête", "Bureau chill", "Feu de cheminée", "Corse", "Noël", "Disquaire"};
+
+    public String name = "Nouvelle ambiance";
+    public int theme = T_NORMAL;
+    /** Title of the Sonos favourite to play ("" = not chosen yet). */
+    public String fav = "";
+    /** Room UUIDs; empty = keep the rooms that are playing. */
+    public final List<String> rooms = new ArrayList<String>();
+    /** Start volume in %, -1 = leave as is. */
+    public int volume = -1;
+    public boolean shuffle = true;
+    /** Volume rises slowly to the target over 3 minutes. */
+    public boolean ramp;
+    public int sleepMin;
+    /** Screen style imposed when launched: -1 = leave as is, otherwise NowPlayingView.MODE_*. */
+    public int display = -1;
+    public boolean preset;
+
+    private static final String F = "\u001f", R = "\u001e";
+
+    /** No built-in ambiances: each person builds their own from their Sonos favourites. */
+    public static List<Ambiance> defaults() { return new ArrayList<Ambiance>(); }
+
+    private static Ambiance make(String name, int theme, int vol, boolean ramp) {
+        Ambiance a = new Ambiance();
+        a.name = name; a.theme = theme; a.volume = vol; a.ramp = ramp; a.preset = true;
+        return a;
+    }
+
+    public static final String NOW = "\u0001now", PL = "\u0001pl:";
+
+    /** What is shown for a stored source (favourite title, Sonos playlist or the current queue). */
+    public static String label(String fav) {
+        if (NOW.equals(fav)) return T.t("Ce qui joue en ce moment");
+        if (fav != null && fav.startsWith(PL)) return fav.substring(PL.length());
+        return fav == null ? "" : fav;
+    }
+
+    /** The key stored for a source item. */
+    public static String keyOf(SonosClient.Item it) {
+        if (it.kind == 3) return NOW;
+        if (it.kind == 2) return PL + it.title;
+        return it.title;
+    }
+
+    public static String encode(List<Ambiance> list) {
+        StringBuilder sb = new StringBuilder();
+        for (Ambiance a : list) {
+            StringBuilder rooms = new StringBuilder();
+            for (String r : a.rooms) { if (rooms.length() > 0) rooms.append(','); rooms.append(r); }
+            if (sb.length() > 0) sb.append(R);
+            sb.append(a.name).append(F).append(a.theme).append(F).append(a.fav).append(F).append(rooms).append(F)
+                    .append(a.volume).append(F).append(a.shuffle ? 1 : 0).append(F).append(a.ramp ? 1 : 0).append(F)
+                    .append(a.sleepMin).append(F).append(a.preset ? 1 : 0).append(F).append(a.display);
+        }
+        return sb.toString();
+    }
+
+    public static List<Ambiance> decode(String s) {
+        if (s == null || s.length() == 0) return defaults();
+        List<Ambiance> l = new ArrayList<Ambiance>();
+        try {
+            for (String rec : s.split(R)) {
+                String[] f = rec.split(F, -1);
+                if (f.length < 9) continue;
+                Ambiance a = new Ambiance();
+                a.name = f[0]; a.theme = valid(Integer.parseInt(f[1])); a.fav = f[2];
+                for (String r : f[3].split(",")) if (r.length() > 0) a.rooms.add(r);
+                a.volume = Integer.parseInt(f[4]); a.shuffle = "1".equals(f[5]); a.ramp = "1".equals(f[6]);
+                a.sleepMin = Integer.parseInt(f[7]); a.preset = "1".equals(f[8]);
+                a.display = f.length >= 10 ? Integer.parseInt(f[9]) : (a.theme == T_SOUL ? 1 : -1);   // older saves: jazz/soul used to force the vinyl
+                l.add(a);
+            }
+        } catch (Exception e) {
+            return defaults();
+        }
+        return l.isEmpty() ? defaults() : l;
+    }
+}

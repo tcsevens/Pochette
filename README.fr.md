@@ -95,12 +95,16 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence MIT : elles viennent de Pixabay et gardent leur licence (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
 
 ### Organisation du code
-- `SonosClient` : API locale Sonos (SOAP/UPnP sur le port 1400), découverte SSDP et balayage du sous-réseau.
-- `Poller` : suit le groupe, lit les métadonnées, gère radio, entrée ligne et TV, télécharge la pochette.
-- `NowPlayingView` : tout le rendu (4 affichages, fondu entre morceaux, vinyle, paroles, horloge).
-- `Lyrics` : paroles synchronisées LRCLIB.
-- `WatchService` / `BootReceiver` : affichage automatique.
-- `NowPlayingDream` : économiseur d'écran.
+Sources dans `src/app/pochette/tv/`:
+- `core/` préférences, traductions (`T`), état du morceau, liste des ambiances, utilitaires
+- `sonos/` `SonosClient` (UPnP/SOAP local) et `Poller` (état, file d'attente, ambiances)
+- `spotify/` client Web API et configuration depuis le téléphone
+- `media/` paroles (LRCLIB) et bio de l'artiste
+- `ui/` `NowPlayingView` (affichage), `MenuOverlay`, vues info/partage, fond vidéo
+- `theme/` fonds d'écran : `Themes`, `Scenes*`, `ThemePreview`
+- `party/` jeux, pages téléphone et serveur de file partagée
+- `menu/` contrôleurs de menu (ambiances, jeux, pièces, réglages, favoris)
+- `MainActivity` assemble le tout et route les touches de la télécommande
 
 ## v2.0 — Ambiances et À suivre
 - **Ambiances** (1re section du menu) : un OK sur une carte lance la playlist (un *favori Sonos*, ajoutez vos playlists Spotify aux favoris dans l'app Sonos), les pièces, le volume et le thème d'écran. OK maintenu = modifier. Aucun son ajouté.
