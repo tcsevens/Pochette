@@ -30,6 +30,7 @@ final class Scenes {
 
     /** Soft round light: full colour in the middle, fading smoothly to nothing at r. */
     static void glow(Canvas c, Paint q, float x, float y, float r, int color) {
+        if (!(r > 0.5f)) return;   // a radial gradient needs a positive radius (glints fade to 0)
         int a = color >>> 24, rgb = color & 0xFFFFFF;
         q.setStyle(Paint.Style.FILL);
         Scenes2.sh(q, new RadialGradient(x, y, r, new int[]{color, (a * 45 / 100) << 24 | rgb, (a * 12 / 100) << 24 | rgb, rgb},
