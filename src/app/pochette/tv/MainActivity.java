@@ -1,5 +1,7 @@
 package app.pochette.tv;
 
+import app.pochette.tv.core.LocalNet;
+import app.pochette.tv.core.MdnsResponder;
 import app.pochette.tv.core.Prefs;
 import app.pochette.tv.core.T;
 import app.pochette.tv.core.TrackState;
@@ -50,6 +52,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
         prefs = new Prefs(this);
+        LocalNet.setPreferIp(prefs.linkIp());
         T.set(prefs.lang());
         view = new NowPlayingView(this);
         view.setMode(prefs.mode());
@@ -120,6 +123,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         visible = true;
         poller = new Poller(prefs, 1000, this);
         poller.start();
+        mdns.start(this);
+        games.keepQueue();
     }
 
     @Override protected void onStop() {
@@ -130,6 +135,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         if (infoView != null && infoView.active()) infoView.close();
         if (partyView != null && partyView.active()) partyView.close();
         settings.shutdown();
+        mdns.stop();
         if (poller != null) poller.stop();
         poller = null;
         menu.hide();
@@ -348,6 +354,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     private VideoBg videoBg;
     private PartyView partyView;
     private ShareView shareView;
+    private final MdnsResponder mdns = new MdnsResponder();
     private AmbianceMenu amb;
     private GamesMenu games;
     private RoomsMenu roomsMenu;
@@ -413,6 +420,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public Poller poller() { return poller; }
     @Override public String coordinatorUuid() { return last != null ? last.coordinatorUuid : null; }
 
+    @Override public GamesMenu games() { return games; }
     @Override public void setAutoLaunch(boolean on) {
         if (on) WatchService.start(this); else WatchService.stop(this);
     }

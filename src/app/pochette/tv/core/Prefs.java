@@ -22,6 +22,20 @@ public final class Prefs {
     public void wifiOffer(boolean v) { p.edit().putBoolean("wifi_offer", v).apply(); }
     /** The QR payload to join the guest network, or "" when none is set up or offering is off. */
     public String wifiQr() { return wifiOffer() && wifiSsid().length() > 0 ? WifiQr.payload(wifiSsid(), wifiPass()) : ""; }
+    /** Secret of the shared-queue link: stable, so a guest can keep the link; renewing it cuts old links. */
+    public String queueToken() {
+        String t = p.getString("queue_token", "");
+        if (t.length() == 0) { t = newToken(); p.edit().putString("queue_token", t).apply(); }
+        return t;
+    }
+    public void renewQueueToken() { p.edit().putString("queue_token", newToken()).apply(); }
+    private static String newToken() { return Long.toString(Math.abs(new java.util.Random().nextLong()), 36).substring(0, 8); }
+    /** Keep the shared-queue page up whenever Pochette is open, so saved links work. */
+    public boolean queueKeep() { return p.getBoolean("queue_keep", true); }
+    public void queueKeep(boolean v) { p.edit().putBoolean("queue_keep", v).apply(); }
+    /** Links use the IP address instead of the .local name. */
+    public boolean linkIp() { return p.getBoolean("link_ip", false); }
+    public void linkIp(boolean v) { p.edit().putBoolean("link_ip", v).apply(); LocalNet.setPreferIp(v); }
     public String manualIp() { return p.getString("manual_ip", ""); }
     public void manualIp(String v) { p.edit().putString("manual_ip", v).apply(); }
 

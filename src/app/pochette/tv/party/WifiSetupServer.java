@@ -1,8 +1,8 @@
 package app.pochette.tv.party;
 
+import app.pochette.tv.core.LocalNet;
 import app.pochette.tv.core.Prefs;
 import app.pochette.tv.core.T;
-import app.pochette.tv.spotify.SetupServer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -26,7 +26,8 @@ public final class WifiSetupServer {
     public boolean isRunning() { return running; }
     /** The phone has submitted the form. */
     public boolean saved() { return saved; }
-    public String url() { return "http://" + SetupServer.localIp() + ":" + port; }
+    public String url() { return "http://" + LocalNet.host() + ":" + port; }
+    public String altUrl() { String h = LocalNet.fallbackHost(); return h.length() == 0 ? "" : "http://" + h + ":" + port; }
 
     public synchronized boolean start() {
         if (running) return true;

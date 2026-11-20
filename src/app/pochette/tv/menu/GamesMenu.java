@@ -166,17 +166,34 @@ public final class GamesMenu {
         game.start(a);
         gameView.invalidate();
     }
+    /** Starts the shared-queue page if needed; false when the port could not be opened. */
+    private boolean startQueue() {
+        if (queueServer != null && queueServer.isRunning()) return true;
+        queueServer = new QueueServer(env.poller().spotify, prefs.queueToken(), new QueueServer.Listener() {
+            @Override public boolean enqueue(String uri, String title) throws Exception { return env.poller().enqueueSonos(uri, title); }
+            @Override public void added(final String title, final String artist) {
+                env.activity().runOnUiThread(new Runnable() { @Override public void run() { view.showToast(T.t("Ajouté : ") + title, 4000); } });
+            }
+        });
+        return queueServer.start();
+    }
+
+    /** Keeps the shared-queue page up while Pochette is open, so a link saved by a guest keeps working. */
+    public void keepQueue() {
+        if (env.poller() != null && prefs.queueKeep()) startQueue();
+    }
+
+    /** New secret: links saved by guests stop working. */
+    public void renewQueueLink() {
+        prefs.renewQueueToken();
+        if (queueServer != null) queueServer.stop();
+        queueServer = null;
+        keepQueue();
+    }
+
     private void openShare() {
         if (env.poller() == null) return;
-        if (queueServer == null || !queueServer.isRunning()) {
-            queueServer = new QueueServer(env.poller().spotify, new QueueServer.Listener() {
-                @Override public boolean enqueue(String uri, String title) throws Exception { return env.poller().enqueueSonos(uri, title); }
-                @Override public void added(final String title, final String artist) {
-                    env.activity().runOnUiThread(new Runnable() { @Override public void run() { view.showToast(T.t("Ajouté : ") + title, 4000); } });
-                }
-            });
-            if (!queueServer.start()) { view.showToast(T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
-        }
+        if (!startQueue()) { view.showToast(T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
         menu.hide();
         shareView.open(queueServer, prefs.wifiQr(), prefs.wifiSsid());
     }

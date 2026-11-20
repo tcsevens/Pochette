@@ -1,5 +1,6 @@
 package app.pochette.tv.spotify;
 
+import app.pochette.tv.core.LocalNet;
 import app.pochette.tv.core.Prefs;
 import app.pochette.tv.core.T;
 
@@ -41,21 +42,7 @@ public final class SetupServer {
     public boolean signedIn() { return signedIn; }
     public String url() { return "http://" + localIp() + ":" + port; }
 
-    public static String localIp() {
-        try {
-            Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
-            while (e.hasMoreElements()) {
-                NetworkInterface n = e.nextElement();
-                if (!n.isUp() || n.isLoopback()) continue;
-                Enumeration<InetAddress> a = n.getInetAddresses();
-                while (a.hasMoreElements()) {
-                    InetAddress i = a.nextElement();
-                    if (i instanceof Inet4Address && i.isSiteLocalAddress()) return i.getHostAddress();
-                }
-            }
-        } catch (Exception ignored) {}
-        return "?";
-    }
+    public static String localIp() { return LocalNet.ip(); }
 
     public synchronized boolean start() {
         if (running) return true;

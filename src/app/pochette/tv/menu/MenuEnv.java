@@ -24,4 +24,6 @@ public interface MenuEnv {
     String coordinatorUuid();
     /** Starts or stops the background service that brings the app forward when music starts. */
     void setAutoLaunch(boolean on);
+    /** The Games section controller (also owns the shared-queue page). */
+    GamesMenu games();
 }

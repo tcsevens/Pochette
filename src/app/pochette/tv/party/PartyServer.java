@@ -1,7 +1,7 @@
 package app.pochette.tv.party;
 
+import app.pochette.tv.core.LocalNet;
 import app.pochette.tv.core.T;
-import app.pochette.tv.spotify.SetupServer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -59,7 +59,9 @@ public final class PartyServer {
         server = null;
     }
 
-    public String url() { return "http://" + SetupServer.localIp() + ":" + port + "/?t=" + token; }
+    public String url() { return "http://" + LocalNet.host() + ":" + port + "/?t=" + token; }
+    /** Same page by IP address, for phones that cannot resolve the .local name ("" when url() already uses it). */
+    public String altUrl() { String h = LocalNet.fallbackHost(); return h.length() == 0 ? "" : "http://" + h + ":" + port + "/?t=" + token; }
     public boolean connected() { return System.currentTimeMillis() - lastPoll < 3500; }
 
     public void show(String mode, String word, String[] forbidden, int color) {

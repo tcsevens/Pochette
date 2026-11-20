@@ -455,5 +455,11 @@ public final class T {
         add("non configuré", "not set up", "sin configurar");
         add("Proposer le QR Wi-Fi aux invités", "Offer the Wi-Fi QR to guests", "Ofrecer el QR del Wi-Fi a los invitados");
         add("Oublier le Wi-Fi des invités", "Forget the guest Wi-Fi", "Olvidar el Wi-Fi de invitados");
+        add("File d'attente toujours active (lien permanent)", "Shared queue always on (permanent link)", "Cola compartida siempre activa (enlace permanente)");
+        add("Renouveler le lien d'invitation", "Renew the invitation link", "Renovar el enlace de invitación");
+        add("Liens avec l'adresse IP (au lieu de pochette.local)", "Links use the IP address (instead of pochette.local)", "Enlaces con la dirección IP (en lugar de pochette.local)");
+        add("Nouveau lien : les anciens ne marchent plus.", "New link: the old ones no longer work.", "Enlace nuevo: los anteriores ya no funcionan.");
+        add("ou ", "or ", "o ");
+        add("Astuce : ajoute cette page à tes favoris ou à l'écran d'accueil pour revenir quand tu veux.", "Tip: add this page to your bookmarks or home screen to come back any time.", "Consejo: añade esta página a tus favoritos o a la pantalla de inicio para volver cuando quieras.");
     }
 }

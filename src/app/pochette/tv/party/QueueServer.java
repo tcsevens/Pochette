@@ -1,8 +1,8 @@
 package app.pochette.tv.party;
 
+import app.pochette.tv.core.LocalNet;
 import app.pochette.tv.core.T;
 import app.pochette.tv.sonos.SonosClient;
-import app.pochette.tv.spotify.SetupServer;
 import app.pochette.tv.spotify.SpotifyClient;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Shared queue: guests scan a QR code, search a song on a small web page served by the TV box and add it to the
@@ -29,11 +28,11 @@ public final class QueueServer {
     private ServerSocket server;
     private volatile boolean running;
     private int port;
-    public final String token = Integer.toString(100000 + new Random().nextInt(900000), 36);
+    public final String token;
     private final List<String> recent = new ArrayList<String>();
     private final Map<String, Long> lastAdd = new HashMap<String, Long>();
 
-    public QueueServer(SpotifyClient s, Listener l) { spotify = s; listener = l; }
+    public QueueServer(SpotifyClient s, String token, Listener l) { spotify = s; this.token = token; listener = l; }
 
     public boolean isRunning() { return running; }
 
@@ -56,7 +55,9 @@ public final class QueueServer {
         server = null;
     }
 
-    public String url() { return "http://" + SetupServer.localIp() + ":" + port + "/?t=" + token; }
+    public String url() { return "http://" + LocalNet.host() + ":" + port + "/?t=" + token; }
+    /** Same page by IP address, for phones that cannot resolve the .local name ("" when url() already uses it). */
+    public String altUrl() { String h = LocalNet.fallbackHost(); return h.length() == 0 ? "" : "http://" + h + ":" + port + "/?t=" + token; }
     public synchronized List<String> recent() { return new ArrayList<String>(recent); }
 
     private void loop() {
@@ -156,7 +157,7 @@ public final class QueueServer {
             + ".r{display:flex;align-items:center;justify-content:space-between;background:#2a2250;margin:8px 0;padding:10px 12px}.r div{min-width:0;flex:1}"
             + ".r b{display:block;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.r span{font-size:14px;color:#b8a8f0}"
             + "button{border:0;padding:12px 16px;margin-left:10px;font-size:16px;font-weight:bold;background:#ff7a5c;color:#200}#m{padding:10px 14px;color:#ffe9a8;min-height:22px}</style></head><body>"
-            + "<h1>" + esc(T.t("Ajoute une chanson")) + "</h1><div id=\"b\"><input id=\"s\" placeholder=\"" + esc(T.t("Titre ou artiste")) + "\" autocomplete=\"off\"><div id=\"m\"></div><div id=\"l\"></div></div>"
+            + "<h1>" + esc(T.t("Ajoute une chanson")) + "</h1><div id=\"b\"><input id=\"s\" placeholder=\"" + esc(T.t("Titre ou artiste")) + "\" autocomplete=\"off\"><div id=\"m\"></div><div id=\"l\"></div></div><p style=\"padding:6px 14px;color:#b8a8f0;font-size:13px\">" + esc(T.t("Astuce : ajoute cette page à tes favoris ou à l'écran d'accueil pour revenir quand tu veux.")) + "</p>"
             + "<script>var T=new URLSearchParams(location.search).get('t'),tm=null,res=[];function $(i){return document.getElementById(i)}"
             + "$('s').oninput=function(){clearTimeout(tm);tm=setTimeout(go,450)};"
             + "function go(){var v=$('s').value;fetch('/q?t='+T+'&s='+encodeURIComponent(v)).then(function(r){return r.json()}).then(function(a){res=a;var h='';a.forEach(function(x,i){h+='<div class=\"r\"><div><b></b><span></span></div><button onclick=\"add('+i+')\">+</button></div>'});$('l').innerHTML=h;"
