@@ -131,6 +131,7 @@ public final class GamesMenu {
             if (i < favorites.list().size()) { prefs.gameFav(Ambiance.keyOf(favorites.list().get(i))); gamePick = false; menu.refresh(); }
         } else if ("pstart".equals(id)) {
             menu.hide();
+            partyView.setWifi(prefs.wifiQr(), prefs.wifiSsid());
             partyView.start(gameSel - 4, prefs.gameInt("pteams", 3), gameSel == 4 ? Q_ROUNDS[Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))] : TURN_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))],
                     DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], Math.max(0, Math.min(3, prefs.gameInt("pc", 3))));
         } else if ("glaunch".equals(id)) {

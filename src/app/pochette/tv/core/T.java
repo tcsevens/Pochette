@@ -354,8 +354,16 @@ public final class T {
         add("Mes fonds d'écran", "My backgrounds", "Mis fondos");
         add("Ajouter une vidéo depuis le téléphone…", "Add a video from your phone…", "Añadir un vídeo desde el móvil…");
         add("Fichier trop gros (300 Mo maximum).", "File too big (300 MB max).", "Archivo demasiado grande (300 MB máx.).");
-        add("Ce fichier n'est pas une vidéo MP4.", "This file is not an MP4 video.", "Este archivo no es un vídeo MP4.");
-        add("Envoie une vidéo MP4 (H.264, 720p ou 1080p, sans son de préférence, 300 Mo maximum). Elle reste sur la télé et boucle en fond. Utilise seulement des vidéos dont tu as le droit de te servir.", "Send an MP4 video (H.264, 720p or 1080p, preferably without sound, 300 MB max). It stays on the TV and loops in the background. Only use videos you are allowed to use.", "Envía un vídeo MP4 (H.264, 720p o 1080p, mejor sin sonido, 300 MB máx.). Se queda en la tele y se repite de fondo. Usa solo vídeos que tengas derecho a usar.");
+        add("Formats : MP4, MOV ou MKV, en H.264 ou H.265 (HEVC). Résolution de 720p à 4K. Taille : 300 Mo maximum. Le fond reste sur la télé et boucle ; mieux vaut une vidéo sans son. Utilise seulement des vidéos dont tu as le droit de te servir.", "Formats: MP4, MOV or MKV, H.264 or H.265 (HEVC). Resolution from 720p to 4K. Size: 300 MB maximum. The background stays on the TV and loops; a video without sound is best. Only use videos you are allowed to use.", "Formatos: MP4, MOV o MKV, en H.264 o H.265 (HEVC). Resolución de 720p a 4K. Tamaño: 300 MB máximo. El fondo se queda en la tele y se repite; mejor un vídeo sin sonido. Usa solo vídeos que tengas derecho a usar.");
+        add("Format non accepté : envoie un fichier MP4, MOV ou MKV.", "Format not accepted: send an MP4, MOV or MKV file.", "Formato no aceptado: envía un archivo MP4, MOV o MKV.");
+        add("Aucune image vidéo trouvée dans ce fichier.", "No video track found in this file.", "No hay pista de vídeo en este archivo.");
+        add("Codec non accepté : utilise du H.264 ou du H.265 (HEVC).", "Codec not accepted: use H.264 or H.265 (HEVC).", "Códec no aceptado: usa H.264 o H.265 (HEVC).");
+        add("Résolution trop basse : 720p minimum.", "Resolution too low: 720p minimum.", "Resolución demasiado baja: mínimo 720p.");
+        add("Résolution trop haute : 4K maximum.", "Resolution too high: 4K maximum.", "Resolución demasiado alta: máximo 4K.");
+        add("Cette télé ne sait pas lire ce codec.", "This TV cannot play this codec.", "Esta tele no puede reproducir este códec.");
+        add("Fichier illisible : ce n'est pas une vidéo valide.", "Unreadable file: not a valid video.", "Archivo ilegible: no es un vídeo válido.");
+        add("Envoi interrompu, réessaie.", "Upload interrupted, try again.", "Envío interrumpido, inténtalo de nuevo.");
+        add("◀ : QR code du Wi-Fi", "◀ : Wi-Fi QR code", "◀ : código QR del Wi-Fi");
         add("en place", "in place", "en uso");
         add("libre", "free", "libre");
         add("Envoyer", "Upload", "Enviar");

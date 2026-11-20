@@ -10,6 +10,10 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
+import android.media.MediaCodecList;
+import android.media.MediaExtractor;
+import android.media.MediaFormat;
+
 import java.net.Socket;
 import java.net.URLDecoder;
 
@@ -90,6 +94,40 @@ public final class BgSetupServer {
         try { return URLDecoder.decode(v, "UTF-8"); } catch (Exception ex) { return ""; }
     }
 
+    /** Null when the file is a usable video, else the reason (shown on the phone). */
+    private static String check(int slot, byte[] h, int hn) {
+        boolean mp4 = hn >= 12 && h[4] == 'f' && h[5] == 't' && h[6] == 'y' && h[7] == 'p';
+        boolean mkv = hn >= 4 && (h[0] & 0xFF) == 0x1A && (h[1] & 0xFF) == 0x45 && (h[2] & 0xFF) == 0xDF && (h[3] & 0xFF) == 0xA3;
+        if (!mp4 && !mkv) return T.t("Format non accepté : envoie un fichier MP4, MOV ou MKV.");
+        MediaExtractor ex = new MediaExtractor();
+        try {
+            ex.setDataSource(CustomBg.temp(slot).getPath());
+            MediaFormat vf = null;
+            for (int i = 0; i < ex.getTrackCount(); i++) {
+                MediaFormat f = ex.getTrackFormat(i);
+                String m = f.getString(MediaFormat.KEY_MIME);
+                if (m != null && m.startsWith("video/")) { vf = f; break; }
+            }
+            if (vf == null) return T.t("Aucune image vidéo trouvée dans ce fichier.");
+            String mime = vf.getString(MediaFormat.KEY_MIME);
+            if (!"video/avc".equals(mime) && !"video/hevc".equals(mime)) return T.t("Codec non accepté : utilise du H.264 ou du H.265 (HEVC).");
+            int w = vf.containsKey(MediaFormat.KEY_WIDTH) ? vf.getInteger(MediaFormat.KEY_WIDTH) : 0;
+            int hgt = vf.containsKey(MediaFormat.KEY_HEIGHT) ? vf.getInteger(MediaFormat.KEY_HEIGHT) : 0;
+            int lo = Math.min(w, hgt), hi = Math.max(w, hgt);
+            if (lo < 720) return T.t("Résolution trop basse : 720p minimum.");
+            if (hi > 4096 || lo > 2160) return T.t("Résolution trop haute : 4K maximum.");
+            boolean dec = false;
+            for (android.media.MediaCodecInfo ci : new MediaCodecList(MediaCodecList.ALL_CODECS).getCodecInfos()) {
+                if (ci.isEncoder()) continue;
+                for (String t : ci.getSupportedTypes()) if (t.equalsIgnoreCase(mime)) dec = true;
+            }
+            if (!dec) return T.t("Cette télé ne sait pas lire ce codec.");
+            return null;
+        } catch (Exception e) {
+            return T.t("Fichier illisible : ce n'est pas une vidéo valide.");
+        } finally { try { ex.release(); } catch (Exception ignored) { } }
+    }
+
     private void reply(OutputStream out, String status, String type, String body) throws Exception {
         byte[] b = body.getBytes("UTF-8");
         out.write(("HTTP/1.1 " + status + "\r\nContent-Type: " + type + "; charset=utf-8\r\nContent-Length: " + b.length + "\r\nConnection: close\r\n\r\n").getBytes("UTF-8"));
@@ -124,11 +162,12 @@ public final class BgSetupServer {
                     got += n;
                 }
             } finally { fo.close(); }
-            boolean mp4 = got == len && hn >= 12 && head[4] == 'f' && head[5] == 't' && head[6] == 'y' && head[7] == 'p';
-            if (!mp4) {
+            String bad = got == len ? check(slot, head, hn) : T.t("Envoi interrompu, réessaie.");
+            if (bad != null) {
                 CustomBg.temp(slot).delete();
-                error = T.t("Ce fichier n'est pas une vidéo MP4.");
-                reply(out, "415 Unsupported Media Type", "text/plain", error);
+                error = bad;
+                app.pochette.tv.core.Journal.w("Fond", bad);
+                reply(out, "415 Unsupported Media Type", "text/plain", bad);
                 return;
             }
             CustomBg.commit(slot);
@@ -161,18 +200,19 @@ public final class BgSetupServer {
          .append("h1{font-size:22px}.s{background:#2a2250;padding:12px;margin:12px 0}button{padding:10px 16px;background:#ff7a5c;color:#200;border:0;font-size:16px;margin-top:8px}")
          .append("button.g{background:#443a78;color:#eee}progress{width:100%}p{line-height:1.45}.k{color:#34d27b}</style></head><body>")
          .append("<h1>Pochette · ").append(esc(T.t("Mes fonds d'écran"))).append("</h1>")
-         .append("<p>").append(esc(T.t("Envoie une vidéo MP4 (H.264, 720p ou 1080p, sans son de préférence, 300 Mo maximum). Elle reste sur la télé et boucle en fond. Utilise seulement des vidéos dont tu as le droit de te servir."))).append("</p>");
+         .append("<p>").append(esc(T.t("Formats : MP4, MOV ou MKV, en H.264 ou H.265 (HEVC). Résolution de 720p à 4K. Taille : 300 Mo maximum. Elle reste sur la télé et boucle en fond. Utilise seulement des vidéos dont tu as le droit de te servir."))).append("</p>");
         for (int i = 0; i < CustomBg.SLOTS; i++) {
             h.append("<div class=\"s\"><b>").append(esc(T.t("Mon fond ") + (i + 1))).append("</b> · ");
             if (CustomBg.has(i)) h.append("<span class=\"k\">").append(esc(T.t("en place"))).append(" (").append(CustomBg.file(i).length() / 1048576).append(" Mo)</span>");
             else h.append(esc(T.t("libre")));
             h.append("<br><input type=\"text\" maxlength=\"24\" id=\"n").append(i).append("\" placeholder=\"").append(esc(T.t("Nom du fond (facultatif)"))).append("\" value=\"").append(esc(CustomBg.name(i))).append("\" style=\"width:100%;box-sizing:border-box;padding:10px;font-size:16px;margin:8px 0\">")
-             .append("<input type=\"file\" accept=\"video/mp4,video/*\" id=\"f").append(i).append("\"><br>")
+             .append("<input type=\"file\" accept=\"video/mp4,video/quicktime,video/x-matroska,.mkv,.mp4,.mov\" id=\"f").append(i).append("\"><br>")
              .append("<button onclick=\"up(").append(i).append(")\">").append(esc(T.t("Envoyer"))).append("</button> ");
             if (CustomBg.has(i)) h.append("<button class=\"g\" onclick=\"ren(").append(i).append(")\">").append(esc(T.t("Renommer"))).append("</button> <button class=\"g\" onclick=\"del(").append(i).append(")\">").append(esc(T.t("Supprimer"))).append("</button>");
             h.append("<progress id=\"p").append(i).append("\" value=\"0\" max=\"1\" style=\"display:none\"></progress><div id=\"m").append(i).append("\"></div></div>");
         }
         h.append("<script>function up(i){var f=document.getElementById('f'+i).files[0];if(!f)return;var p=document.getElementById('p'+i),m=document.getElementById('m'+i);")
+         .append("if(f.size>314572800){m.textContent='").append(T.t("Fichier trop gros (300 Mo maximum).").replace("'", "\\'")).append("';return}")
          .append("p.style.display='block';var x=new XMLHttpRequest();x.open('POST','/up?slot='+i+'&name='+encodeURIComponent(document.getElementById('n'+i).value));")
          .append("x.upload.onprogress=function(e){p.max=e.total;p.value=e.loaded};")
          .append("x.onload=function(){if(x.status==200)location.reload();else m.textContent=x.responseText};")

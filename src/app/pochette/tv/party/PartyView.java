@@ -56,6 +56,8 @@ public final class PartyView extends View {
     private String[] card;                  // current quiz question / taboo card
     private String word = "";               // draw: current word
     private boolean serverOk = true;
+    private String wifiQr = "", wifiName = "";
+    private boolean wifiStep;            // step 1 of the phone games: join the guest Wi-Fi
 
     public PartyView(Context c) {
         super(c);
@@ -66,6 +68,8 @@ public final class PartyView extends View {
     }
 
     public void setHost(Host h) { host = h; }
+    /** QR payload to join the guest network ("" = no Wi-Fi step). Call before start(). */
+    public void setWifi(String qr, String name) { wifiQr = qr == null ? "" : qr; wifiName = name == null ? "" : name; }
     public boolean active() { return getVisibility() == VISIBLE; }
 
     // ------------------------------------------------------------------ flow
@@ -86,6 +90,7 @@ public final class PartyView extends View {
         server = null;
         serverOk = true;
         if (game != QUIZ) { server = new PartyServer(); serverOk = server.start(); }
+        wifiStep = game != QUIZ && wifiQr.length() > 0;
         setVisibility(VISIBLE);
         beginTurn();
         postInvalidateOnAnimation();
@@ -170,6 +175,10 @@ public final class PartyView extends View {
         boolean ok = code == KeyEvent.KEYCODE_DPAD_CENTER || code == KeyEvent.KEYCODE_ENTER || code == KeyEvent.KEYCODE_NUMPAD_ENTER;
         boolean left = code == KeyEvent.KEYCODE_DPAD_LEFT, right = code == KeyEvent.KEYCODE_DPAD_RIGHT, down = code == KeyEvent.KEYCODE_DPAD_DOWN;
         if (phase == P_END) { if (ok) close(); return; }
+        if (game != QUIZ && phase == P_READY && wifiQr.length() > 0) {
+            if (wifiStep) { if (ok || right) wifiStep = false; invalidate(); return; }
+            if (left) { wifiStep = true; invalidate(); return; }
+        }
         if (game == QUIZ) {
             if (phase == P_PLAY && ok) setPhase(P_REVEAL);
             else if (phase == P_PLAY && down) { card = pool[order.get(wi % order.size())].split("\\|"); wi++; setPhase(P_PLAY); }   // skip this question
@@ -309,6 +318,22 @@ public final class PartyView extends View {
 
     private void drawReady(Canvas c, String what) {
         int tc = teamNow();
+        if (wifiStep && serverOk && server != null && server.connected()) wifiStep = false;      // the phone is already here
+        if (wifiStep && wifiQr.length() > 0) {
+            txt(T.t("Étape 1 sur 2"), 90 * s, 110 * s, 30, 0xB0FFFFFF, regular, Paint.Align.LEFT);
+            txt(T.t("Rejoindre le Wi-Fi"), 90 * s, 200 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT);
+            txt(T.t("Scanne ce QR code avec l'appareil photo du téléphone."), 90 * s, 270 * s, 36, 0xFFF2C66B, regular, Paint.Align.LEFT);
+            txt(T.t("Réseau : ") + wifiName, 90 * s, 335 * s, 34, 0xFFFFFFFF, bold, Paint.Align.LEFT);
+            txt(T.t("Déjà connecté ? OK pour passer à l'étape 2"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT);
+            float sz = 620 * s, x0 = W - 90 * s - sz;
+            boolean[][] m = QrCode.encode(wifiQr);
+            int n = m.length;
+            float q = sz / (n + 4);
+            fill.setColor(0xFFFFFFFF); c.drawRect(x0, 300 * s, x0 + sz, 300 * s + sz, fill);
+            fill.setColor(0xFF000000);
+            for (int r = 0; r < n; r++) for (int k = 0; k < n; k++) if (m[r][k]) c.drawRect(x0 + (k + 2) * q, 300 * s + (r + 2) * q, x0 + (k + 3) * q, 300 * s + (r + 3) * q, fill);
+            return;
+        }
         fill.setColor(PartyColors.team(tc)); c.drawRect(90 * s, 220 * s, 100 * s, 560 * s, fill);
         txt(teamName(tc).toUpperCase(T.locale()), 130 * s, 290 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT);
         wrap(what, 130 * s, 330 * s, 900 * s, 38, 0xE0FFFFFF, regular, Layout.Alignment.ALIGN_NORMAL);
@@ -317,6 +342,7 @@ public final class PartyView extends View {
         txt(con ? T.t("Téléphone connecté") : T.t("Scanne ce QR code avec ton téléphone"), 130 * s, 700 * s, 32, con ? 0xFF7CFF8A : 0xFFFFFFFF, medium, Paint.Align.LEFT);
         txt(T.t("(même Wi-Fi que la télé)"), 130 * s, 740 * s, 24, 0x90FFFFFF, regular, Paint.Align.LEFT);
         txt(T.t("OK : démarrer le tour"), 130 * s, 860 * s, 40, 0xFFF2C66B, bold, Paint.Align.LEFT);
+        if (wifiQr.length() > 0) txt(T.t("◀ : QR code du Wi-Fi"), 130 * s, 920 * s, 24, 0x90FFFFFF, regular, Paint.Align.LEFT);
         drawQr(c, W - 90 * s - 560 * s, 260 * s, 560 * s);
         txt(server.url().replace("http://", "").replaceAll("/\\?t=.*", ""), W - 90 * s - 280 * s, 860 * s, 22, 0x90FFFFFF, regular, Paint.Align.CENTER);
     }
