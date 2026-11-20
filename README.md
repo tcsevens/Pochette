@@ -46,7 +46,7 @@ Sources live in `src/app/pochette/tv/`:
 - `sonos/` `SonosClient` (local UPnP/SOAP) and `Poller` (state, queue, ambiances)
 - `spotify/` Web API client and the phone-based setup flow
 - `media/` lyrics (LRCLIB) and artist bio
-- `ui/` `NowPlayingView` (rendering), `MenuOverlay`, drawing helpers (`DiscArt`, `RadioScene`, `Icons`, `Draw`), info/share views, video background
+- `ui/` `NowPlayingView` (rendering), `MenuOverlay`, drawing helpers (`IdleScreen`, `DiscArt`, `RadioScene`, `Icons`, `Draw`), info/share views, video background
 - `theme/` wallpapers: `Themes`, `Scenes*`, `ThemePreview`
 - `party/` games, phone pages and the shared queue server
 - `menu/` menu controllers (ambiances, games, rooms, settings, favorites)

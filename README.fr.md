@@ -100,7 +100,7 @@ Sources dans `src/app/pochette/tv/`:
 - `sonos/` `SonosClient` (UPnP/SOAP local) et `Poller` (état, file d'attente, ambiances)
 - `spotify/` client Web API et configuration depuis le téléphone
 - `media/` paroles (LRCLIB) et bio de l'artiste
-- `ui/` `NowPlayingView` (affichage), `MenuOverlay`, aides de dessin (`DiscArt`, `RadioScene`, `Icons`, `Draw`), vues info/partage, fond vidéo
+- `ui/` `NowPlayingView` (affichage), `MenuOverlay`, aides de dessin (`IdleScreen`, `DiscArt`, `RadioScene`, `Icons`, `Draw`), vues info/partage, fond vidéo
 - `theme/` fonds d'écran : `Themes`, `Scenes*`, `ThemePreview`
 - `party/` jeux, pages téléphone et serveur de file partagée
 - `menu/` contrôleurs de menu (ambiances, jeux, pièces, réglages, favoris)
