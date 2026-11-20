@@ -56,6 +56,13 @@ public final class GamesMenu {
     /** True while the grid is shown. */
     public boolean grid() { return gameSel < 0; }
 
+    /** Name of the chosen game for the panel title, null on the grid. */
+    public String title() {
+        if (gameSel < 0) return null;
+        String[] n = {"Blind test", T.t("Chaise musicale"), T.t("N'oubliez pas les paroles"), "", "Quiz", T.t("Devine-moi !"), T.t("Dessine-moi !")};
+        return gameSel < n.length && n[gameSel].length() > 0 ? n[gameSel] : null;
+    }
+
     public void pick(int index) {
         if (index >= Game.PIXEL_SLOT) index++;   // the hidden slot is skipped in the grid: position -> game number
         if (index == 7) { openShare(); return; }

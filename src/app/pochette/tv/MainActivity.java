@@ -368,6 +368,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public void cardLaunch(int index) { amb.cardLaunch(index); }
     @Override public void cardEdit(int index) { amb.cardEdit(index); }
     @Override public boolean gameGrid() { return games.grid(); }
+    @Override public String gameTitle() { return games.title(); }
     @Override public List<MenuOverlay.Card> gameCards() { return games.cards(); }
     @Override public void gamePick(int index) { games.pick(index); }
 

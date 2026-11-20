@@ -101,6 +101,8 @@ public class MenuOverlay extends View {
         List<Card> cards();
         List<Card> gameCards();
         boolean gameGrid();
+        /** Name of the game being set up, or null. */
+        String gameTitle();
         void gamePick(int index);
         void cardLaunch(int index);
         void cardEdit(int index);
@@ -681,7 +683,8 @@ public class MenuOverlay extends View {
 
         resetTp();
         tp.setTypeface(bold); tp.setTextSize(28f * s); tp.setColor(0xFFFFFFFF);
-        c.drawText(T.t(SEC_NAMES[railIdx]), px + pad, 56f * s + 26f * s, tp);
+        String gt = railIdx == SEC_GAMES ? host.gameTitle() : null;
+        c.drawText(gt != null ? gt : T.t(SEC_NAMES[railIdx]), px + pad, 56f * s + 26f * s, tp);
 
         c.save();
         c.clipRect(px, top - 8f * s, px + pw, bottom + 8f * s);
