@@ -14,7 +14,7 @@ import java.util.List;
 /** The Ambiances section: the cards, the editor of one ambiance and the playlist picker. */
 public final class AmbianceMenu {
     private static final String[] VOL_NAMES = {"Inchangé", "10 %", "15 %", "20 %", "25 %", "30 %", "35 %", "40 %", "50 %"};
-    private static final String[] DISP_NAMES = {"Inchangé", "Classique", "Vinyle", "Paroles"};
+    private static final String[] DISP_NAMES = {"Inchangé", "Classique", "Vinyle", "Paroles", "Fond d'écran"};
     private static final int[] VOL_VALUES = {-1, 10, 15, 20, 25, 30, 35, 40, 50};
     private static final String[] SLEEP_NAMES = {"Non", "30 min", "1 h", "2 h"};
     private static final int[] SLEEP_VALUES = {0, 30, 60, 120};
