@@ -61,6 +61,13 @@ final class Icons {
             case Ambiance.T_XMAS:
                 p.moveTo(12, 2.5f); p.lineTo(18, 11); p.lineTo(6, 11); p.close(); p.moveTo(12, 8); p.lineTo(20, 19); p.lineTo(4, 19); p.close(); p.moveTo(12, 19); p.lineTo(12, 22.5f);
                 break;
+            case Ambiance.T_AUTUMN:
+                p.moveTo(12, 3); p.lineTo(15, 8); p.lineTo(20, 8); p.lineTo(16.5f, 12); p.lineTo(19, 17); p.lineTo(13, 15.5f); p.lineTo(12, 21); p.lineTo(11, 15.5f); p.lineTo(5, 17); p.lineTo(7.5f, 12); p.lineTo(4, 8); p.lineTo(9, 8); p.close();
+                break;
+            case Ambiance.T_HALLOWEEN:
+                irf.set(4, 6, 20, 22); c.drawOval(irf, stroke);
+                p.moveTo(12, 6); p.lineTo(12, 3); p.moveTo(8.5f, 12); p.lineTo(10.5f, 12); p.moveTo(13.5f, 12); p.lineTo(15.5f, 12); p.moveTo(8.5f, 17); p.lineTo(12, 18.5f); p.lineTo(15.5f, 17);
+                break;
             case Ambiance.T_SNOW:
                 p.moveTo(12, 2); p.lineTo(12, 22); p.moveTo(3.3f, 7); p.lineTo(20.7f, 17); p.moveTo(3.3f, 17); p.lineTo(20.7f, 7);
                 p.moveTo(9.5f, 3.5f); p.lineTo(12, 6); p.lineTo(14.5f, 3.5f); p.moveTo(9.5f, 20.5f); p.lineTo(12, 18); p.lineTo(14.5f, 20.5f);

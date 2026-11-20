@@ -27,6 +27,8 @@ public final class Themes {
             case Ambiance.T_SOUL: n = "vid_jazz"; break;
             case Ambiance.T_RAIN: n = "vid_pluie"; break;
             case Ambiance.T_XMAS: n = "vid_noel"; break;
+            case Ambiance.T_AUTUMN: n = "vid_automne"; break;
+            case Ambiance.T_HALLOWEEN: n = "vid_halloween"; break;
             default: return null;
         }
         return missing.contains(n) ? null : n;   // a build without the clips falls back to a plain gradient
@@ -36,7 +38,7 @@ public final class Themes {
 
     /** Notes which bundled clips are absent (the source repository does not ship them). */
     public static void probe(android.content.Context c) {
-        for (String n : new String[]{"vid_chalet", "vid_coin_du_feu", "vid_jazz", "vid_pluie", "vid_noel"})
+        for (String n : new String[]{"vid_chalet", "vid_coin_du_feu", "vid_jazz", "vid_pluie", "vid_noel", "vid_automne", "vid_halloween"})
             if (c.getResources().getIdentifier(n, "raw", c.getPackageName()) == 0) missing.add(n);
     }
 
@@ -65,6 +67,8 @@ public final class Themes {
             case Ambiance.T_PLANET: return 0xFFFFE9A8;
             case Ambiance.T_PARTY: return 0xFFFF7AC8;
             case Ambiance.T_XMAS: return 0xFFFFD27A;
+            case Ambiance.T_AUTUMN: return 0xFFF0A04B;
+            case Ambiance.T_HALLOWEEN: return 0xFFFF8A1F;
             default: return fallback;
         }
     }
@@ -82,6 +86,8 @@ public final class Themes {
             case Ambiance.T_PLANET: return new int[]{0xFF1B2A6B, 0xFF080C26};
             case Ambiance.T_PARTY: return new int[]{0xFF6A1FA8, 0xFF1A0B3A};
             case Ambiance.T_XMAS: return new int[]{0xFF8A2A1E, 0xFF14261D};
+            case Ambiance.T_AUTUMN: return new int[]{0xFFC4651C, 0xFF2A140A};
+            case Ambiance.T_HALLOWEEN: return new int[]{0xFF5A2A7A, 0xFF120A1C};
             case Ambiance.T_RECORD: return new int[]{0xFF6B3A1F, 0xFF1A0F0A};
             default: return new int[]{0xFF3A3340, 0xFF1C1820};
         }

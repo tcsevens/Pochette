@@ -18,6 +18,8 @@ Thanks to their authors for the beautiful footage. The videos come from Pixabay 
 | Bar jazz | `vid_jazz.mp4` | Pixabay | [BackgroundsCHAIR](https://pixabay.com/fr/users/backgroundschair-41858752/) |
 | Pluie | `vid_pluie.mp4` | Pixabay | [JusticeTran](https://pixabay.com/fr/users/justicetran-45453295/) |
 | Noël | `vid_noel.mp4` | Pixabay | [Monk_Vadim](https://pixabay.com/fr/users/monk_vadim-23253177/) |
+| Automne | `vid_automne.mp4` | Pixabay | [Joe_hackney](https://pixabay.com/users/joe_hackney-15024843/) |
+| Halloween | `vid_halloween.mp4` | Pixabay | [victorsteep](https://pixabay.com/users/victorsteep-9526460/) |
 
 If you fork this project, replace the videos with your own or keep these credits. The app also works without them
 (the ambiances then show a plain gradient).
