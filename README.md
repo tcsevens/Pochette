@@ -53,7 +53,7 @@ Sources live in `src/app/pochette/tv/`:
 - `MainActivity` wires everything and routes remote-control keys
 
 ## Not affiliated
-Independent project, not affiliated with Sonos or Spotify. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Built with the help of Claude (Anthropic).
+Independent project, not affiliated with Sonos or Spotify. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Developed with the Claude AI.
 
 ## Credits
 Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney and BackgroundsCHAIR (links in `NOTICE.md`).

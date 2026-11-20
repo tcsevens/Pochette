@@ -432,6 +432,6 @@ public final class T {
         add("Vie privée : Pochette parle à tes enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles (lrclib.net) et les résumés (Wikipédia, CC BY-SA) sont cherchés en ligne, et Spotify si tu l'actives.", "Privacy: Pochette talks to your speakers on your local network, with no account and no cloud. Only lyrics (lrclib.net) and summaries (Wikipedia, CC BY-SA) are fetched online, plus Spotify if you turn it on.", "Privacidad: Pochette habla con tus altavoces en tu red local, sin cuenta ni nube. Solo se buscan en línea las letras (lrclib.net) y los resúmenes (Wikipedia, CC BY-SA), y Spotify si lo activas.");
         add("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR.", "Ambiance videos on Pixabay, thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney and BackgroundsCHAIR.", "Vídeos de ambiente en Pixabay, gracias a sus autores: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney y BackgroundsCHAIR.");
         add("Sonos et Spotify sont des marques de leurs propriétaires.", "Sonos and Spotify are trademarks of their respective owners.", "Sonos y Spotify son marcas de sus respectivos propietarios.");
-        add("Développé avec l'aide de Claude, l'assistant d'Anthropic.", "Built with the help of Claude, Anthropic's assistant.", "Desarrollado con la ayuda de Claude, el asistente de Anthropic.");
+        add("Développé avec l'IA Claude.", "Developed with the Claude AI.", "Desarrollado con la IA Claude.");
     }
 }

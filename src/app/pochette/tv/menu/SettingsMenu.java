@@ -123,7 +123,7 @@ public final class SettingsMenu {
                 out.add(MenuOverlay.Row.text(T.t("Vie privée : Pochette parle à tes enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles (lrclib.net) et les résumés (Wikipédia, CC BY-SA) sont cherchés en ligne, et Spotify si tu l'actives.")));
                 out.add(MenuOverlay.Row.text(T.t("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR.")));
                 out.add(MenuOverlay.Row.text(T.t("Sonos et Spotify sont des marques de leurs propriétaires.")));
-                out.add(MenuOverlay.Row.text(T.t("Développé avec l'aide de Claude, l'assistant d'Anthropic.")));
+                out.add(MenuOverlay.Row.text(T.t("Développé avec l'IA Claude.")));
                 break;
         }
         return out;
