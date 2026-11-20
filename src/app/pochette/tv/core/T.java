@@ -248,6 +248,10 @@ public final class T {
         add("OK : révéler les paroles", "OK: reveal the lyrics", "OK: revelar la letra");
         add("Les paroles étaient…", "The lyrics were…", "La letra era…");
         add("Oups", "Oops", "Vaya");
+        add("Classement final", "Final ranking", "Clasificación final");
+        add("Vainqueur", "Winner", "Ganador");
+        add("Vainqueurs", "Winners", "Ganadores");
+        add("VAINQUEUR", "WINNER", "GANADOR");
         add("PODIUM", "PODIUM", "PODIO");
         add("STOP !", "STOP!", "¡STOP!");
         add("Asseyez-vous", "Sit down", "¡Sentaos!");

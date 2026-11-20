@@ -337,23 +337,53 @@ public final class GameView extends View {
         }
     }
 
+    private static int mix(int c, int to, float f) {
+        int r = (int) (((c >> 16) & 255) * (1 - f) + ((to >> 16) & 255) * f), g = (int) (((c >> 8) & 255) * (1 - f) + ((to >> 8) & 255) * f), b = (int) ((c & 255) * (1 - f) + (to & 255) * f);
+        return 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+
     private void drawPodium(Canvas c, float W, float H, float s) {
-        text(c, T.t("PODIUM"), W / 2f, 96f * s, 30f * s, GOLD, medium, Paint.Align.CENTER, 0);
         int[] rank = game.ranking();
+        int top = rank.length > 0 ? game.scores[rank[0]] : 0;
+        int winners = 0;
+        if (top > 0) for (int i = 0; i < rank.length; i++) if (game.scores[rank[i]] == top) winners++;
+        boolean flash = (android.os.SystemClock.uptimeMillis() / 350) % 2 == 0;
+        String title = T.t("Classement final");
+        if (winners > 0) {
+            StringBuilder sb = new StringBuilder(T.t(winners > 1 ? T.t("Vainqueurs") : T.t("Vainqueur"))).append(" : ");
+            for (int i = 0; i < winners; i++) { if (i > 0) sb.append(" · "); sb.append(T.t(Game.TEAM_NAMES[rank[i]])); }
+            title = sb.toString();
+        }
+        text(c, title, W / 2f, 96f * s, 34f * s, GOLD, medium, Paint.Align.CENTER, W * 0.9f);
         float colW = 190f * s, gap = 16f * s;
         int[] order = {1, 0, 2};      // 2nd, 1st, 3rd from left to right
-        float baseY = H * 0.74f;
-        float[] heights = {0.50f, 0.36f, 0.26f};
+        float baseY = H * 0.68f;
+        float[] heights = {0.44f, 0.32f, 0.22f};
+        int[] medal = {0xFFF2C230, 0xFFC8CED8, 0xFFD08A4E};
         for (int k = 0; k < 3; k++) {
             int pos = order[k];
             if (pos >= rank.length) continue;
             int team = rank[pos];
+            boolean win = winners > 0 && game.scores[team] == top;
             float x = W / 2f + (k - 1) * (colW + gap) - colW / 2f;
             float h = H * heights[pos];
-            rect(c, x, baseY - h, x + colW, baseY, Game.TEAM_COLORS[team]);
-            text(c, String.valueOf(pos + 1), x + colW / 2f, baseY - h + 70f * s, 60f * s, 0xFFFFFFFF, bold, Paint.Align.CENTER, 0);
-            text(c, T.t(Game.TEAM_NAMES[team]), x + colW / 2f, baseY - h + 110f * s, 24f * s, 0xFFFFFFFF, medium, Paint.Align.CENTER, colW - 16f * s);
-            text(c, game.scores[team] + (game.scores[team] > 1 ? T.t(" points") : T.t(" point")), x + colW / 2f, baseY - h + 140f * s, 21f * s, 0xFFFFFFFF, regular, Paint.Align.CENTER, 0);
+            int col = Game.TEAM_COLORS[team];
+            rect(c, x, baseY - h, x + colW, baseY, win && flash ? mix(col, 0xFFFFFFFF, 0.35f) : col);
+            if (win) {
+                float t = 7f * s;
+                int fc = flash ? 0xFFFFD84A : 0xFFFFFFFF;
+                rect(c, x - t, baseY - h - t, x + colW + t, baseY - h, fc);
+                rect(c, x - t, baseY, x + colW + t, baseY + t, fc);
+                rect(c, x - t, baseY - h, x, baseY, fc);
+                rect(c, x + colW, baseY - h, x + colW + t, baseY, fc);
+                text(c, T.t("VAINQUEUR"), x + colW / 2f, baseY - h - 22f * s, 26f * s, flash ? 0xFFFFD84A : 0xFFFFFFFF, bold, Paint.Align.CENTER, colW + 40f * s);
+            }
+            fill.setColor(medal[Math.min(pos, 2)]);
+            c.drawCircle(x + colW / 2f, baseY - h + 52f * s, 34f * s, fill);
+            text(c, String.valueOf(pos + 1), x + colW / 2f, baseY - h + 52f * s + 13f * s, 38f * s, 0xFF3A2A00, bold, Paint.Align.CENTER, 0);
+            text(c, T.t(Game.TEAM_NAMES[team]), x + colW / 2f, baseY - h + 116f * s, 28f * s, 0xFFFFFFFF, medium, Paint.Align.CENTER, colW - 16f * s);
+            text(c, String.valueOf(game.scores[team]), x + colW / 2f, baseY + 78f * s, 64f * s, 0xFFFFFFFF, bold, Paint.Align.CENTER, 0);
+            text(c, (game.scores[team] > 1 ? T.t(" points") : T.t(" point")).trim(), x + colW / 2f, baseY + 112f * s, 24f * s, LABEL, regular, Paint.Align.CENTER, 0);
         }
         if (rank.length > 3) {
             StringBuilder sb = new StringBuilder();
@@ -361,8 +391,9 @@ public final class GameView extends View {
                 if (sb.length() > 0) sb.append("   ·   ");
                 sb.append(i + 1).append(". ").append(T.t(Game.TEAM_NAMES[rank[i]])).append(' ').append(game.scores[rank[i]]);
             }
-            text(c, sb.toString(), W / 2f, baseY + 44f * s, 22f * s, 0xAAFFFFFF, regular, Paint.Align.CENTER, W * 0.85f);
+            text(c, sb.toString(), W / 2f, baseY + 170f * s, 24f * s, 0xAAFFFFFF, regular, Paint.Align.CENTER, W * 0.85f);
         }
-        text(c, T.t("OK ou Retour pour fermer"), W / 2f, H * 0.93f, 20f * s, LABEL, regular, Paint.Align.CENTER, 0);
+        text(c, T.t("OK ou Retour pour fermer"), W / 2f, H * 0.95f, 20f * s, LABEL, regular, Paint.Align.CENTER, 0);
+        if (winners > 0) postInvalidateOnAnimation();
     }
 }
