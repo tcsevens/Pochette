@@ -286,7 +286,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
             // Menu closed: ▲ ▼ change the display style, ◀ ▶ held = rewind / fast-forward, short = show controls.
             if (code == KeyEvent.KEYCODE_DPAD_UP || code == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (e.getRepeatCount() == 0) {
-                    view.setMode(view.getMode() + (code == KeyEvent.KEYCODE_DPAD_DOWN ? 1 : -1));
+                    int n = view.modeCount();
+                    view.setMode((view.getMode() + (code == KeyEvent.KEYCODE_DPAD_DOWN ? 1 : n - 1)) % n);
                     prefs.mode(view.getMode());
                     view.showToast(T.t("Affichage : ") + T.t(NowPlayingView.MODE_NAMES[view.getMode()]));
                 }

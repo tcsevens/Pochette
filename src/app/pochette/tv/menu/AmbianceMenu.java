@@ -138,7 +138,7 @@ public final class AmbianceMenu {
         out.add(MenuOverlay.Row.chips("avol", a.ramp ? T.t("Volume à atteindre") : T.t("Volume de départ"), VOL_NAMES, Choices.indexOf(VOL_VALUES, a.volume)));
         out.add(MenuOverlay.Row.toggle("aramp", T.t("Volume qui monte doucement (3 min)"), a.ramp));
         out.add(MenuOverlay.Row.chips("atheme", T.t("Écran"), Ambiance.shownNames(), Ambiance.toIndex(a.theme)));
-        out.add(MenuOverlay.Row.chips("adisp", T.t("Affichage"), DISP_NAMES, a.display + 1));
+        out.add(MenuOverlay.Row.chips("adisp", T.t("Affichage"), a.theme == Ambiance.T_NORMAL ? java.util.Arrays.copyOf(DISP_NAMES, DISP_NAMES.length - 1) : DISP_NAMES, Math.min(a.display + 1, a.theme == Ambiance.T_NORMAL ? DISP_NAMES.length - 2 : DISP_NAMES.length - 1)));
         out.add(MenuOverlay.Row.chips("asleep", T.t("Arrêt automatique"), SLEEP_NAMES, Choices.indexOf(SLEEP_VALUES, a.sleepMin)));
         if (!a.preset) out.add(MenuOverlay.Row.action("adelete", T.t("Supprimer cette ambiance")));
         return out;
@@ -188,6 +188,7 @@ public final class AmbianceMenu {
         else if ("atheme".equals(id)) {
             index = Ambiance.fromIndex(index);
             a.theme = index;
+            if (index == Ambiance.T_NORMAL && a.display == NowPlayingView.MODE_BARE) a.display = -1;      // no wallpaper, nothing to show alone
             if (index == Ambiance.T_PARTY && a.volume < 0) {          // a party starts with some energy: louder, shuffled, no sleep timer
                 a.volume = 40; a.shuffle = true; a.sleepMin = 0;
                 menu.ambChanged();

@@ -128,8 +128,19 @@ public class NowPlayingView extends View {
 
     // ================================================================ public API
 
+    private int wantMode;
+
+    /** Display styles on offer: the wallpaper-only style needs a wallpaper, so the plain screen has three. */
+    public int modeCount() { return theme == Ambiance.T_NORMAL ? MODE_NAMES.length - 1 : MODE_NAMES.length; }
+
     public void setMode(int m) {
-        mode = ((m % MODE_NAMES.length) + MODE_NAMES.length) % MODE_NAMES.length;
+        int n = MODE_NAMES.length;
+        wantMode = ((m % n) + n) % n;
+        applyMode();
+    }
+
+    private void applyMode() {
+        mode = wantMode == MODE_BARE && theme == Ambiance.T_NORMAL ? MODE_CLASSIC : wantMode;
         cur.layoutKey = null;
         if (mode == MODE_LYRICS) maybeFetchLyrics(cur);
         invalidate();
@@ -153,6 +164,7 @@ public class NowPlayingView extends View {
     /** Ambiance screen (Ambiance.T_*); name is shown in the small label above the title. */
     public void setTheme(int t, String name) {
         theme = t < 0 || t >= Ambiance.THEME_NAMES.length ? 0 : Ambiance.valid(t);
+        if (wantMode == MODE_BARE) applyMode();
         themeName = name == null ? "" : name;
         cur.layoutKey = null;
         cur.lyrLayouts = null;
