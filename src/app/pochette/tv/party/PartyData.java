@@ -322,7 +322,8 @@ final class PartyData {
         if (OPEN[l] != null) return OPEN[l];
         java.util.List<String> o = new java.util.ArrayList<String>();
         try {
-            int id = appCtx == null ? 0 : appCtx.getResources().getIdentifier(l == 0 ? "quiz_open_fr" : "quiz_open_en", "raw", appCtx.getPackageName());
+            int id = appCtx == null ? 0 : appCtx.getResources().getIdentifier(l == 0 ? "quiz_open_fr" : l == 2 ? "quiz_open_es" : "quiz_open_en", "raw", appCtx.getPackageName());
+            if (id == 0 && l == 2) id = appCtx.getResources().getIdentifier("quiz_open_en", "raw", appCtx.getPackageName());
             if (id != 0) {
                 java.io.BufferedReader r = new java.io.BufferedReader(new java.io.InputStreamReader(appCtx.getResources().openRawResource(id), "UTF-8"));
                 String s;

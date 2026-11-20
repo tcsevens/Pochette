@@ -1,470 +1,468 @@
 # Open Trivia DB (https://opentdb.com), Creative Commons Attribution-ShareAlike 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
 # Selected, translated into French and adapted for Pochette. These questions stay under CC BY-SA 4.0.
-Virgin Trains, Virgin Atlantic et Virgin Racing appartiennent à quel célèbre entrepreneur ?|Donald Trump|Alan Sugar|Bill Gates|Richard Branson|3
-Quel pays a conçu le fusil d'assaut AK-47 ?|La Pologne|Israël|L'Union soviétique|L'Iran|2
-Comment les marins appellent-ils l'arrière d'un bateau ?|La proue|Bâbord|Tribord|La poupe|3
-De quel pays européen vient le fromage gouda ?|La Belgique|L'Allemagne|Les Pays-Bas|La France|2
+Virgin Trains, Virgin Atlantic et Virgin Racing appartiennent à quel célèbre entrepreneur ?|Alan Sugar|Bill Gates|Donald Trump|Richard Branson|3
+Quel pays a conçu le fusil d'assaut AK-47 ?|Israël|La Pologne|L'Union soviétique|L'Iran|2
+Comment les marins appellent-ils l'arrière d'un bateau ?|Bâbord|Tribord|La poupe|La proue|2
+De quel pays européen vient le fromage gouda ?|La France|Les Pays-Bas|L'Allemagne|La Belgique|1
 De quel pays est originaire la légende de Robin des Bois ?|La France|Le Portugal|L'Écosse|L'Angleterre|3
-Combien d'étoiles compte le drapeau de l'Union européenne ?|10|16|14|12|3
-Quel est le symbole du signe du zodiaque des Gémeaux ?|La balance|Les poissons|Les jumeaux|La vierge|2
-Selon la Genèse, en combien de jours Dieu a-t-il créé le monde ?|Sept|Douze|Six|Un|2
-Que signifie « VR » ?|Réalité virtuelle|Reconnaissance visuelle|Très réel|Reconnaissance vocale|0
-Quel mot représente la lettre « T » dans l'alphabet phonétique de l'OTAN ?|Taxi|Turkey|Tango|Target|2
-Quel élément chimique, numéro 11 du tableau périodique, a pour symbole Na ?|Le plomb|Le carbone|L'azote|Le sodium|3
-Qui est l'auteur de Jurassic Park ?|Irvine Welsh|Chuck Palahniuk|Peter Benchley|Michael Crichton|3
-Quel est le premier livre de l'Ancien Testament ?|Les Nombres|L'Exode|La Genèse|Le Lévitique|2
-Lequel des trois astronautes d'Apollo 11 n'a PAS marché sur la Lune ?|Neil Armstrong|Aucun d'eux|Buzz Aldrin|Michael Collins|3
-Quel fruit entre traditionnellement dans la forêt-noire ?|Les cerises|Les abricots|Les pommes|Les raisins secs|0
-En quoi sont faits les chapeaux Panama ?|En lin|En paille|En chanvre|En soie|1
-Quel signe du zodiaque est représenté par une balance ?|Le Bélier|Le Sagittaire|Le Capricorne|La Balance|3
-Dans quel pays la société Hyundai a-t-elle été fondée ?|En Russie|En Chine|En Corée du Sud|Au Japon|2
-Quel organe du corps produit la bile ?|L'estomac|Le pancréas|La vésicule biliaire|Le foie|3
-Quel est le surnom de l'État américain de Californie ?|The Golden State (l'État doré)|The Sunshine State|The Bay State|The Treasure State|0
-Quelle est la plus grande espèce de manchot vivante ?|Le manchot empereur|Le manchot papou|Le manchot de Humboldt|Le manchot royal|0
-Quelles noix entrent dans la fabrication du massepain ?|Les amandes|Les pistaches|Les noix|Les cacahuètes|0
-Quelle langue est la plus parlée en Suisse ?|Le français|Le romanche|L'italien|L'allemand|3
-Laquelle de ces couleurs n'est PAS présente dans le logo de Google ?|Le bleu|Le vert|Le rose|Le jaune|2
-Comment appelle-t-on familièrement la pièce canadienne de 1 $ ?|L'orignal|Le huard (loonie)|Le castor|Le caribou|1
-Le foie gras est une spécialité française faite à partir de quel organe du canard ou de l'oie ?|Le cœur|Les intestins|Le foie|L'estomac|2
-Quel pays, hors Japon, compte le plus de personnes d'origine japonaise ?|Les États-Unis|La Corée du Sud|La Chine|Le Brésil|3
-Quel est le nom du télescope spatial le plus célèbre de la NASA ?|Big Eye|Le Faucon Millenium|Hubble|L'Étoile noire|2
-Quelle technologie porte le nom d'un roi du Danemark et de Norvège du Xe siècle ?|Internet|Wi-Fi|Bluetooth|GPS|2
-Quel alcool est fabriqué à partir de mélasse ?|Le rhum|Le gin|La vodka|Le whisky|0
-Quel est le plus grand organe du corps humain ?|Le gros intestin|La peau|Le foie|Le cœur|1
-Quelle est la forme du jouet inventé par le professeur hongrois Ernő Rubik ?|Un cube|Une pyramide|Un cylindre|Une sphère|0
-Quelle planète n'est pas nommée d'après un dieu grec ou romain ?|La Terre|Jupiter|Mars|Mercure|0
-Sur quoi marche un funambule ?|Du verre brisé|La Lune|Un fil tendu|Des ballons|2
-Dans « Shrek », quel acteur comique double l'Âne dans la version originale ?|Chris Rock|Richard Pryor|Eddie Murphy|Bernie Mac|2
-Lequel de ces pays n'a PAS participé à la Première Guerre mondiale ?|Le Portugal|La Grèce|La Roumanie|Le Danemark|3
-Que signifie « RAM » (mémoire vive) ?|Random Assist Memory|Random Access Memory|Rand Assist Mandate|Real Access Memory|1
-Quelle entreprise possède Outlook ?|Microsoft|Apple|Google|Yahoo|0
-Lequel de ces présidents ne figure pas sur le mont Rushmore ?|Theodore Roosevelt|John F. Kennedy|Thomas Jefferson|Abraham Lincoln|1
-Quelle est la langue officielle du Brésil ?|L'anglais|Le brésilien|L'espagnol|Le portugais|3
-Quel élément a pour symbole chimique Kr ?|Le curium|Le kérosène|Le krypton|Le cinétium|2
-Dans quelle ville sud-américaine est né le cartel de Pablo Escobar ?|Quito|Bogotá|Medellín|Cali|2
-Quelle chaîne de restaurants a un clown pour mascotte ?|Sonic|Whataburger|Burger King|McDonald's|3
-Dans quel État américain se trouve la Zone 51 ?|L'Utah|Le Nevada|Le Nouveau-Mexique|L'Arizona|1
-Qui est l'auteur de la citation « Ce qui ne me tue pas me rend plus fort » ?|G. Gordon Liddy|Friedrich Nietzsche|Christopher Hitchens|Kelly Clarkson|1
-Qui est considéré comme le « père de la philosophie moderne » ?|Albert Einstein|René Descartes|Antoine Lavoisier|Platon|1
-Le Coran est le livre saint de quelle religion ?|Le rastafarisme|Le christianisme|Le judaïsme|L'islam|3
+Combien d'étoiles compte le drapeau de l'Union européenne ?|10|12|14|16|1
+Quel est le symbole du signe du zodiaque des Gémeaux ?|La vierge|La balance|Les jumeaux|Les poissons|2
+Selon la Genèse, en combien de jours Dieu a-t-il créé le monde ?|Douze|Sept|Un|Six|3
+Que signifie « VR » ?|Reconnaissance visuelle|Réalité virtuelle|Reconnaissance vocale|Très réel|1
+Quel mot représente la lettre « T » dans l'alphabet phonétique de l'OTAN ?|Tango|Taxi|Turkey|Target|0
+Quel élément chimique, numéro 11 du tableau périodique, a pour symbole Na ?|Le sodium|L'azote|Le plomb|Le carbone|0
+Qui est l'auteur de Jurassic Park ?|Peter Benchley|Chuck Palahniuk|Irvine Welsh|Michael Crichton|3
+Quel est le premier livre de l'Ancien Testament ?|La Genèse|Les Nombres|Le Lévitique|L'Exode|0
+Lequel des trois astronautes d'Apollo 11 n'a PAS marché sur la Lune ?|Aucun d'eux|Buzz Aldrin|Neil Armstrong|Michael Collins|3
+Quel fruit entre traditionnellement dans la forêt-noire ?|Les abricots|Les pommes|Les raisins secs|Les cerises|3
+En quoi sont faits les chapeaux Panama ?|En paille|En soie|En lin|En chanvre|0
+Quel signe du zodiaque est représenté par une balance ?|La Balance|Le Capricorne|Le Sagittaire|Le Bélier|0
+Dans quel pays la société Hyundai a-t-elle été fondée ?|Au Japon|En Russie|En Corée du Sud|En Chine|2
+Quel organe du corps produit la bile ?|La vésicule biliaire|L'estomac|Le pancréas|Le foie|3
+Quel est le surnom de l'État américain de Californie ?|The Treasure State|The Sunshine State|The Bay State|The Golden State (l'État doré)|3
+Quelle est la plus grande espèce de manchot vivante ?|Le manchot royal|Le manchot empereur|Le manchot de Humboldt|Le manchot papou|1
+Quelles noix entrent dans la fabrication du massepain ?|Les amandes|Les noix|Les pistaches|Les cacahuètes|0
+Quelle langue est la plus parlée en Suisse ?|L'italien|Le français|Le romanche|L'allemand|3
+Laquelle de ces couleurs n'est PAS présente dans le logo de Google ?|Le bleu|Le jaune|Le vert|Le rose|3
+Comment appelle-t-on familièrement la pièce canadienne de 1 $ ?|Le huard (loonie)|L'orignal|Le caribou|Le castor|0
+Le foie gras est une spécialité française faite à partir de quel organe du canard ou de l'oie ?|Les intestins|Le foie|Le cœur|L'estomac|1
+Quel pays, hors Japon, compte le plus de personnes d'origine japonaise ?|La Chine|La Corée du Sud|Les États-Unis|Le Brésil|3
+Quel est le nom du télescope spatial le plus célèbre de la NASA ?|Big Eye|L'Étoile noire|Hubble|Le Faucon Millenium|2
+Quelle technologie porte le nom d'un roi du Danemark et de Norvège du Xe siècle ?|Internet|Bluetooth|GPS|Wi-Fi|1
+Quel alcool est fabriqué à partir de mélasse ?|La vodka|Le gin|Le whisky|Le rhum|3
+Quel est le plus grand organe du corps humain ?|Le gros intestin|Le cœur|Le foie|La peau|3
+Quelle est la forme du jouet inventé par le professeur hongrois Ernő Rubik ?|Une pyramide|Un cube|Un cylindre|Une sphère|1
+Quelle planète n'est pas nommée d'après un dieu grec ou romain ?|Mercure|La Terre|Jupiter|Mars|1
+Sur quoi marche un funambule ?|Un fil tendu|Des ballons|Du verre brisé|La Lune|0
+Dans « Shrek », quel acteur comique double l'Âne dans la version originale ?|Bernie Mac|Chris Rock|Richard Pryor|Eddie Murphy|3
+Lequel de ces pays n'a PAS participé à la Première Guerre mondiale ?|Le Danemark|Le Portugal|La Roumanie|La Grèce|0
+Que signifie « RAM » (mémoire vive) ?|Rand Assist Mandate|Random Assist Memory|Real Access Memory|Random Access Memory|3
+Quelle entreprise possède Outlook ?|Apple|Yahoo|Microsoft|Google|2
+Lequel de ces présidents ne figure pas sur le mont Rushmore ?|John F. Kennedy|Abraham Lincoln|Thomas Jefferson|Theodore Roosevelt|0
+Quelle est la langue officielle du Brésil ?|L'espagnol|Le brésilien|L'anglais|Le portugais|3
+Quel élément a pour symbole chimique Kr ?|Le krypton|Le curium|Le kérosène|Le cinétium|0
+Dans quelle ville sud-américaine est né le cartel de Pablo Escobar ?|Bogotá|Medellín|Quito|Cali|1
+Quelle chaîne de restaurants a un clown pour mascotte ?|Sonic|McDonald's|Burger King|Whataburger|1
+Dans quel État américain se trouve la Zone 51 ?|L'Arizona|L'Utah|Le Nevada|Le Nouveau-Mexique|2
+Qui est l'auteur de la citation « Ce qui ne me tue pas me rend plus fort » ?|Kelly Clarkson|Christopher Hitchens|Friedrich Nietzsche|G. Gordon Liddy|2
+Qui est considéré comme le « père de la philosophie moderne » ?|Antoine Lavoisier|Platon|Albert Einstein|René Descartes|3
+Le Coran est le livre saint de quelle religion ?|Le rastafarisme|Le judaïsme|Le christianisme|L'islam|3
 Dans quel pays se trouve la gare au nom interminable de « Llanfairpwllgwyngyll… » ?|En Moldavie|En Tchéquie|Au pays de Galles|Au Danemark|2
-Combien y a-t-il de cartes dans un jeu standard ?|64|52|32|40|1
-Quel canal relie la mer Méditerranée à la mer Rouge ?|Le canal de Panama|Le canal du Sinaï|Le canal du Karakoum|Le canal de Suez|3
-Quelle forme géométrique est utilisée pour les panneaux stop ?|Un triangle|Un hexagone|Un cercle|Un octogone|3
-Dans Half-Life, comment s'appelle l'alien qui s'accroche à la tête ?|Le bullsquid|Le facehugger|Le vortigaunt|Le headcrab|3
-Qui joue le général Aladeen dans « Le Dictateur » ?|Sacha Baron Cohen|Leonardo DiCaprio|James Franco|Johnny Depp|0
-Quel pays a eu des Premiers ministres nommés Eden, Major, Peel, Law, Brown et Heath ?|Le Royaume-Uni|La Nouvelle-Zélande|Le Canada|L'Australie|0
+Combien y a-t-il de cartes dans un jeu standard ?|52|64|32|40|0
+Quel canal relie la mer Méditerranée à la mer Rouge ?|Le canal de Suez|Le canal du Karakoum|Le canal du Sinaï|Le canal de Panama|0
+Quelle forme géométrique est utilisée pour les panneaux stop ?|Un hexagone|Un cercle|Un octogone|Un triangle|2
+Dans Half-Life, comment s'appelle l'alien qui s'accroche à la tête ?|Le facehugger|Le bullsquid|Le headcrab|Le vortigaunt|2
+Qui joue le général Aladeen dans « Le Dictateur » ?|James Franco|Johnny Depp|Leonardo DiCaprio|Sacha Baron Cohen|3
+Quel pays a eu des Premiers ministres nommés Eden, Major, Peel, Law, Brown et Heath ?|L'Australie|Le Canada|Le Royaume-Uni|La Nouvelle-Zélande|2
 Qu'expose-t-on au musée Madame Tussauds de Londres ?|Des voitures anciennes|Des statues de cire|Des bobines de films inédits|Des vêtements de créateurs|1
 De quoi la cynophobie est-elle la peur ?|Des chiens|Des microbes|Des oiseaux|De voler|0
-« Green Eggs and Ham » (Les Œufs verts au jambon) est un livre de quel auteur ?|Dr. Seuss|Beatrix Potter|Roald Dahl|A. A. Milne|0
-Dans quel livre Harry Potter rencontre-t-il un Horcruxe pour la première fois ?|Le Prince de sang-mêlé|La Coupe de feu|Les Reliques de la Mort|La Chambre des secrets|3
+« Green Eggs and Ham » (Les Œufs verts au jambon) est un livre de quel auteur ?|Roald Dahl|A. A. Milne|Beatrix Potter|Dr. Seuss|3
+Dans quel livre Harry Potter rencontre-t-il un Horcruxe pour la première fois ?|Le Prince de sang-mêlé|Les Reliques de la Mort|La Coupe de feu|La Chambre des secrets|3
 Comment s'appelle le chien à trois têtes dans Harry Potter à l'école des sorciers ?|Poof|Pointu|Crochet|Touffu|3
-Qui a écrit le roman « Nos étoiles contraires » ?|Stephen Chbosky|John Green|Suzanne Collins|Stephenie Meyer|1
-Quel roman classique commence par « Appelez-moi Ismaël » ?|Un conte de deux villes|Enlevé !|Les Hauts de Hurlevent|Moby Dick|3
-Qui a écrit « Un conte de deux villes » ?|Roald Dahl|Mark Twain|Charles Dickens|Charles Darwin|2
-Quel est le deuxième tome du « Trône de fer » (A Song of Ice and Fire) de George R. R. Martin ?|A Dance with Dragons|A Feast for Crows|A Clash of Kings (Le Choc des rois)|A Storm of Swords|2
-Combien y a-t-il de livres Harry Potter ?|7|8|6|5|0
-Quel célèbre auteur de romans d'espionnage a écrit le livre pour enfants « Chitty Chitty Bang Bang » ?|Graham Greene|Ian Fleming|John Buchan|Joseph Conrad|1
-Qui est l'auteure originale de Frankenstein ?|Bram Stoker|Edgar Allan Poe|Mary Shelley|H. P. Lovecraft|2
-Comment s'appelle le héros de « L'Attrape-cœurs » de J. D. Salinger ?|Fletcher Christian|Jay Gatsby|Holden Caulfield|Randall Flagg|2
-Comment s'appelle le père de Harry Potter ?|Harry Potter senior|Joey Potter|Frank Potter|James Potter|3
-Comment s'appelle le sous-marin du capitaine Nemo dans « Vingt mille lieues sous les mers » ?|Le Nautilus|L'Atlantis|Le Neptune|Le Poséidon|0
-Qui est l'auteur de la saga « Le Trône de fer », qui commence par « A Game of Thrones » ?|Brandon Sanderson|George R. R. Martin|J. R. R. Tolkien|Steven Erikson|1
-Pour la sortie de quel film des magasins 7-Eleven ont-ils été transformés en Kwik-E-Mart ?|Shrek le troisième|Spider-Man 3|Ratatouille|Les Simpson, le film|3
-Dans quel film entend-on « J'adore l'odeur du napalm au petit matin ! » ?|Platoon|Full Metal Jacket|Apocalypse Now|Voyage au bout de l'enfer|2
-Selon l'univers de Star Wars, quelle est la planète natale de Han Solo ?|Naboo|Coruscant|Corellia|Tatooine|2
-Qui a réalisé « Avengers : Endgame » ?|Joss Whedon|Les frères Russo|Kevin Feige|Zack Snyder|1
-Dans « Retour vers le futur II », à quelle date du futur Marty et Doc se rendent-ils ?|25 janvier 2015|21 octobre 2015|28 août 2015|20 juillet 2015|1
-Dans « Retour vers le futur », quelle vitesse la DeLorean doit-elle atteindre pour voyager dans le temps ?|100 mph|70 mph|77 mph|88 mph|3
-Comment s'appelle l'île où est construit « Jurassic Park » ?|Isla Sorna|Isla Peña|Isla Muerta|Isla Nublar|3
-Qui a réalisé le film « Alien » ?|Christopher Nolan|Michael Bay|James Cameron|Ridley Scott|3
-Dans quel pays la trilogie « Le Seigneur des anneaux » de Peter Jackson a-t-elle été entièrement tournée ?|En Nouvelle-Zélande|Au Canada|En Écosse|En Islande|0
-Quel humoriste a doublé le perroquet Iago dans « Aladdin » (1992) de Disney, en version originale ?|Pauly Shore|Gilbert Gottfried|Jonathan Freeman|Robin Williams|1
-Qui a réalisé « La Forme de l'eau » (2017) ?|James Cameron|Guillermo del Toro|Martin Scorsese|Steven Spielberg|1
-Dans « V pour Vendetta », de quelle date V demande-t-il aux gens de se souvenir ?|Du 5 novembre|Du 4 novembre|Du 6 novembre|Du 5 septembre|0
-Dans « Le Monde de Nemo », comment s'appelle la maman de Nemo ?|Corail|Shelly|Sandy|Perle|0
-Quel est le premier film « Star Wars » par ordre de sortie ?|Le Réveil de la Force|La Revanche des Sith|Un nouvel espoir|La Menace fantôme|2
-Dans quel film le personnage de Robin Williams se déguise-t-il en femme ?|L'Éveil|Jumanji|Madame Doubtfire|Old Dogs|2
-Qui a réalisé « Le Silence des agneaux » (1991) ?|Stanley Kubrick|Michael Bay|Jonathan Demme|Frank Darabont|2
-Quel est le nom de famille de Dorothy dans « Le Magicien d'Oz » ?|Perkins|Gale|Day|Parker|1
-Dans « Gremlins », après quelle heure ne faut-il pas nourrir un Mogwaï ?|Le soir|L'après-midi|Le matin|Minuit|3
-Qui joue le marshal Samuel Gerard dans « Le Fugitif » (1993) ?|Martin Landau|Harvey Keitel|Tommy Lee Jones|Harrison Ford|2
+Qui a écrit le roman « Nos étoiles contraires » ?|Suzanne Collins|Stephenie Meyer|Stephen Chbosky|John Green|3
+Quel roman classique commence par « Appelez-moi Ismaël » ?|Enlevé !|Moby Dick|Les Hauts de Hurlevent|Un conte de deux villes|1
+Qui a écrit « Un conte de deux villes » ?|Roald Dahl|Charles Darwin|Mark Twain|Charles Dickens|3
+Quel est le deuxième tome du « Trône de fer » (A Song of Ice and Fire) de George R. R. Martin ?|A Feast for Crows|A Dance with Dragons|A Storm of Swords|A Clash of Kings (Le Choc des rois)|3
+Combien y a-t-il de livres Harry Potter ?|7|8|5|6|0
+Quel célèbre auteur de romans d'espionnage a écrit le livre pour enfants « Chitty Chitty Bang Bang » ?|Joseph Conrad|Ian Fleming|Graham Greene|John Buchan|1
+Qui est l'auteure originale de Frankenstein ?|Bram Stoker|Mary Shelley|Edgar Allan Poe|H. P. Lovecraft|1
+Comment s'appelle le héros de « L'Attrape-cœurs » de J. D. Salinger ?|Holden Caulfield|Jay Gatsby|Randall Flagg|Fletcher Christian|0
+Comment s'appelle le père de Harry Potter ?|Frank Potter|Harry Potter senior|Joey Potter|James Potter|3
+Comment s'appelle le sous-marin du capitaine Nemo dans « Vingt mille lieues sous les mers » ?|Le Nautilus|L'Atlantis|Le Poséidon|Le Neptune|0
+Qui est l'auteur de la saga « Le Trône de fer », qui commence par « A Game of Thrones » ?|Brandon Sanderson|J. R. R. Tolkien|George R. R. Martin|Steven Erikson|2
+Pour la sortie de quel film des magasins 7-Eleven ont-ils été transformés en Kwik-E-Mart ?|Shrek le troisième|Les Simpson, le film|Spider-Man 3|Ratatouille|1
+Dans quel film entend-on « J'adore l'odeur du napalm au petit matin ! » ?|Full Metal Jacket|Voyage au bout de l'enfer|Apocalypse Now|Platoon|2
+Selon l'univers de Star Wars, quelle est la planète natale de Han Solo ?|Naboo|Tatooine|Corellia|Coruscant|2
+Qui a réalisé « Avengers : Endgame » ?|Kevin Feige|Zack Snyder|Les frères Russo|Joss Whedon|2
+Dans « Retour vers le futur II », à quelle date du futur Marty et Doc se rendent-ils ?|20 juillet 2015|28 août 2015|21 octobre 2015|25 janvier 2015|2
+Dans « Retour vers le futur », quelle vitesse la DeLorean doit-elle atteindre pour voyager dans le temps ?|100 mph|88 mph|77 mph|70 mph|1
+Comment s'appelle l'île où est construit « Jurassic Park » ?|Isla Peña|Isla Muerta|Isla Sorna|Isla Nublar|3
+Qui a réalisé le film « Alien » ?|Ridley Scott|Michael Bay|James Cameron|Christopher Nolan|0
+Dans quel pays la trilogie « Le Seigneur des anneaux » de Peter Jackson a-t-elle été entièrement tournée ?|Au Canada|En Écosse|En Islande|En Nouvelle-Zélande|3
+Quel humoriste a doublé le perroquet Iago dans « Aladdin » (1992) de Disney, en version originale ?|Pauly Shore|Jonathan Freeman|Robin Williams|Gilbert Gottfried|3
+Qui a réalisé « La Forme de l'eau » (2017) ?|Steven Spielberg|James Cameron|Martin Scorsese|Guillermo del Toro|3
+Dans « V pour Vendetta », de quelle date V demande-t-il aux gens de se souvenir ?|Du 6 novembre|Du 5 septembre|Du 5 novembre|Du 4 novembre|2
+Dans « Le Monde de Nemo », comment s'appelle la maman de Nemo ?|Sandy|Corail|Shelly|Perle|1
+Quel est le premier film « Star Wars » par ordre de sortie ?|Le Réveil de la Force|La Menace fantôme|La Revanche des Sith|Un nouvel espoir|3
+Dans quel film le personnage de Robin Williams se déguise-t-il en femme ?|Old Dogs|Jumanji|L'Éveil|Madame Doubtfire|3
+Qui a réalisé « Le Silence des agneaux » (1991) ?|Frank Darabont|Stanley Kubrick|Michael Bay|Jonathan Demme|3
+Quel est le nom de famille de Dorothy dans « Le Magicien d'Oz » ?|Day|Perkins|Parker|Gale|3
+Dans « Gremlins », après quelle heure ne faut-il pas nourrir un Mogwaï ?|Minuit|L'après-midi|Le matin|Le soir|0
+Qui joue le marshal Samuel Gerard dans « Le Fugitif » (1993) ?|Tommy Lee Jones|Harvey Keitel|Harrison Ford|Martin Landau|0
 Dans « Jurassic World », comment s'appelle le dinosaure hybride génétique ?|Ptéranodon|Indominus Rex|Tyrannosaure|Mosasaure|1
-Qui est le principal antagoniste de « The Dark Knight Rises » (2012) de Christopher Nolan ?|L'Homme-mystère|Bane|Le Pingouin|Le Joker|1
-Dans quel film entend-on « Ce qu'on a ici, c'est un manque de communication » ?|Dans la chaleur de la nuit|Le Lauréat|Bonnie et Clyde|Luke la main froide|3
-Qui joue Bruce Wayne / Batman dans le « Batman » (1989) de Tim Burton ?|Adam West|George Clooney|Michael Keaton|Val Kilmer|2
-Pour quel film Leonardo DiCaprio a-t-il reçu son premier Oscar du meilleur acteur ?|The Revenant|Shutter Island|Inception|Le Loup de Wall Street|0
-Quel est le premier long-métrage entièrement en images de synthèse ?|Toy Story|Les 101 Dalmatiens|Le Roi lion|Tron|0
-Dans « Seul au monde », comment s'appelle le meilleur ami du héros sur l'île ?|Jackson|Wilson|Carson|Willy|1
-En quelle année le « Titanic » de James Cameron est-il sorti au cinéma ?|1998|1999|1996|1997|3
-Quel est le premier film de James Bond ?|Goldfinger|Opération Tonnerre|Bons baisers de Russie|James Bond 007 contre Dr No|3
-Dans quel film avec Bruce Willis entend-on « Je vois des gens qui sont morts » ?|Armageddon|Le Cinquième Élément|Sixième Sens|Piège de cristal|2
-Quel méchant de Batman a été doublé par Mark Hamill ?|Bane|Double-Face|Hush|Le Joker|3
-Qui double Po dans les films « Kung Fu Panda » en version originale ?|Dustin Hoffman|Seth Rogen|Jack Black|Jackie Chan|2
-Comment s'appelle le droïde orange et blanc dans « Star Wars : Le Réveil de la Force » ?|BB-3|BB-8|R2-D2|AA-A|1
-Dans « Le Hobbit », qui dirige le Conseil blanc ?|Galadriel|Saroumane|Elrond|Gandalf|1
-Dans la saga « Vendredi 13 », quel est le prénom de la mère de Jason ?|Christine|Pamela|Angeline|Mary|1
-Dans quel film entend-on « Houston, nous avons un problème » ?|L'Étoffe des héros|Marooned|Capricorn One|Apollo 13|3
-Dans quel film dit-on « Dites bonjour à mon petit copain ! » ?|Les Affranchis|Scarface|Reservoir Dogs|Heat|1
-Dans « Blade Runner », comment appelle-t-on les androïdes ressemblant à des humains ?|Des peaux-lisses|Des cylons|Des réplicants|Des synthétiques|2
-« La première règle est : on ne parle pas de… » fait référence à quel film ?|Unthinkable|Fight Club|L'Île|American Pie|1
-Dans quel film Humphrey Bogart dit-il « Ici, c'est à toi que je pense, petite » ?|Citizen Kane|Le Faucon maltais|Le Trésor de la Sierra Madre|Casablanca|3
-Quel super-héros DC ne figure PAS dans « Justice League » (2017) ?|Batman|Wonder Woman|Green Arrow|Cyborg|2
-Qui a écrit et réalisé « Platoon » (1986) ?|Michael Cimino|Francis Ford Coppola|Oliver Stone|Stanley Kubrick|2
-Dans quel film entend-on « On ne met pas Bébé dans un coin » ?|Dirty Dancing|Rose bonbon|La Folle Journée de Ferris Bueller|Trois hommes et un bébé|0
-La chanson « A Kind of Magic » de Queen figure dans quel film de 1986 ?|Flash Gordon|Highlander|Labyrinthe|Howard… une nouvelle race de héros|1
-Quel acteur joue le héros d'« Edward aux mains d'argent » (1990) ?|Clint Eastwood|Leonardo DiCaprio|Ben Stiller|Johnny Depp|3
-Qui double Blu dans le film d'animation « Rio » (2011) en version originale ?|Jonah Hill|Zach Galifianakis|Michael Cera|Jesse Eisenberg|3
-Quel personnage emblématique apparaît dans « L'Inspecteur Harry », « Magnum Force » et « Sudden Impact » ?|Indiana Jones|James Bond|L'inspecteur Harry|Harry Potter|2
-Qui a réalisé « Pulp Fiction », « Reservoir Dogs » et « Django Unchained » ?|James Cameron|Quentin Tarantino|Martin Scorsese|Steven Spielberg|1
-Quel film de James Bond a un thème écrit et chanté par Adele ?|Casino Royale|Spectre|Skyfall|Quantum of Solace|2
-Grâce à quelle saga Daniel Radcliffe est-il devenu une star mondiale ?|Pirates des Caraïbes|Spy Kids|Ted|Harry Potter|3
-Quel est le plus ancien film Disney ?|Fantasia|Dumbo|Blanche-Neige et les Sept Nains|Pinocchio|2
-Dans « La Communauté de l'anneau », lequel de ces personnages du livre a été supprimé du film ?|Prosper Poiredebeurre|Tom Bombadil|Celeborn|Aragorn (Grands-Pas)|1
-Dans « La Folle Histoire de l'espace », que les Spaceballs veulent-ils voler à la planète Druidia ?|L'air|Les boulettes de viande|La princesse Vespa|Le Schwartz|0
-Qui joue Bruce Wayne dans « The Dark Knight » (2008) ?|Michael Caine|Christian Bale|Ron Dean|Heath Ledger|1
-Qui a réalisé « Scott Pilgrim » (2010) ?|Phil Lord|Seth Rogen|Edgar Wright|Chris Miller|2
-Quel super-héros Marvel Chris Evans a-t-il joué avant Captain America ?|Iceberg|Cyclope|La Torche humaine|Daredevil|2
-Quel film de Stanley Kubrick est l'adaptation d'un roman de Stephen King ?|Docteur Folamour|Eyes Wide Shut|Shining|2001, l'Odyssée de l'espace|2
-Dans « Terminator » (1984), quel est le modèle du Terminator joué par Arnold Schwarzenegger ?|T-1000|T-800|I-950|T-888|1
-Qui joue Willy Wonka dans « Willy Wonka et la Chocolaterie » (1971) ?|Johnny Depp|Peter Ostrum|Gene Wilder|Shia LaBeouf|2
-Qui a composé la musique du « Blade Runner » original ?|Vangelis|Yanni|Kitaro|Enya|0
-Dans « Les Nouveaux Héros », de quelle ville imaginaire viennent les héros ?|Sankyo|Tokysisco|San Tokyo|San Fransokyo|3
-Quelle ville le monstre attaque-t-il dans « Cloverfield » ?|New York|Las Vegas|Chicago|Orlando|0
-Quel nom Tom Hanks donne-t-il à son ballon de volley dans « Seul au monde » ?|Jones|Vendredi|Billy|Wilson|3
-Quel super-héros ont incarné Michael Keaton, Val Kilmer, George Clooney et Christian Bale ?|Batman|Spider-Man|Iron Man|Superman|0
-Dans quel film entend-on « J'ai besoin de vitesse ! » (« the need for speed ») ?|La Couleur de l'argent|Jours de tonnerre|Cocktail|Top Gun|3
-Qui a réalisé « American Graffiti » (1973) ?|George Lucas|Ron Howard|Steven Spielberg|Francis Ford Coppola|0
-Quel acteur a joué dans « Top Gun », « Jerry Maguire » et « Né un 4 juillet » ?|Kelly McGillis|Tom Cruise|John Travolta|George Clooney|1
-Quel film met en scène un esprit géant au look de lapin capable de faire pousser des arbres ?|Hop|Mon voisin Totoro|Les Cinq Légendes|Alice au pays des merveilles|1
-Qui a réalisé les films « Kill Bill » ?|Stanley Kubrick|Arnold Schwarzenegger|Quentin Tarantino|David Lean|2
-Comment s'appelle le personnage de Nicolas Cage dans « Benjamin Gates et le Trésor des Templiers » ?|Thomas Jefferson Walker|John Quincy Beckett|George Washington Swanson|Benjamin Franklin Gates|3
-Quel acteur joue Obi-Wan Kenobi dans les épisodes I à III de Star Wars ?|Liam Neeson|Ewan McGregor|Alec Guinness|Hayden Christensen|1
-Velma Kelly et Roxie Hart sont les héroïnes de quel film oscarisé ?|Chicago|Dreamgirls|Que le spectacle commence|Cabaret|0
-Qui a réalisé « E.T. l'extra-terrestre » (1982) ?|Tim Burton|Stanley Kubrick|James Cameron|Steven Spielberg|3
-Qui joue Ethan Hunt dans la saga « Mission : Impossible » ?|Tom Cruise|Johnny Depp|Pierce Brosnan|Sean Connery|0
-Lequel de ces acteurs n'a JAMAIS joué Spider-Man au cinéma ?|Michael Cera|Tom Holland|Tobey Maguire|Andrew Garfield|0
-Qui joue Han Solo dans la saga principale Star Wars ?|Mark Hamill|Alec Guinness|Harrison Ford|Peter Cushing|2
-Le film d'animation Disney « Vaiana » (2016) s'inspire de quelle culture ?|Amérindienne|Polynésienne|Japonaise|Nordique|1
-Qui joue Batman dans « Batman & Robin » (1997) ?|Christian Bale|George Clooney|Michael Keaton|Val Kilmer|1
-Qui joue Thanos dans « Avengers : Infinity War » et « Endgame » ?|Sean Gunn|Josh Brolin|Tom Hiddleston|Adam Sandler|1
-Quelle actrice danse le twist avec John Travolta dans « Pulp Fiction » ?|Uma Thurman|Kathy Griffin|Pam Grier|Bridget Fonda|0
-Quel film « Avatar » de James Cameron a-t-il détrôné au sommet du box-office mondial ?|Titanic|Autant en emporte le vent|Star Wars|Les Dents de la mer|0
-Qui est le héros du film « Retour vers le futur » (1985) ?|Marty McFly|George McFly|Biff Tannen|Emmett « Doc » Brown|0
-Max Schreck, acteur allemand du cinéma muet, joue un célèbre monstre dans quel film de 1922 ?|Häxan|Nosferatu|Le Cavalier sans tête|Frankenstein|1
-Brian May est le guitariste de quel groupe ?|Queen|Pink Floyd|The Doors|Les Rolling Stones|0
-Quel groupe réunissait Sting, Stewart Copeland et Andy Summers ?|The Cure|Def Leppard|Bon Jovi|The Police|3
-Qui est le chanteur de Green Day ?|Tré Cool|Sean Hughes|Billie Joe Armstrong|Mike Dirnt|2
-Quel personnage Disney chante « Un rêve est un souhait que fait ton cœur » ?|Belle|Blanche-Neige|Pocahontas|Cendrillon|3
-Qui est le chanteur du groupe Coldplay ?|Chris Isaak|Chris Martin|Chris Cornell|Chris Rea|1
-Quel album de Nirvana a un bébé nu sur sa pochette ?|In Utero|Nevermind|Bleach|Incesticide|1
-Quel est le premier album studio de Daft Punk ?|Homework|Random Access Memories|Discovery|Human After All|0
-De quel instrument jouait principalement Ringo Starr, des Beatles ?|Le piano|La guitare|La batterie|La basse|2
-Quel instrument à vent de la famille des cuivres a le son le plus grave de l'orchestre ?|Le saxophone|Le trombone|La trompette|Le tuba|3
-Qui est le chanteur du groupe 30 Seconds to Mars ?|Jared Leto|Mike Shinoda|Matthew Bellamy|Gerard Way|0
-Quel groupe a sorti « Californication », « Can't Stop » et « Under the Bridge » ?|Green Day|Foo Fighters|Linkin Park|Red Hot Chili Peppers|3
-Lequel de ces instruments ne fait PAS partie des bois ?|Le hautbois|Le saxophone alto|La clarinette|La trompette|3
-Qui est le chanteur de Pearl Jam ?|Eddie Vedder|Ozzy Osbourne|Stone Gossard|Kurt Cobain|0
-Quel chanteur de reggae canadien a eu un tube en 1993 avec « Informer » ?|Snow|Rain|Hail|Sleet|0
-Quel groupe de rap a sorti l'album « Straight Outta Compton » ?|Run-D.M.C.|Wu-Tang Clan|N.W.A|Beastie Boys|2
-Qui chantait « Kung Fu Fighting » en 1974 ?|Heatwave|Carl Douglas|Les Bee Gees|Kool & the Gang|1
-Quel membre des Foo Fighters était auparavant batteur de Nirvana ?|Dave Grohl|Taylor Hawkins|Chris Shiflett|Nate Mendel|0
-Quel est le vrai nom du rappeur Eminem, alias Slim Shady ?|Marshall Mathers|Shawn Carter|Nasir Jones|Calvin Broadus|0
-Quel titre de « Random Access Memories » de Daft Punk accueille Pharrell Williams ?|The Game of Love|Doin' It Right|Instant Crush|Get Lucky|3
-Qui a sorti le tube « Africa » en 1983 ?|Toto|Steely Dan|Journey|Foreigner|0
-Quel compositeur classique a écrit la « Sonate au clair de lune » ?|Johann Sebastian Bach|Ludwig van Beethoven|Johannes Brahms|Wolfgang Amadeus Mozart|1
-Comment s'appelle le tube du DJ finlandais Darude sorti en 1999 ?|Khamsin|Sirocco|Sandstorm|Dust Devil|2
-Qui a écrit le tube de Sinéad O'Connor « Nothing Compares 2 U » ?|Michael Jackson|Prince|Cameo|Rick James|1
-De quel pays vient la chanson « Gangnam Style » ?|De Corée du Nord|De Chine|De Corée du Sud|Du Japon|2
-Quel est l'album le plus vendu de tous les temps entre 1976 et 2018 ?|Thriller|Abbey Road|Back in Black|The Dark Side of the Moon|0
+Qui est le principal antagoniste de « The Dark Knight Rises » (2012) de Christopher Nolan ?|L'Homme-mystère|Le Joker|Le Pingouin|Bane|3
+Dans quel film entend-on « Ce qu'on a ici, c'est un manque de communication » ?|Le Lauréat|Luke la main froide|Bonnie et Clyde|Dans la chaleur de la nuit|1
+Qui joue Bruce Wayne / Batman dans le « Batman » (1989) de Tim Burton ?|George Clooney|Adam West|Michael Keaton|Val Kilmer|2
+Pour quel film Leonardo DiCaprio a-t-il reçu son premier Oscar du meilleur acteur ?|Le Loup de Wall Street|Shutter Island|The Revenant|Inception|2
+Quel est le premier long-métrage entièrement en images de synthèse ?|Tron|Les 101 Dalmatiens|Toy Story|Le Roi lion|2
+Dans « Seul au monde », comment s'appelle le meilleur ami du héros sur l'île ?|Jackson|Willy|Carson|Wilson|3
+En quelle année le « Titanic » de James Cameron est-il sorti au cinéma ?|1999|1998|1997|1996|2
+Quel est le premier film de James Bond ?|James Bond 007 contre Dr No|Bons baisers de Russie|Opération Tonnerre|Goldfinger|0
+Dans quel film avec Bruce Willis entend-on « Je vois des gens qui sont morts » ?|Sixième Sens|Le Cinquième Élément|Piège de cristal|Armageddon|0
+Quel méchant de Batman a été doublé par Mark Hamill ?|Hush|Double-Face|Le Joker|Bane|2
+Qui double Po dans les films « Kung Fu Panda » en version originale ?|Seth Rogen|Jack Black|Dustin Hoffman|Jackie Chan|1
+Comment s'appelle le droïde orange et blanc dans « Star Wars : Le Réveil de la Force » ?|BB-3|R2-D2|AA-A|BB-8|3
+Dans « Le Hobbit », qui dirige le Conseil blanc ?|Saroumane|Elrond|Gandalf|Galadriel|0
+Dans la saga « Vendredi 13 », quel est le prénom de la mère de Jason ?|Pamela|Mary|Christine|Angeline|0
+Dans quel film entend-on « Houston, nous avons un problème » ?|Capricorn One|Marooned|L'Étoffe des héros|Apollo 13|3
+Dans quel film dit-on « Dites bonjour à mon petit copain ! » ?|Scarface|Heat|Reservoir Dogs|Les Affranchis|0
+Dans « Blade Runner », comment appelle-t-on les androïdes ressemblant à des humains ?|Des peaux-lisses|Des cylons|Des synthétiques|Des réplicants|3
+« La première règle est : on ne parle pas de… » fait référence à quel film ?|L'Île|Fight Club|American Pie|Unthinkable|1
+Dans quel film Humphrey Bogart dit-il « Ici, c'est à toi que je pense, petite » ?|Casablanca|Le Trésor de la Sierra Madre|Citizen Kane|Le Faucon maltais|0
+Quel super-héros DC ne figure PAS dans « Justice League » (2017) ?|Batman|Wonder Woman|Cyborg|Green Arrow|3
+Qui a écrit et réalisé « Platoon » (1986) ?|Stanley Kubrick|Oliver Stone|Francis Ford Coppola|Michael Cimino|1
+Dans quel film entend-on « On ne met pas Bébé dans un coin » ?|Trois hommes et un bébé|Dirty Dancing|La Folle Journée de Ferris Bueller|Rose bonbon|1
+La chanson « A Kind of Magic » de Queen figure dans quel film de 1986 ?|Labyrinthe|Flash Gordon|Highlander|Howard… une nouvelle race de héros|2
+Quel acteur joue le héros d'« Edward aux mains d'argent » (1990) ?|Johnny Depp|Clint Eastwood|Leonardo DiCaprio|Ben Stiller|0
+Qui double Blu dans le film d'animation « Rio » (2011) en version originale ?|Zach Galifianakis|Jesse Eisenberg|Michael Cera|Jonah Hill|1
+Quel personnage emblématique apparaît dans « L'Inspecteur Harry », « Magnum Force » et « Sudden Impact » ?|James Bond|Harry Potter|L'inspecteur Harry|Indiana Jones|2
+Qui a réalisé « Pulp Fiction », « Reservoir Dogs » et « Django Unchained » ?|Steven Spielberg|James Cameron|Quentin Tarantino|Martin Scorsese|2
+Quel film de James Bond a un thème écrit et chanté par Adele ?|Spectre|Skyfall|Casino Royale|Quantum of Solace|1
+Grâce à quelle saga Daniel Radcliffe est-il devenu une star mondiale ?|Ted|Spy Kids|Pirates des Caraïbes|Harry Potter|3
+Quel est le plus ancien film Disney ?|Blanche-Neige et les Sept Nains|Pinocchio|Fantasia|Dumbo|0
+Dans « La Communauté de l'anneau », lequel de ces personnages du livre a été supprimé du film ?|Celeborn|Aragorn (Grands-Pas)|Tom Bombadil|Prosper Poiredebeurre|2
+Dans « La Folle Histoire de l'espace », que les Spaceballs veulent-ils voler à la planète Druidia ?|Les boulettes de viande|Le Schwartz|La princesse Vespa|L'air|3
+Qui joue Bruce Wayne dans « The Dark Knight » (2008) ?|Christian Bale|Michael Caine|Ron Dean|Heath Ledger|0
+Qui a réalisé « Scott Pilgrim » (2010) ?|Edgar Wright|Chris Miller|Phil Lord|Seth Rogen|0
+Quel super-héros Marvel Chris Evans a-t-il joué avant Captain America ?|Cyclope|La Torche humaine|Daredevil|Iceberg|1
+Quel film de Stanley Kubrick est l'adaptation d'un roman de Stephen King ?|2001, l'Odyssée de l'espace|Shining|Eyes Wide Shut|Docteur Folamour|1
+Dans « Terminator » (1984), quel est le modèle du Terminator joué par Arnold Schwarzenegger ?|T-800|T-1000|I-950|T-888|0
+Qui joue Willy Wonka dans « Willy Wonka et la Chocolaterie » (1971) ?|Shia LaBeouf|Peter Ostrum|Gene Wilder|Johnny Depp|2
+Qui a composé la musique du « Blade Runner » original ?|Yanni|Vangelis|Kitaro|Enya|1
+Dans « Les Nouveaux Héros », de quelle ville imaginaire viennent les héros ?|San Fransokyo|San Tokyo|Sankyo|Tokysisco|0
+Quelle ville le monstre attaque-t-il dans « Cloverfield » ?|New York|Orlando|Chicago|Las Vegas|0
+Quel nom Tom Hanks donne-t-il à son ballon de volley dans « Seul au monde » ?|Vendredi|Wilson|Billy|Jones|1
+Quel super-héros ont incarné Michael Keaton, Val Kilmer, George Clooney et Christian Bale ?|Batman|Superman|Iron Man|Spider-Man|0
+Dans quel film entend-on « J'ai besoin de vitesse ! » (« the need for speed ») ?|Cocktail|La Couleur de l'argent|Jours de tonnerre|Top Gun|3
+Qui a réalisé « American Graffiti » (1973) ?|Steven Spielberg|Ron Howard|George Lucas|Francis Ford Coppola|2
+Quel acteur a joué dans « Top Gun », « Jerry Maguire » et « Né un 4 juillet » ?|John Travolta|George Clooney|Kelly McGillis|Tom Cruise|3
+Quel film met en scène un esprit géant au look de lapin capable de faire pousser des arbres ?|Hop|Alice au pays des merveilles|Mon voisin Totoro|Les Cinq Légendes|2
+Qui a réalisé les films « Kill Bill » ?|Arnold Schwarzenegger|David Lean|Quentin Tarantino|Stanley Kubrick|2
+Comment s'appelle le personnage de Nicolas Cage dans « Benjamin Gates et le Trésor des Templiers » ?|George Washington Swanson|John Quincy Beckett|Benjamin Franklin Gates|Thomas Jefferson Walker|2
+Quel acteur joue Obi-Wan Kenobi dans les épisodes I à III de Star Wars ?|Alec Guinness|Ewan McGregor|Hayden Christensen|Liam Neeson|1
+Velma Kelly et Roxie Hart sont les héroïnes de quel film oscarisé ?|Que le spectacle commence|Chicago|Dreamgirls|Cabaret|1
+Qui a réalisé « E.T. l'extra-terrestre » (1982) ?|Stanley Kubrick|Tim Burton|Steven Spielberg|James Cameron|2
+Qui joue Ethan Hunt dans la saga « Mission : Impossible » ?|Tom Cruise|Sean Connery|Johnny Depp|Pierce Brosnan|0
+Lequel de ces acteurs n'a JAMAIS joué Spider-Man au cinéma ?|Andrew Garfield|Tobey Maguire|Tom Holland|Michael Cera|3
+Qui joue Han Solo dans la saga principale Star Wars ?|Mark Hamill|Peter Cushing|Harrison Ford|Alec Guinness|2
+Le film d'animation Disney « Vaiana » (2016) s'inspire de quelle culture ?|Nordique|Japonaise|Polynésienne|Amérindienne|2
+Qui joue Batman dans « Batman & Robin » (1997) ?|Val Kilmer|Christian Bale|Michael Keaton|George Clooney|3
+Qui joue Thanos dans « Avengers : Infinity War » et « Endgame » ?|Josh Brolin|Adam Sandler|Sean Gunn|Tom Hiddleston|0
+Quelle actrice danse le twist avec John Travolta dans « Pulp Fiction » ?|Uma Thurman|Pam Grier|Bridget Fonda|Kathy Griffin|0
+Quel film « Avatar » de James Cameron a-t-il détrôné au sommet du box-office mondial ?|Autant en emporte le vent|Les Dents de la mer|Star Wars|Titanic|3
+Qui est le héros du film « Retour vers le futur » (1985) ?|Biff Tannen|Marty McFly|Emmett « Doc » Brown|George McFly|1
+Max Schreck, acteur allemand du cinéma muet, joue un célèbre monstre dans quel film de 1922 ?|Frankenstein|Häxan|Le Cavalier sans tête|Nosferatu|3
+Brian May est le guitariste de quel groupe ?|The Doors|Les Rolling Stones|Queen|Pink Floyd|2
+Quel groupe réunissait Sting, Stewart Copeland et Andy Summers ?|Def Leppard|The Police|Bon Jovi|The Cure|1
+Qui est le chanteur de Green Day ?|Tré Cool|Mike Dirnt|Billie Joe Armstrong|Sean Hughes|2
+Quel personnage Disney chante « Un rêve est un souhait que fait ton cœur » ?|Blanche-Neige|Pocahontas|Belle|Cendrillon|3
+Qui est le chanteur du groupe Coldplay ?|Chris Rea|Chris Cornell|Chris Martin|Chris Isaak|2
+Quel album de Nirvana a un bébé nu sur sa pochette ?|Bleach|Incesticide|In Utero|Nevermind|3
+Quel est le premier album studio de Daft Punk ?|Homework|Human After All|Discovery|Random Access Memories|0
+De quel instrument jouait principalement Ringo Starr, des Beatles ?|La basse|La guitare|La batterie|Le piano|2
+Quel instrument à vent de la famille des cuivres a le son le plus grave de l'orchestre ?|Le tuba|Le saxophone|La trompette|Le trombone|0
+Qui est le chanteur du groupe 30 Seconds to Mars ?|Mike Shinoda|Jared Leto|Matthew Bellamy|Gerard Way|1
+Quel groupe a sorti « Californication », « Can't Stop » et « Under the Bridge » ?|Linkin Park|Green Day|Red Hot Chili Peppers|Foo Fighters|2
+Lequel de ces instruments ne fait PAS partie des bois ?|Le hautbois|La clarinette|La trompette|Le saxophone alto|2
+Qui est le chanteur de Pearl Jam ?|Kurt Cobain|Eddie Vedder|Ozzy Osbourne|Stone Gossard|1
+Quel chanteur de reggae canadien a eu un tube en 1993 avec « Informer » ?|Snow|Rain|Sleet|Hail|0
+Quel groupe de rap a sorti l'album « Straight Outta Compton » ?|Wu-Tang Clan|Run-D.M.C.|N.W.A|Beastie Boys|2
+Qui chantait « Kung Fu Fighting » en 1974 ?|Les Bee Gees|Kool & the Gang|Carl Douglas|Heatwave|2
+Quel membre des Foo Fighters était auparavant batteur de Nirvana ?|Chris Shiflett|Dave Grohl|Nate Mendel|Taylor Hawkins|1
+Quel est le vrai nom du rappeur Eminem, alias Slim Shady ?|Shawn Carter|Nasir Jones|Marshall Mathers|Calvin Broadus|2
+Quel titre de « Random Access Memories » de Daft Punk accueille Pharrell Williams ?|Get Lucky|Instant Crush|Doin' It Right|The Game of Love|0
+Qui a sorti le tube « Africa » en 1983 ?|Toto|Steely Dan|Foreigner|Journey|0
+Quel compositeur classique a écrit la « Sonate au clair de lune » ?|Johannes Brahms|Wolfgang Amadeus Mozart|Johann Sebastian Bach|Ludwig van Beethoven|3
+Comment s'appelle le tube du DJ finlandais Darude sorti en 1999 ?|Sandstorm|Dust Devil|Sirocco|Khamsin|0
+Qui a écrit le tube de Sinéad O'Connor « Nothing Compares 2 U » ?|Rick James|Cameo|Prince|Michael Jackson|2
+De quel pays vient la chanson « Gangnam Style » ?|De Corée du Sud|De Corée du Nord|De Chine|Du Japon|0
+Quel est l'album le plus vendu de tous les temps entre 1976 et 2018 ?|The Dark Side of the Moon|Thriller|Abbey Road|Back in Black|1
 Quel est le nom de scène du DJ suédois Tim Bergling (« Levels », « Wake Me Up ») ?|Deadmau5|Alesso|Avicii|Skrillex|2
-Quel guitariste anglais est surnommé « Slowhand » ?|Jeff Beck|Eric Clapton|Mark Knopfler|Jimmy Page|1
-Combien de cordes a un violoncelle ?|6|4|5|8|1
-Le titre « YYZ » de Rush vient du code IATA de l'aéroport de quelle ville ?|Toronto|Calgary|Vancouver|Ottawa|0
-Sur quel album de Led Zeppelin figure « Stairway to Heaven » ?|Houses of the Holy|Led Zeppelin IV|Physical Graffiti|Led Zeppelin III|1
-Lequel de ces instruments n'est PAS un instrument à vent ?|Le trombone|Le hautbois|L'alto|Le duduk|2
-« Doctor Jones », « Turn Back Time » et « Barbie Girl » ont été numéros un au Royaume-Uni pour quel groupe d'eurodance ?|Eiffel 65|Aqua|Vengaboys|Sash!|1
-Quel groupe a enregistré l'album « Parallel Lines » ?|Blondie|Coldplay|Paramore|The Police|0
-De quel boys band des années 90 Justin Timberlake faisait-il partie ?|Westlife|*NSYNC|Boyzone|Backstreet Boys|1
-« The Safety Dance » est le plus grand succès de quel groupe canadien ?|The Tragically Hip|Broken Social Scene|Crash Test Dummies|Men Without Hats|3
-Comment s'appelle le chanteur du groupe de metal Megadeth ?|James Hetfield|Rob Halford|Vince Neil|Dave Mustaine|3
-Quelle ballade américaine des années 70 évoque le crash d'avion de 1959 comme « le jour où la musique est morte » ?|I Will Always Love You|American Pie|Rock 'n' Roll Suicide|Kentucky Rain|1
-Dans sa chanson de 1973, à quelle porte Bob Dylan « frappe-t-il, frappe-t-il, frappe-t-il » ?|À celle d'Eileen|À celle d'Angie|À celle de l'opportunité|À celle du paradis (Heaven's door)|3
+Quel guitariste anglais est surnommé « Slowhand » ?|Jeff Beck|Mark Knopfler|Jimmy Page|Eric Clapton|3
+Combien de cordes a un violoncelle ?|8|6|4|5|2
+Le titre « YYZ » de Rush vient du code IATA de l'aéroport de quelle ville ?|Ottawa|Vancouver|Toronto|Calgary|2
+Sur quel album de Led Zeppelin figure « Stairway to Heaven » ?|Led Zeppelin IV|Physical Graffiti|Led Zeppelin III|Houses of the Holy|0
+Lequel de ces instruments n'est PAS un instrument à vent ?|L'alto|Le trombone|Le duduk|Le hautbois|0
+« Doctor Jones », « Turn Back Time » et « Barbie Girl » ont été numéros un au Royaume-Uni pour quel groupe d'eurodance ?|Sash!|Aqua|Vengaboys|Eiffel 65|1
+Quel groupe a enregistré l'album « Parallel Lines » ?|Paramore|Blondie|Coldplay|The Police|1
+De quel boys band des années 90 Justin Timberlake faisait-il partie ?|*NSYNC|Westlife|Backstreet Boys|Boyzone|0
+« The Safety Dance » est le plus grand succès de quel groupe canadien ?|Crash Test Dummies|The Tragically Hip|Men Without Hats|Broken Social Scene|2
+Comment s'appelle le chanteur du groupe de metal Megadeth ?|Vince Neil|Rob Halford|James Hetfield|Dave Mustaine|3
+Quelle ballade américaine des années 70 évoque le crash d'avion de 1959 comme « le jour où la musique est morte » ?|American Pie|Rock 'n' Roll Suicide|I Will Always Love You|Kentucky Rain|0
+Dans sa chanson de 1973, à quelle porte Bob Dylan « frappe-t-il, frappe-t-il, frappe-t-il » ?|À celle d'Eileen|À celle de l'opportunité|À celle du paradis (Heaven's door)|À celle d'Angie|2
 Quelle célébrité Kanye West a-t-il interrompue aux VMA 2009 ?|Beck|MF DOOM|Taylor Swift|Beyoncé|2
-Lequel de ces instruments n'est PAS un bois ?|Le trombone|Le basson|Le hautbois|La clarinette|0
-De quel pays vient le groupe Rammstein ?|L'Allemagne|La Belgique|L'Autriche|L'Arménie|0
-Que signifie le « K » de K-pop ?|Kazakh|Koweïtien|Kenyan (kényan)|Korean (coréen)|3
-À quel genre musical John Coltrane est-il surtout associé ?|Le death metal|Le folk|Le rock'n'roll|Le jazz|3
-Quel groupe a sorti « Rio », « Girls on Film » et « The Reflex » ?|The Cure|Depeche Mode|New Order|Duran Duran|3
-De qui sont les albums « Back in Black » et « Ballbreaker » ?|Iron Maiden|Black Sabbath|Metallica|AC/DC|3
-Ozzy Osbourne était le chanteur de quel groupe de metal ?|AC/DC|Judas Priest|Iron Maiden|Black Sabbath|3
-Comment s'appelle le premier album de Metallica, sorti en 1983 ?|Master of Puppets|Death Magnetic|Kill 'Em All|...And Justice for All|2
-Un classique de Blue Öyster Cult de 1976 conseille « Don't Fear the… » quoi ?|Dark (le noir)|Clowns|Silence|Reaper (la Faucheuse)|3
-Qui a eu un tube en 1969 avec « A Boy Named Sue » ?|Johnny Cash|Bob Dylan|Willie Nelson|Kris Kristofferson|0
-Dans l'opéra de Rossini, comment s'appelle « Le Barbier de Séville » ?|Angelo|Basile|Figaro|Fernando|2
-Quel ex-membre d'un boys band a sorti le tube solo « Angels » en 1997 ?|Harry Styles|Robbie Williams|Gary Barlow|Justin Timberlake|1
-De quel album de Daft Punk est tirée « Harder, Better, Faster, Stronger » ?|Human After All|Random Access Memories|Homework|Discovery|3
-« Hallelujah » a été écrite par quel artiste canadien ?|Neil Young|Leonard Cohen|Gordon Lightfoot|Justin Bieber|1
-Qui est le chanteur des Arctic Monkeys ?|Jamie Cook|Nick O'Malley|Matt Helders|Alex Turner|3
-Quel groupe des années 80 a pour chanteur-guitariste Robert Smith ?|New Order|The Smiths|Echo & the Bunnymen|The Cure|3
-Quelle espèce de Star Trek progresse en assimilant les autres ?|Les Vulcains|Les Klingons|Les Bétazoïdes|Les Borgs|3
-Dans Stranger Things, quel est le petit-déjeuner préféré d'Onze ?|Les gaufres Eggo|Les toasts|Œufs au bacon|Les céréales Captain Crunch|0
-Comment s'appelle la planète d'origine du Docteur dans « Doctor Who » ?|Mondas|Sontar|Gallifrey|Skaro|2
-Quel acteur joue Walter White dans « Breaking Bad » ?|RJ Mitte|Aaron Paul|Andrew Lincoln|Bryan Cranston|3
-Dans « Doctor Who », que signifie T.A.R.D.I.S. ?|Travel And Rapid Dimensional Interstellar Shuttle|Time And Relative Dimensions In Style|Time And Resting Dimensions In Space|Time And Relative Dimensions In Space|3
-Dans « Futurama », quel est le nom complet de Fry ?|Fry J. Philip|Philip J. Fry|Fry Rodríguez|Philip Fry Jr.|1
-Comment s'appelle le héros de la série « Flash » ?|Bart Allen|Oliver Queen|Barry Allen|Bruce Wayne|2
-Qui joue l'agent Fox Mulder dans « X-Files » ?|David Duchovny|Robert Patrick|Gillian Anderson|Mitch Pileggi|0
-Qui a été le tout premier acteur à jouer le Docteur dans « Doctor Who » ?|Tom Baker|William Hartnell|David Tennant|Peter Capaldi|1
-Dans « Breaking Bad », quel est le nom de rue du fameux produit de Walter et Jesse ?|Pure Glass|Rock Candy|Baby Blue|Blue Sky|3
-Dans l'univers de Star Trek, de quelle couleur est le sang des Vulcains ?|Vert|Rouge|Violet|Bleu|0
-Lequel de ces personnages de « Stranger Things » a le pouvoir de télékinésie ?|Karen|Mike|Onze|Lucas|2
-Comment s'appelle la jeune sorcière jouée par Melissa Joan Hart, qui vit avec ses tantes Hilda et Zelda ?|Dahlia|Hermione|Sabrina|Dorothy|2
-Dans quel État américain le Prince de Bel-Air est-il né et a-t-il grandi ?|En Pennsylvanie|En Californie|Au New Jersey|En Floride|0
-Dans « Breaking Bad », de quel cancer Walter White, professeur de lycée, est-il atteint ?|Du poumon|Des testicules|De la prostate|Du cerveau|0
-Quelle série suit un grand-père qui entraîne son petit-fils dans des aventures ?|Les Griffin|American Dad|South Park|Rick et Morty|3
-Dans « Game of Thrones », quel continent se trouve de l'autre côté de la mer Étroite, face à Westeros ?|Westereast|Easteros|Esuntos|Essos|3
-Quelle série mettait en scène Blanche, Rose, Dorothy et Sophia ?|Cheers|Les Craquantes|Les Années coup de cœur|Sacrée Famille|1
-Dans la série originale « Star Trek », quel est le deuxième prénom du capitaine James T. Kirk ?|Tiberius|Trevor|Travis|Tyrone|0
-Dans Undertale, « MEGALOVANIA » est le thème de quel personnage ?|Flowey|Papyrus|Sans|Undyne|2
-Les Khajiits, des créatures félines, viennent de quelle saga de jeux de rôle se déroulant en Tamriel ?|Neverwinter Nights|Le Seigneur des anneaux|The Elder Scrolls|The Witcher|2
-Qui est le principal antagoniste de la saga Portal ?|GLaDOS|Wheatley|Rick|Chell|0
-Dans World of Warcraft, comment s'appelait le sort qui a déclenché en 2005 une épidémie restée célèbre ?|Sang corrompu|Peste nécrotique|Infestation libérée|Infection mutante|0
-Quel jeu vidéo a fait scandale à cause d'un mini-jeu caché « Hot Coffee » ?|Grand Theft Auto : San Andreas|Grand Theft Auto : Vice City|Hitman : Blood Money|Cooking Mama|0
-En quelle année est sorti le premier jeu Les Sims ?|2000|2001|1998|1999|0
-Quel est le premier jeu de la série Batman « Arkham » ?|Arkham Asylum|Arkham Origins|Arkham Knight|Arkham City|0
-Combien de formes différentes de pièces compte Tetris ?|8|6|7|5|2
-Quelle entreprise a développé la gamme de consoles Xbox ?|Sony|IBM|Microsoft|Toshiba|2
-De quelle franchise vient la créature Ramoloss ?|Sonic|Yu-Gi-Oh!|Pokémon|Dragon Ball|2
-Quelle lettre grecque représente le logo de Half-Life ?|Lambda|Oméga|Sigma|Alpha|0
-Dans Half-Life, quelle est l'arme emblématique de Gordon Freeman ?|Un fil de fer|Une masse|Un katana|Un pied-de-biche|3
-En quelle année League of Legends est-il sorti ?|2003|2009|2001|2010|1
-Laquelle de ces consoles n'est PAS une console Nintendo ?|La Super Nintendo|La Switch|La Dreamcast|La Wii|2
-Dans Halo, que signifie « IWHBYD » sur le crâne ?|I Wanna Have Babies You Down|I Would Have Bought Your Dog|I Would Have Been Your Daddy|I Would Hate Being Your Driver|2
-Que signifie l'acronyme DOTA ?|Defense of the Artifacts|Defense of the Ancients|Defense of the Animated|Defense of the Antiques|1
+Lequel de ces instruments n'est PAS un bois ?|Le hautbois|Le trombone|La clarinette|Le basson|1
+De quel pays vient le groupe Rammstein ?|L'Autriche|L'Allemagne|La Belgique|L'Arménie|1
+Que signifie le « K » de K-pop ?|Korean (coréen)|Kenyan (kényan)|Koweïtien|Kazakh|0
+À quel genre musical John Coltrane est-il surtout associé ?|Le rock'n'roll|Le folk|Le death metal|Le jazz|3
+Quel groupe a sorti « Rio », « Girls on Film » et « The Reflex » ?|Duran Duran|The Cure|New Order|Depeche Mode|0
+De qui sont les albums « Back in Black » et « Ballbreaker » ?|Black Sabbath|Metallica|Iron Maiden|AC/DC|3
+Ozzy Osbourne était le chanteur de quel groupe de metal ?|Judas Priest|Iron Maiden|AC/DC|Black Sabbath|3
+Comment s'appelle le premier album de Metallica, sorti en 1983 ?|Master of Puppets|...And Justice for All|Kill 'Em All|Death Magnetic|2
+Un classique de Blue Öyster Cult de 1976 conseille « Don't Fear the… » quoi ?|Dark (le noir)|Reaper (la Faucheuse)|Clowns|Silence|1
+Qui a eu un tube en 1969 avec « A Boy Named Sue » ?|Willie Nelson|Bob Dylan|Kris Kristofferson|Johnny Cash|3
+Dans l'opéra de Rossini, comment s'appelle « Le Barbier de Séville » ?|Basile|Angelo|Fernando|Figaro|3
+Quel ex-membre d'un boys band a sorti le tube solo « Angels » en 1997 ?|Justin Timberlake|Robbie Williams|Gary Barlow|Harry Styles|1
+De quel album de Daft Punk est tirée « Harder, Better, Faster, Stronger » ?|Random Access Memories|Discovery|Human After All|Homework|1
+« Hallelujah » a été écrite par quel artiste canadien ?|Gordon Lightfoot|Justin Bieber|Neil Young|Leonard Cohen|3
+Qui est le chanteur des Arctic Monkeys ?|Matt Helders|Nick O'Malley|Alex Turner|Jamie Cook|2
+Quel groupe des années 80 a pour chanteur-guitariste Robert Smith ?|Echo & the Bunnymen|The Cure|The Smiths|New Order|1
+Quelle espèce de Star Trek progresse en assimilant les autres ?|Les Bétazoïdes|Les Borgs|Les Vulcains|Les Klingons|1
+Dans Stranger Things, quel est le petit-déjeuner préféré d'Onze ?|Les gaufres Eggo|Les céréales Captain Crunch|Les toasts|Œufs au bacon|0
+Comment s'appelle la planète d'origine du Docteur dans « Doctor Who » ?|Sontar|Gallifrey|Skaro|Mondas|1
+Quel acteur joue Walter White dans « Breaking Bad » ?|Aaron Paul|Bryan Cranston|Andrew Lincoln|RJ Mitte|1
+Dans « Doctor Who », que signifie T.A.R.D.I.S. ?|Time And Resting Dimensions In Space|Travel And Rapid Dimensional Interstellar Shuttle|Time And Relative Dimensions In Style|Time And Relative Dimensions In Space|3
+Dans « Futurama », quel est le nom complet de Fry ?|Fry Rodríguez|Philip J. Fry|Fry J. Philip|Philip Fry Jr.|1
+Comment s'appelle le héros de la série « Flash » ?|Oliver Queen|Bart Allen|Barry Allen|Bruce Wayne|2
+Qui joue l'agent Fox Mulder dans « X-Files » ?|Mitch Pileggi|Robert Patrick|Gillian Anderson|David Duchovny|3
+Qui a été le tout premier acteur à jouer le Docteur dans « Doctor Who » ?|Tom Baker|David Tennant|William Hartnell|Peter Capaldi|2
+Dans « Breaking Bad », quel est le nom de rue du fameux produit de Walter et Jesse ?|Baby Blue|Rock Candy|Pure Glass|Blue Sky|3
+Dans l'univers de Star Trek, de quelle couleur est le sang des Vulcains ?|Rouge|Bleu|Vert|Violet|2
+Lequel de ces personnages de « Stranger Things » a le pouvoir de télékinésie ?|Lucas|Onze|Mike|Karen|1
+Comment s'appelle la jeune sorcière jouée par Melissa Joan Hart, qui vit avec ses tantes Hilda et Zelda ?|Hermione|Dahlia|Dorothy|Sabrina|3
+Dans quel État américain le Prince de Bel-Air est-il né et a-t-il grandi ?|En Californie|En Pennsylvanie|En Floride|Au New Jersey|1
+Dans « Breaking Bad », de quel cancer Walter White, professeur de lycée, est-il atteint ?|Des testicules|Du cerveau|De la prostate|Du poumon|3
+Quelle série suit un grand-père qui entraîne son petit-fils dans des aventures ?|Les Griffin|Rick et Morty|American Dad|South Park|1
+Dans « Game of Thrones », quel continent se trouve de l'autre côté de la mer Étroite, face à Westeros ?|Essos|Easteros|Esuntos|Westereast|0
+Quelle série mettait en scène Blanche, Rose, Dorothy et Sophia ?|Sacrée Famille|Les Années coup de cœur|Les Craquantes|Cheers|2
+Dans la série originale « Star Trek », quel est le deuxième prénom du capitaine James T. Kirk ?|Trevor|Tyrone|Tiberius|Travis|2
+Dans Undertale, « MEGALOVANIA » est le thème de quel personnage ?|Papyrus|Undyne|Sans|Flowey|2
+Les Khajiits, des créatures félines, viennent de quelle saga de jeux de rôle se déroulant en Tamriel ?|The Elder Scrolls|The Witcher|Le Seigneur des anneaux|Neverwinter Nights|0
+Qui est le principal antagoniste de la saga Portal ?|Wheatley|GLaDOS|Rick|Chell|1
+Dans World of Warcraft, comment s'appelait le sort qui a déclenché en 2005 une épidémie restée célèbre ?|Infestation libérée|Peste nécrotique|Infection mutante|Sang corrompu|3
+Quel jeu vidéo a fait scandale à cause d'un mini-jeu caché « Hot Coffee » ?|Cooking Mama|Hitman : Blood Money|Grand Theft Auto : San Andreas|Grand Theft Auto : Vice City|2
+En quelle année est sorti le premier jeu Les Sims ?|2000|2001|1999|1998|0
+Quel est le premier jeu de la série Batman « Arkham » ?|Arkham City|Arkham Origins|Arkham Asylum|Arkham Knight|2
+Combien de formes différentes de pièces compte Tetris ?|8|5|6|7|3
+Quelle entreprise a développé la gamme de consoles Xbox ?|Sony|Microsoft|IBM|Toshiba|1
+De quelle franchise vient la créature Ramoloss ?|Yu-Gi-Oh!|Sonic|Dragon Ball|Pokémon|3
+Quelle lettre grecque représente le logo de Half-Life ?|Alpha|Sigma|Oméga|Lambda|3
+Dans Half-Life, quelle est l'arme emblématique de Gordon Freeman ?|Une masse|Un fil de fer|Un pied-de-biche|Un katana|2
+En quelle année League of Legends est-il sorti ?|2010|2001|2009|2003|2
+Laquelle de ces consoles n'est PAS une console Nintendo ?|La Super Nintendo|La Wii|La Switch|La Dreamcast|3
+Dans Halo, que signifie « IWHBYD » sur le crâne ?|I Would Have Bought Your Dog|I Would Hate Being Your Driver|I Would Have Been Your Daddy|I Wanna Have Babies You Down|2
+Que signifie l'acronyme DOTA ?|Defense of the Ancients|Defense of the Animated|Defense of the Antiques|Defense of the Artifacts|0
 Dans Animal Crossing, qui gère la boutique du village ?|Porcelaine (Mr. Resetti)|Gracie|Tom Nook|K.K. Slider|2
-Lequel de ces noms est celui d'un cofondateur de Valve ?|Gabe Newell|Ray Ueno|Robin Walker|Marc Laidlaw|0
-Dans la série « Metal Gear Solid », comment s'appelle le frère de Solid Snake ?|Billy Snake|Liquid Snake|Kulus Snake|Gilur Snake|1
-De quel type est Dracaufeu (Charizard) dans Pokémon ?|Feu/Dragon|Dragon|Feu|Feu/Vol|3
-Pokémon GO est un jeu de réalité augmentée développé par quelle entreprise ?|Zynga|Rovio|Supercell|Niantic|3
-Quel est le numéro de Pikachu dans le Pokédex national ?|#001|#031|#025|#109|2
-Qui a créé le jeu vidéo Minecraft ?|Daniel Rosenfeld|Carl Manneh|Markus Persson|Jens Bergensten|2
-Comment s'appelle le vaisseau principal du commandant Shepard dans Mass Effect ?|L'Osiris|L'Infinity|L'Endeavour|Le Normandy|3
-Dans Dark Souls, comment s'appelle la région où se déroule la majeure partie du jeu ?|Drangleic|Lordran|Oolacile|Catarina|1
-Comment s'appelle le principal objet de soin de Dark Souls ?|La fiole d'Estus|Le jus d'orange|La potion de santé|La fiole cendreuse|0
-Qui est le fidèle compagnon de Sonic ?|Tails|Shadow|Knuckles|Amy|0
-En quelle année est sorti Super Mario Bros. ?|1983|1985|1986|1987|1
-Lanky, Funky et Chunky sont des personnages de quelle série de Nintendo ?|Mario|Kirby|Zelda|Donkey Kong|3
-De quelle couleur est le personnage d'arcade Q*bert ?|Bleu|Orange|Marron|Vert|1
-Quels ingrédients faut-il pour fabriquer un gâteau dans Minecraft ?|Lait, sucre et blé|Lait, canne à sucre, œuf et blé|Lait, sucre, œuf et blé|Lait, pain, œuf et blé|2
-En quelle année est sorti le premier Mass Effect ?|2008|2009|2010|2007|3
-Lequel de ces personnages est la mascotte de SEGA ?|Sonic le hérisson|Alex Kidd|Dynamite Headdy|Opa-Opa|0
-Combien de blocs d'obsidienne faut-il pour construire un portail du Nether dans Minecraft ?|14|16|10|13|2
-Quelle entreprise a développé le jeu gratuit Fortnite ?|Epic Games|Valve|Square Enix|Ubisoft|0
-Dans lequel de ces jeux Zelda Ganon n'est-il PAS le boss final ?|Ocarina of Time|Skyward Sword|Majora's Mask|Breath of the Wild|2
+Lequel de ces noms est celui d'un cofondateur de Valve ?|Robin Walker|Marc Laidlaw|Gabe Newell|Ray Ueno|2
+Dans la série « Metal Gear Solid », comment s'appelle le frère de Solid Snake ?|Gilur Snake|Liquid Snake|Billy Snake|Kulus Snake|1
+De quel type est Dracaufeu (Charizard) dans Pokémon ?|Feu/Dragon|Feu|Dragon|Feu/Vol|3
+Pokémon GO est un jeu de réalité augmentée développé par quelle entreprise ?|Zynga|Rovio|Niantic|Supercell|2
+Quel est le numéro de Pikachu dans le Pokédex national ?|#031|#001|#109|#025|3
+Qui a créé le jeu vidéo Minecraft ?|Jens Bergensten|Daniel Rosenfeld|Markus Persson|Carl Manneh|2
+Comment s'appelle le vaisseau principal du commandant Shepard dans Mass Effect ?|L'Endeavour|L'Osiris|Le Normandy|L'Infinity|2
+Dans Dark Souls, comment s'appelle la région où se déroule la majeure partie du jeu ?|Catarina|Drangleic|Lordran|Oolacile|2
+Comment s'appelle le principal objet de soin de Dark Souls ?|La potion de santé|La fiole d'Estus|Le jus d'orange|La fiole cendreuse|1
+Qui est le fidèle compagnon de Sonic ?|Shadow|Tails|Amy|Knuckles|1
+En quelle année est sorti Super Mario Bros. ?|1986|1983|1987|1985|3
+Lanky, Funky et Chunky sont des personnages de quelle série de Nintendo ?|Donkey Kong|Mario|Zelda|Kirby|0
+De quelle couleur est le personnage d'arcade Q*bert ?|Marron|Orange|Vert|Bleu|1
+Quels ingrédients faut-il pour fabriquer un gâteau dans Minecraft ?|Lait, pain, œuf et blé|Lait, sucre et blé|Lait, canne à sucre, œuf et blé|Lait, sucre, œuf et blé|3
+En quelle année est sorti le premier Mass Effect ?|2007|2010|2008|2009|0
+Lequel de ces personnages est la mascotte de SEGA ?|Sonic le hérisson|Dynamite Headdy|Alex Kidd|Opa-Opa|0
+Combien de blocs d'obsidienne faut-il pour construire un portail du Nether dans Minecraft ?|14|16|13|10|3
+Quelle entreprise a développé le jeu gratuit Fortnite ?|Square Enix|Valve|Ubisoft|Epic Games|3
+Dans lequel de ces jeux Zelda Ganon n'est-il PAS le boss final ?|Breath of the Wild|Skyward Sword|Ocarina of Time|Majora's Mask|3
 Rocket League est un jeu où l'on conduit…|Des hélicoptères|Des voitures|Des sous-marins|Des avions|1
-Comment les démons surnomment-ils le héros de DOOM (2016) ?|Le Doom Guy|Le Doom Marine|Le Doom Slayer|Le Doom Reaper|2
-Dans la série originale Mega Man, qui est le grand rival de Mega Man ?|Dr. Bad|Dr. Wily|M. Z|Dr. Light|1
-Dans la série « Hitman », comment s'appelle le héros ?|Agent 27|Agent Smith|Agent 67|Agent 47|3
-En quelle année est sorti Portal 2 ?|2011|2014|2007|2009|0
-Comment s'appelle l'héroïne de Portal et Portal 2 ?|Chloe|Mel|Chell|Christine|2
-Comment s'appelle le héros de la série « The Legend of Zelda » ?|Link|Mario|Pit|Zelda|0
-Que utilise Solid Snake pour se cacher ?|Une boîte en carton|Un camouflage optique|Une silhouette en carton|Une caisse en métal|0
-Comment s'appelle le héros de Half-Life 2 ?|Alyx Vance|Isaac Kleiner|Gordon Freeman|Wallace Breen|2
+Comment les démons surnomment-ils le héros de DOOM (2016) ?|Le Doom Marine|Le Doom Guy|Le Doom Slayer|Le Doom Reaper|2
+Dans la série originale Mega Man, qui est le grand rival de Mega Man ?|Dr. Light|Dr. Wily|M. Z|Dr. Bad|1
+Dans la série « Hitman », comment s'appelle le héros ?|Agent Smith|Agent 47|Agent 67|Agent 27|1
+En quelle année est sorti Portal 2 ?|2011|2009|2014|2007|0
+Comment s'appelle l'héroïne de Portal et Portal 2 ?|Chloe|Christine|Mel|Chell|3
+Comment s'appelle le héros de la série « The Legend of Zelda » ?|Link|Pit|Mario|Zelda|0
+Que utilise Solid Snake pour se cacher ?|Une silhouette en carton|Une caisse en métal|Une boîte en carton|Un camouflage optique|2
+Comment s'appelle le héros de Half-Life 2 ?|Gordon Freeman|Alyx Vance|Isaac Kleiner|Wallace Breen|0
 Dans Super Mario Bros., qui annonce à Mario que la princesse est dans un autre château ?|Un Toad|Luigi|Yoshi|Bowser|0
-Qui a créé la série « Metal Gear » ?|Hiroshi Yamauchi|Gunpei Yokoi|Hideo Kojima|Shigeru Miyamoto|2
-Dans Street Fighter, quel est le nom de famille de Ken ?|Morrison|Masters|Michaels|Mitchell|1
-Lequel de ces monstres existe dans Minecraft ?|Le loup-garou|Le squelette|Le minotaure|Le vampire|1
-Quelle entreprise a créé le jeu Overwatch ?|Blizzard Entertainment|Hi-Rez Studios|Gearbox Software|Valve|0
-Qui double GLaDOS dans les jeux Portal (version originale) ?|Natasha Radski|Michelle Forbes|Ellen McLain|Mary Kae Irvin|2
-Dans la saga Halo, comment s'appelle la principale faction ennemie de l'UNSC ?|Le Peuple|Le Jugement|Le Covenant|Les Bouchers|2
-Blinky, Pinky, Inky et Clyde sont des personnages de quel jeu culte ?|Pac-Man|Street Fighter|Gauntlet|Space Invaders|0
-Combien y a-t-il d'émeraudes du chaos dans l'univers de Sonic ?|6|7|14|8|1
-Qui est le créateur de la série Super Smash Bros. ?|Masahiro Sakurai|Bill Trinen|Hideo Kojima|Reggie Fils-Aimé|0
+Qui a créé la série « Metal Gear » ?|Shigeru Miyamoto|Gunpei Yokoi|Hideo Kojima|Hiroshi Yamauchi|2
+Dans Street Fighter, quel est le nom de famille de Ken ?|Mitchell|Morrison|Michaels|Masters|3
+Lequel de ces monstres existe dans Minecraft ?|Le squelette|Le minotaure|Le loup-garou|Le vampire|0
+Quelle entreprise a créé le jeu Overwatch ?|Valve|Gearbox Software|Hi-Rez Studios|Blizzard Entertainment|3
+Qui double GLaDOS dans les jeux Portal (version originale) ?|Michelle Forbes|Mary Kae Irvin|Ellen McLain|Natasha Radski|2
+Dans la saga Halo, comment s'appelle la principale faction ennemie de l'UNSC ?|Le Covenant|Le Peuple|Le Jugement|Les Bouchers|0
+Blinky, Pinky, Inky et Clyde sont des personnages de quel jeu culte ?|Gauntlet|Space Invaders|Pac-Man|Street Fighter|2
+Combien y a-t-il d'émeraudes du chaos dans l'univers de Sonic ?|14|6|7|8|2
+Qui est le créateur de la série Super Smash Bros. ?|Bill Trinen|Masahiro Sakurai|Hideo Kojima|Reggie Fils-Aimé|1
 Que signifie le « D » de « D-pad » sur les manettes de jeu ?|Directional (directionnel)|Dial-up|Dynamic|Design|0
-Dans Minecraft, quels deux objets faut-il combiner pour fabriquer une torche ?|Du bois et du charbon|Du bois et du feu|Un bâton et du feu|Un bâton et du charbon|3
+Dans Minecraft, quels deux objets faut-il combiner pour fabriquer une torche ?|Un bâton et du charbon|Du bois et du feu|Un bâton et du feu|Du bois et du charbon|0
 Quels deux jeux de Valve se déroulent dans le même univers ?|Half-Life et Portal|Half-Life et Counter-Strike|Portal et Left 4 Dead|Half-Life et Left 4 Dead|0
-Combien y a-t-il de cases sur un plateau de Monopoly standard ?|55|36|28|40|3
-Dans quel jeu trouve-t-on la phrase « Allez en prison, ne passez pas par la case Départ » ?|Cluedo|Le Monopoly|Pay Day|Risk|1
-Qu'y a-t-il au centre de notre galaxie ?|Un trou noir|Un quasar|Une supernova|Un trou de ver|0
-Comment s'appelle le premier satellite artificiel de la Terre, lancé par l'URSS en 1957 ?|Spoutnik 1|Soyouz 7K-OK|Zenit-2|Voskhod 3KV|0
-Quel est le symbole chimique du mercure ?|Mc|Me|Hy|Hg|3
-Quelle est l'unité de résistance électrique ?|L'ohm|Le joule|Le watt|Le tesla|0
-La glace sèche est la forme solide de quelle substance ?|L'azote|L'ammoniac|Le dioxyde de carbone|L'oxygène|2
-Que signifie ADN ?|Acide détoxifiant|Acide désoxyribonucléique|Atome désoxyribonucléique|Acide désoxyribogénétique|1
-Quelle mission Apollo a été la première à se poser sur la Lune ?|Apollo 10|Apollo 11|Apollo 13|Apollo 9|1
-Quel est l'élément le plus abondant de l'univers ?|L'hélium|Le lithium|L'hydrogène|L'oxygène|2
-Combien d'os compte le corps humain adulte ?|209|200|203|206|3
-Qui a formulé la loi de la gravitation universelle ?|Isaac Newton|Charles Darwin|Albert Einstein|Galilée|0
-Quel est le plus grand animal vivant sur Terre ?|La baleine bleue|La girafe|L'orque|Le calmar colossal|0
-La ceinture d'astéroïdes se trouve entre quelles deux planètes ?|Mercure et Vénus|Jupiter et Saturne|Mars et Jupiter|La Terre et Mars|2
-Quel animal est au cœur de la célèbre expérience de pensée de Schrödinger ?|La chauve-souris|Le chat|Le papillon|Le chien|1
-Quelle plante Gregor Mendel a-t-il utilisée pour ses expériences de génétique ?|La rose|Le maïs|Le pois|Le blé|2
-Quel élément, soumis à une chaleur et une pression extrêmes, forme des diamants ?|Le carbone|L'oxygène|L'azote|L'hydrogène|0
-Quel gaz noble a le plus petit numéro atomique ?|Le krypton|L'argon|Le néon|L'hélium|3
-Quelle est la planète la plus chaude du système solaire ?|Mercure|Jupiter|Vénus|Mars|2
-Quel élément a pour symbole chimique « Fe » ?|Le fer|L'argent|L'or|L'étain|0
-Comment appelle-t-on le petit d'un kangourou ?|Un joey|Un chiot|Un veau|Un lionceau|0
-Quel pigment donne leur couleur verte à la plupart des feuilles ?|Les rayons UV|La chlorophylle|Le carotène|La réfraction de la lumière|1
-Quel gaz représente environ 78 % de l'atmosphère terrestre ?|L'argon|L'oxygène|L'azote|Le dioxyde de carbone|2
-Quel est le nom de l'étoile proche du pôle Nord céleste ?|Iota Cephei|Gamma Cephei|Éridan|Polaris (l'étoile polaire)|3
-En développement web, que signifie CSS ?|Corrective Style Sheets|Cascading Style Sheets|Counter-Strike: Source|Computer Style Sheets|1
-Combien de bits y a-t-il dans un octet ?|Six|Douze|Huit|Quinze|2
-Quel informaticien américain a créé le langage de programmation C ?|Willis Ware|Tim Berners-Lee|Dennis Ritchie|Al-Khwârizmî|2
-Que signifie l'acronyme JVM ?|Just Virtual Machine|Java Vendor Machine|Java Visual Machine|Java Virtual Machine|3
-Que signifie « MP » dans MP3 ?|Music Player|Micro Point|Multi Pass|Moving Picture|3
-Comment appelle-t-on plus couramment le système de numération en base 16 ?|Le binaire|L'hexadécimal|Le duodécimal|L'octal|1
-Que signifie USB ?|United Serial Board|Unified Signal Bus|Universal Simple Bus|Universal Serial Bus|3
-Que signifie CPU ?|Central Processing Unit|Central Process Unit|Central Processor Utility|Computer Personal Unit|0
+Combien y a-t-il de cases sur un plateau de Monopoly standard ?|36|40|28|55|1
+Dans quel jeu trouve-t-on la phrase « Allez en prison, ne passez pas par la case Départ » ?|Pay Day|Le Monopoly|Risk|Cluedo|1
+Qu'y a-t-il au centre de notre galaxie ?|Une supernova|Un trou noir|Un quasar|Un trou de ver|1
+Comment s'appelle le premier satellite artificiel de la Terre, lancé par l'URSS en 1957 ?|Soyouz 7K-OK|Zenit-2|Voskhod 3KV|Spoutnik 1|3
+Quel est le symbole chimique du mercure ?|Me|Mc|Hy|Hg|3
+Quelle est l'unité de résistance électrique ?|L'ohm|Le watt|Le tesla|Le joule|0
+La glace sèche est la forme solide de quelle substance ?|L'azote|Le dioxyde de carbone|L'oxygène|L'ammoniac|1
+Que signifie ADN ?|Acide désoxyribonucléique|Atome désoxyribonucléique|Acide détoxifiant|Acide désoxyribogénétique|0
+Quelle mission Apollo a été la première à se poser sur la Lune ?|Apollo 11|Apollo 13|Apollo 9|Apollo 10|0
+Quel est l'élément le plus abondant de l'univers ?|L'hélium|L'hydrogène|Le lithium|L'oxygène|1
+Combien d'os compte le corps humain adulte ?|209|206|200|203|1
+Qui a formulé la loi de la gravitation universelle ?|Charles Darwin|Albert Einstein|Isaac Newton|Galilée|2
+Quel est le plus grand animal vivant sur Terre ?|Le calmar colossal|L'orque|La baleine bleue|La girafe|2
+La ceinture d'astéroïdes se trouve entre quelles deux planètes ?|Jupiter et Saturne|Mars et Jupiter|Mercure et Vénus|La Terre et Mars|1
+Quel animal est au cœur de la célèbre expérience de pensée de Schrödinger ?|Le chien|Le chat|Le papillon|La chauve-souris|1
+Quelle plante Gregor Mendel a-t-il utilisée pour ses expériences de génétique ?|Le pois|La rose|Le blé|Le maïs|0
+Quel élément, soumis à une chaleur et une pression extrêmes, forme des diamants ?|L'azote|L'hydrogène|L'oxygène|Le carbone|3
+Quel gaz noble a le plus petit numéro atomique ?|Le krypton|L'hélium|Le néon|L'argon|1
+Quelle est la planète la plus chaude du système solaire ?|Mars|Jupiter|Mercure|Vénus|3
+Quel élément a pour symbole chimique « Fe » ?|L'étain|L'argent|L'or|Le fer|3
+Comment appelle-t-on le petit d'un kangourou ?|Un chiot|Un joey|Un lionceau|Un veau|1
+Quel pigment donne leur couleur verte à la plupart des feuilles ?|La réfraction de la lumière|Les rayons UV|Le carotène|La chlorophylle|3
+Quel gaz représente environ 78 % de l'atmosphère terrestre ?|L'azote|L'argon|Le dioxyde de carbone|L'oxygène|0
+Quel est le nom de l'étoile proche du pôle Nord céleste ?|Éridan|Iota Cephei|Gamma Cephei|Polaris (l'étoile polaire)|3
+En développement web, que signifie CSS ?|Cascading Style Sheets|Computer Style Sheets|Corrective Style Sheets|Counter-Strike: Source|0
+Combien de bits y a-t-il dans un octet ?|Huit|Six|Douze|Quinze|0
+Quel informaticien américain a créé le langage de programmation C ?|Al-Khwârizmî|Tim Berners-Lee|Dennis Ritchie|Willis Ware|2
+Que signifie l'acronyme JVM ?|Java Virtual Machine|Java Vendor Machine|Java Visual Machine|Just Virtual Machine|0
+Que signifie « MP » dans MP3 ?|Moving Picture|Micro Point|Music Player|Multi Pass|0
+Comment appelle-t-on plus couramment le système de numération en base 16 ?|Le binaire|Le duodécimal|L'octal|L'hexadécimal|3
+Que signifie USB ?|Unified Signal Bus|Universal Simple Bus|Universal Serial Bus|United Serial Board|2
+Que signifie CPU ?|Central Processor Utility|Central Processing Unit|Computer Personal Unit|Central Process Unit|1
 Quel langage de programmation porte le nom d'une île d'Indonésie ?|Jakarta|C|Python|Java|3
-À quel langage associe-t-on le framework Django ?|Python|C#|Java|C++|0
-Que signifie SSD ?|Solution Source Disk|Super Speed Disk|Source Solution Drive|Solid State Drive|3
-Quelle capacité de stockage Gmail offrait-il à son lancement ?|1 Go|Illimitée|5 Go|512 Mo|0
-Combien de valeurs différentes un octet peut-il représenter ?|1024|256|1|8|1
-Qui a démontré le dernier théorème de Fermat ?|Leonhard Euler|Carl Friedrich Gauss|Andrew Wiles|Srinivasa Ramanujan|2
-Comment s'appelle un polygone à neuf côtés ?|Un octogone|Un hexagone|Un ennéagone|Un heptagone|2
-En chiffres romains, que vaut XL ?|15|60|90|40|3
-Comment les Romains appelaient-ils leur dieu de la guerre ?|Arès|Junon|Jupiter|Mars|3
-Dans la mythologie grecque, qui est l'épouse de Zeus ?|Hestia|Héra|Aphrodite|Athéna|1
-Que représente l'ankh, hiéroglyphe égyptien ?|La vie|Le poison|La haine|L'amour|0
-Quelles créatures mythologiques ont un visage de femme et un corps de vautour ?|Les sphinx|Les nymphes|Les harpies|Les sirènes|2
-Qui est le roi des dieux dans la mythologie grecque ?|Poséidon|Apollon|Hermès|Zeus|3
-Laquelle de ces créatures mythologiques est mi-homme, mi-cheval ?|Pégase|Le centaure|La gorgone|Le minotaure|1
-Quel héros de la mythologie grecque est descendu aux Enfers pour ramener son épouse Eurydice ?|Orphée|Persée|Dédale|Héraclès|0
-Qui a mené les Argonautes à la conquête de la Toison d'or ?|Dédale|Jason|Castor|Ulysse|1
-Dans la mythologie grecque, qui est le dieu du vin ?|Déméter|Dionysos|Héphaïstos|Apollon|1
-Combien de têtes Cerbère a-t-il ?|5|1|2|3|3
-Quel point faible d'Achille fut exploité par le prince troyen Pâris ?|Le talon|Le cou|Le mollet|Le dos|0
-Quel dieu gréco-romain est celui de la musique, de la vérité, de la prophétie, de la guérison et du soleil ?|Apollon|Athéna|Aphrodite|Artémis|0
-Sur quel continent se trouve la cordillère des Andes ?|En Amérique du Sud|En Asie|En Afrique|En Europe|0
-Quel petit pays est situé entre la France et l'Espagne ?|Le Vatican|Saint-Marin|Le Liechtenstein|Andorre|3
-Quel est le plus grand pays au monde (par la superficie) à n'avoir qu'un seul fuseau horaire ?|La Chine|Le Canada|La Russie|L'Inde|0
-Sur quel animal le corps du Sphinx égyptien est-il modelé ?|Le chien|Le taureau|Le lion|Le cheval|2
-Dans quel océan se trouve Hawaï ?|Atlantique|Arctique|Pacifique|Indien|2
-Quelle est la capitale de l'Indonésie ?|Medan|Jakarta|Bandung|Palembang|1
-Où se trouvait l'ancienne cité de Pompéi ?|En Afrique de l'Est|En Grèce|En Italie|En Amérique du Sud|2
-Quelle est la capitale de l'Écosse ?|Glasgow|Édimbourg|Londres|Dundee|1
-Où trouve-t-on l'escalier de la place d'Espagne (Spanish Steps) ?|À Barcelone|À Londres|À Berlin|À Rome|3
+À quel langage associe-t-on le framework Django ?|Java|C#|C++|Python|3
+Que signifie SSD ?|Super Speed Disk|Solid State Drive|Source Solution Drive|Solution Source Disk|1
+Quelle capacité de stockage Gmail offrait-il à son lancement ?|5 Go|Illimitée|1 Go|512 Mo|2
+Combien de valeurs différentes un octet peut-il représenter ?|1|256|1024|8|1
+Qui a démontré le dernier théorème de Fermat ?|Andrew Wiles|Leonhard Euler|Srinivasa Ramanujan|Carl Friedrich Gauss|0
+Comment s'appelle un polygone à neuf côtés ?|Un hexagone|Un octogone|Un heptagone|Un ennéagone|3
+En chiffres romains, que vaut XL ?|60|15|40|90|2
+Comment les Romains appelaient-ils leur dieu de la guerre ?|Jupiter|Mars|Junon|Arès|1
+Dans la mythologie grecque, qui est l'épouse de Zeus ?|Athéna|Aphrodite|Hestia|Héra|3
+Que représente l'ankh, hiéroglyphe égyptien ?|La haine|L'amour|La vie|Le poison|2
+Quelles créatures mythologiques ont un visage de femme et un corps de vautour ?|Les sphinx|Les nymphes|Les sirènes|Les harpies|3
+Qui est le roi des dieux dans la mythologie grecque ?|Zeus|Hermès|Poséidon|Apollon|0
+Laquelle de ces créatures mythologiques est mi-homme, mi-cheval ?|Le centaure|La gorgone|Le minotaure|Pégase|0
+Quel héros de la mythologie grecque est descendu aux Enfers pour ramener son épouse Eurydice ?|Dédale|Orphée|Persée|Héraclès|1
+Qui a mené les Argonautes à la conquête de la Toison d'or ?|Castor|Dédale|Jason|Ulysse|2
+Dans la mythologie grecque, qui est le dieu du vin ?|Dionysos|Héphaïstos|Déméter|Apollon|0
+Combien de têtes Cerbère a-t-il ?|3|5|1|2|0
+Quel point faible d'Achille fut exploité par le prince troyen Pâris ?|Le mollet|Le dos|Le cou|Le talon|3
+Quel dieu gréco-romain est celui de la musique, de la vérité, de la prophétie, de la guérison et du soleil ?|Athéna|Apollon|Artémis|Aphrodite|1
+Sur quel continent se trouve la cordillère des Andes ?|En Europe|En Amérique du Sud|En Asie|En Afrique|1
+Quel petit pays est situé entre la France et l'Espagne ?|Le Vatican|Andorre|Saint-Marin|Le Liechtenstein|1
+Quel est le plus grand pays au monde (par la superficie) à n'avoir qu'un seul fuseau horaire ?|Le Canada|L'Inde|La Russie|La Chine|3
+Sur quel animal le corps du Sphinx égyptien est-il modelé ?|Le lion|Le cheval|Le chien|Le taureau|0
+Dans quel océan se trouve Hawaï ?|Indien|Pacifique|Arctique|Atlantique|1
+Quelle est la capitale de l'Indonésie ?|Bandung|Palembang|Medan|Jakarta|3
+Où se trouvait l'ancienne cité de Pompéi ?|En Italie|En Grèce|En Afrique de l'Est|En Amérique du Sud|0
+Quelle est la capitale de l'Écosse ?|Glasgow|Dundee|Londres|Édimbourg|3
+Où trouve-t-on l'escalier de la place d'Espagne (Spanish Steps) ?|À Rome|À Berlin|À Barcelone|À Londres|0
 Le Groenland fait partie de quel royaume ?|Le Royaume-Uni|Le Danemark|La Suède|La Norvège|1
-Dans quelle ville se trouve la Space Needle ?|Los Angeles|Seattle|Vancouver|Toronto|1
-Comment s'appelle la péninsule qui contient l'Espagne et le Portugal ?|La péninsule scandinave|Le Péloponnèse|La péninsule européenne|La péninsule ibérique|3
-Quel État américain est surnommé « The Golden State » ?|La Floride|Le Nouveau-Mexique|La Californie|L'Alaska|2
-Quelle nation du Royaume-Uni a un dragon sur son drapeau ?|Le pays de Galles|L'Écosse|L'Irlande du Nord|L'Angleterre|0
-Quelle est la capitale de la Jamaïque ?|Bridgetown|San Juan|Kingston|Port-au-Prince|2
-Quelle est la plus petite province du Canada ?|L'Île-du-Prince-Édouard|La Nouvelle-Écosse|Le Nouveau-Brunswick|Le Yukon|0
+Dans quelle ville se trouve la Space Needle ?|Seattle|Toronto|Vancouver|Los Angeles|0
+Comment s'appelle la péninsule qui contient l'Espagne et le Portugal ?|La péninsule scandinave|La péninsule ibérique|Le Péloponnèse|La péninsule européenne|1
+Quel État américain est surnommé « The Golden State » ?|Le Nouveau-Mexique|La Californie|La Floride|L'Alaska|1
+Quelle nation du Royaume-Uni a un dragon sur son drapeau ?|L'Irlande du Nord|Le pays de Galles|L'Angleterre|L'Écosse|1
+Quelle est la capitale de la Jamaïque ?|Port-au-Prince|San Juan|Bridgetown|Kingston|3
+Quelle est la plus petite province du Canada ?|L'Île-du-Prince-Édouard|Le Yukon|La Nouvelle-Écosse|Le Nouveau-Brunswick|0
 Quel est le plus grand État des États-Unis ?|Le Texas|Washington|La Californie|L'Alaska|3
-Quel nom portait historiquement la ville turque aujourd'hui appelée Istanbul ?|Söğüt|Andrinople|Constantinople|Hüdavendigâr|2
-Quelle région d'Europe de l'Est est célèbre pour ses légendes de vampires ?|La Slovaquie|La Silésie|La Transylvanie|La Macédoine|2
-Quel est le plus petit pays du monde ?|Monaco|Malte|Les Maldives|Le Vatican|3
-Quelle est la capitale de la Roumanie ?|Bucarest|Belgrade|Bratislava|Budapest|0
-Quelle est la plus grande ville du Canada ?|Toronto|Montréal|Vancouver|Ottawa|0
-Quelle est la capitale de la Finlande ?|Tallinn|Oslo|Stockholm|Helsinki|3
-Dans quel océan se trouve l'île de La Réunion ?|Le Pacifique Sud|L'océan Atlantique|L'océan Indien|Le Pacifique Nord|2
-Quel est le continent le plus vaste et le plus peuplé du monde ?|L'Amérique du Nord|L'Asie|L'Europe|L'Afrique|1
-Lequel de ces pays n'a PAS fait partie de l'Union soviétique ?|La Roumanie|Le Turkménistan|La Biélorussie|Le Tadjikistan|0
-Laquelle de ces îles japonaises est la plus grande ?|Hokkaidō|Shikoku|Honshū|Kyūshū|2
-Quel État américain est surnommé « Lone Star State » ?|Le Tennessee|L'Alabama|Le Kentucky|Le Texas|3
-Quelle est la deuxième plus grande ville de Russie ?|Minsk|Nijni Novgorod|Saint-Pétersbourg|Vladivostok|2
-Comment s'appelle le peuple autochtone de Nouvelle-Zélande ?|Les Samoans|Les Maoris|Les Polynésiens|Les Vikings|1
-Quel est le plus grand désert chaud du monde ?|Le Sahara|Le Mojave|Le Gobi|Le Kalahari|0
-Dans quelle ville indienne se trouve le Taj Mahal ?|Mumbai|Agra|Faridabad|Thane|1
-En 1939, la Grande-Bretagne et la France déclarent la guerre à l'Allemagne après l'invasion de quel pays ?|La Tchécoslovaquie|La Pologne|L'Autriche|La Hongrie|1
-Quel maréchal allemand était surnommé « le Renard du désert » ?|Erwin Rommel|Ernst Busch|Wolfram von Richthofen|Wilhelm List|0
-Quel pays a rejoint l'Union européenne en 2013 ?|La Turquie|La Bulgarie|La Croatie|La Slovénie|2
-Quelle était la monnaie officielle allemande jusqu'en 2002 ?|Le mark|La livre sterling|Le florin|Le franc|0
-Quand tombent les ides de mars ?|Le 31 mars|Le 15 mars|Le 1er mars|Le 14 mars|1
-En quelle année la Première Guerre mondiale a-t-elle commencé ?|1914|1905|1925|1919|0
-Qui a succédé à Staline à la tête de l'Union soviétique ?|Gueorgui Malenkov|Viatcheslav Molotov|Lavrenti Beria|Nikita Khrouchtchev|3
-Quel est l'ancien nom du Sri Lanka ?|Colombo|Badulla|Ceylan|Myanmar|2
-En quelle année l'Irak a-t-il envahi le Koweït ?|1992|1986|1988|1990|3
-Qui a été le premier Premier ministre du Canada ?|Alexander Mackenzie|John Abbott|Robert Borden|John A. Macdonald|3
-Henri VIII était le deuxième monarque de quelle maison royale ?|Les Lancastre|Les Stuart|Les Tudor|Les York|2
-Combien y a-t-il eu d'alunissages habités ?|1|7|3|6|3
-Dans quel pays Joseph Staline est-il né ?|En Allemagne|En Pologne|En Géorgie|En Russie|2
-Le Titanic a coulé lors de son voyage inaugural de Southampton vers quelle ville américaine ?|Washington|New York|Philadelphie|Boston|1
-Quel a été le premier sport pratiqué sur la Lune ?|Le football américain|Le football|Le golf|Le tennis|2
+Quel nom portait historiquement la ville turque aujourd'hui appelée Istanbul ?|Constantinople|Hüdavendigâr|Andrinople|Söğüt|0
+Quelle région d'Europe de l'Est est célèbre pour ses légendes de vampires ?|La Slovaquie|La Macédoine|La Silésie|La Transylvanie|3
+Quel est le plus petit pays du monde ?|Malte|Le Vatican|Monaco|Les Maldives|1
+Quelle est la capitale de la Roumanie ?|Bucarest|Bratislava|Budapest|Belgrade|0
+Quelle est la plus grande ville du Canada ?|Vancouver|Ottawa|Toronto|Montréal|2
+Quelle est la capitale de la Finlande ?|Tallinn|Helsinki|Oslo|Stockholm|1
+Dans quel océan se trouve l'île de La Réunion ?|Le Pacifique Nord|L'océan Indien|Le Pacifique Sud|L'océan Atlantique|1
+Quel est le continent le plus vaste et le plus peuplé du monde ?|L'Afrique|L'Amérique du Nord|L'Europe|L'Asie|3
+Lequel de ces pays n'a PAS fait partie de l'Union soviétique ?|La Biélorussie|Le Tadjikistan|Le Turkménistan|La Roumanie|3
+Laquelle de ces îles japonaises est la plus grande ?|Shikoku|Hokkaidō|Kyūshū|Honshū|3
+Quel État américain est surnommé « Lone Star State » ?|Le Kentucky|Le Texas|Le Tennessee|L'Alabama|1
+Quelle est la deuxième plus grande ville de Russie ?|Saint-Pétersbourg|Nijni Novgorod|Minsk|Vladivostok|0
+Comment s'appelle le peuple autochtone de Nouvelle-Zélande ?|Les Vikings|Les Maoris|Les Samoans|Les Polynésiens|1
+Quel est le plus grand désert chaud du monde ?|Le Sahara|Le Kalahari|Le Gobi|Le Mojave|0
+Dans quelle ville indienne se trouve le Taj Mahal ?|Thane|Mumbai|Agra|Faridabad|2
+En 1939, la Grande-Bretagne et la France déclarent la guerre à l'Allemagne après l'invasion de quel pays ?|La Tchécoslovaquie|L'Autriche|La Pologne|La Hongrie|2
+Quel maréchal allemand était surnommé « le Renard du désert » ?|Wolfram von Richthofen|Ernst Busch|Wilhelm List|Erwin Rommel|3
+Quel pays a rejoint l'Union européenne en 2013 ?|La Bulgarie|La Turquie|La Slovénie|La Croatie|3
+Quelle était la monnaie officielle allemande jusqu'en 2002 ?|Le mark|Le franc|Le florin|La livre sterling|0
+Quand tombent les ides de mars ?|Le 31 mars|Le 1er mars|Le 14 mars|Le 15 mars|3
+En quelle année la Première Guerre mondiale a-t-elle commencé ?|1919|1905|1914|1925|2
+Qui a succédé à Staline à la tête de l'Union soviétique ?|Lavrenti Beria|Nikita Khrouchtchev|Gueorgui Malenkov|Viatcheslav Molotov|1
+Quel est l'ancien nom du Sri Lanka ?|Colombo|Myanmar|Ceylan|Badulla|2
+En quelle année l'Irak a-t-il envahi le Koweït ?|1990|1992|1986|1988|0
+Qui a été le premier Premier ministre du Canada ?|John Abbott|Robert Borden|John A. Macdonald|Alexander Mackenzie|2
+Henri VIII était le deuxième monarque de quelle maison royale ?|Les York|Les Lancastre|Les Tudor|Les Stuart|2
+Combien y a-t-il eu d'alunissages habités ?|6|7|1|3|0
+Dans quel pays Joseph Staline est-il né ?|En Allemagne|En Géorgie|En Pologne|En Russie|1
+Le Titanic a coulé lors de son voyage inaugural de Southampton vers quelle ville américaine ?|Philadelphie|Boston|Washington|New York|3
+Quel a été le premier sport pratiqué sur la Lune ?|Le tennis|Le football américain|Le football|Le golf|3
 Qui a développé l'idée du socialisme dans ses grandes lignes ?|Vladimir Lénine|Mikhaïl Gorbatchev|Karl Marx|Joseph Staline|2
-En quelle année la centrale nucléaire de Tchernobyl a-t-elle explosé ?|1991|1975|1998|1986|3
-Quel pays d'Amérique du Sud a combattu le Royaume-Uni pour les îles Malouines en 1982 ?|Le Venezuela|Le Brésil|L'Argentine|Le Chili|2
-Dans quel pays la statue de la Liberté a-t-elle été construite avant d'être envoyée aux États-Unis ?|En Espagne|En Allemagne|En Angleterre|En France|3
+En quelle année la centrale nucléaire de Tchernobyl a-t-elle explosé ?|1998|1975|1991|1986|3
+Quel pays d'Amérique du Sud a combattu le Royaume-Uni pour les îles Malouines en 1982 ?|Le Venezuela|L'Argentine|Le Brésil|Le Chili|1
+Dans quel pays la statue de la Liberté a-t-elle été construite avant d'être envoyée aux États-Unis ?|En France|En Allemagne|En Espagne|En Angleterre|0
 Selon la légende, les Grecs ont construit un immense cheval de bois pour entrer dans quelle ville ?|Carthage|Sparte|Athènes|Troie|3
-Pol Pot a été le dictateur de quel pays ?|Du Laos|Du Vietnam|De la Corée du Nord|Du Cambodge|3
+Pol Pot a été le dictateur de quel pays ?|Du Vietnam|De la Corée du Nord|Du Cambodge|Du Laos|2
 L'Empire ottoman a été dissous après sa défaite dans quelle guerre ?|La Première Guerre mondiale|La révolution serbe|La guerre de Crimée|La seconde guerre balkanique|0
-Dans quelle rue le grand incendie de Londres de 1666 a-t-il commencé ?|Westminster|Fleet Street|Baker Street|Pudding Lane|3
-Quel pays moderne est surnommé « le cimetière des empires » ?|La Russie|La Chine|L'Irak|L'Afghanistan|3
-En quelle année Nelson Mandela a-t-il été libéré de prison ?|1994|1990|1992|1980|1
-En 1945, les États-Unis ont largué des bombes atomiques sur Hiroshima et sur quelle autre ville japonaise ?|Kagoshima|Tokyo|Kawasaki|Nagasaki|3
-À quelle guerre George Orwell s'est-il engagé comme volontaire, au point d'y frôler la mort ?|La Première Guerre mondiale|La guerre d'Espagne|La Seconde Guerre mondiale|La guerre civile russe|1
-Les Védas, recueils d'hymnes en sanskrit, sont des textes sacrés de quelle religion ?|L'hindouisme|Le judaïsme|L'islam|Le bouddhisme|0
-En quelle année l'Empire byzantin s'est-il effondré ?|1353|1299|1498|1453|3
-Qui a dirigé la révolution communiste en Russie ?|Gorbatchev|Trotski|Lénine|Staline|2
-En quelle année l'Union soviétique s'est-elle effondrée ?|1991|1992|1990|1891|0
-Qui a été le premier Américain dans l'espace ?|Alan Shepard|Neil Armstrong|John Glenn|Jim Lovell|0
-Quelle grande ville est tombée en 1453 ?|Constantinople|Rome|Hambourg|Athènes|0
-Quelle reine est célèbre pour sa phrase « Qu'ils mangent de la brioche », qu'elle n'aurait sans doute jamais dite ?|Catherine de Médicis|Anne d'Autriche|Élisabeth Ire|Marie-Antoinette|3
-Sous quel nom William Frederick Cody est-il passé à la postérité ?|Buffalo Bill|Wild Bill Hickok|Pawnee Bill|Billy the Kid|0
-En quelle année a eu lieu le krach de Wall Street ?|1929|1930|1925|1932|0
-Comment appelle-t-on les anciennes routes commerciales reliant l'Orient et l'Occident ?|La route de la soie|La route de l'argile|La route des épices|La route du sel|0
-Qui a découvert la pénicilline ?|Louis Pasteur|Alfred Nobel|Marie Curie|Alexander Fleming|3
-Quel chef de guerre célèbre a traversé les Alpes avec des éléphants pendant la deuxième guerre punique ?|Hannibal|Germanicus|Tibère|Alexandre le Grand|0
-Comment Socrate a-t-il été exécuté ?|Par crucifixion|Par décapitation|Par le poison|Par fusillade|2
-Quel homme a chevauché pour prévenir les « Minutemen » que les Britanniques arrivaient ?|Thomas Paine|Henry Longfellow|Nathan Hale|Paul Revere|3
-Laquelle de ces merveilles ne fait PAS partie des Sept Merveilles du monde antique ?|Le colosse de Rhodes|Les jardins suspendus de Babylone|La grande pyramide de Gizeh|La Grande Muraille de Chine|3
-Lequel de ces pays est resté neutre pendant la Seconde Guerre mondiale ?|Le Royaume-Uni|L'Italie|La Suisse|La France|2
-Quel ancien président américain doit son surnom « Teddy » à son refus de tirer sur un ourson sans défense ?|Woodrow Wilson|Theodore Roosevelt|Andrew Jackson|Franklin Pierce|1
-De quel instrument Bill Clinton jouait-il ?|Du saxophone|Du piano|Du cor baryton|Du violon|0
-Quel tableau de Van Gogh représente la vue depuis l'asile de Saint-Rémy-de-Provence ?|L'Église d'Auvers|Le Semeur au soleil couchant|Champ de blé aux corbeaux|La Nuit étoilée|3
-Qui a peint « La Persistance de la mémoire » ?|Jackson Pollock|Edgar Degas|Salvador Dalí|Vincent van Gogh|2
-Qui a peint la fresque « La Création d'Adam » ?|Michel-Ange|Rembrandt|Le Caravage|Léonard de Vinci|0
-Qui a peint la Joconde ?|Claude Monet|Vincent van Gogh|Léonard de Vinci|Pablo Picasso|2
-Comment s'appelle l'art japonais du pliage de papier ?|Le haïku|Le sumi-e|L'origami|L'ukiyo-e|2
-Qui a sculpté la statue du David ?|Auguste Rodin|Michel-Ange|Donatello|Le Bernin|1
-Sous quel nom Ramon Estevez est-il plus connu ?|Charlie Sheen|Emilio Estevez|Martin Sheen|Ramon Sheen|2
-Sous quel nom Aubrey Graham est-il plus connu ?|Drake|Travis Scott|2 Chainz|Lil Wayne|0
-Sous quel nom Carlos Estevez est-il plus connu ?|Joaquin Phoenix|Charlie Sheen|Ricky Martin|Bruno Mars|1
-Quelle actrice a épousé Michael Douglas en 2000 ?|Meg Ryan|Sharon Stone|Catherine Zeta-Jones|Julia Roberts|2
-Le kakapo, grand perroquet nocturne qui ne vole pas, est originaire de quel pays ?|D'Afrique du Sud|D'Australie|De Madagascar|De Nouvelle-Zélande|3
-De quel pays les wombats sont-ils originaires ?|De Nouvelle-Zélande|Des Palaos|De Papouasie-Nouvelle-Guinée|D'Australie|3
-Quel est le nom collectif d'un groupe de corbeaux en anglais ?|A murder (un meurtre)|A gaggle|A pack|A herd|0
-Quel est l'animal terrestre le plus rapide ?|L'antilope d'Amérique|Le lion|Le guépard|La gazelle de Thomson|2
-Comment appelle-t-on le petit d'une chauve-souris en anglais ?|Pup|Cub|Kid|Chick|0
-Combien de pattes ont les papillons ?|2|4|8|6|3
-À quelle classe d'animaux appartiennent les tritons ?|Les mammifères|Les amphibiens|Les reptiles|Les poissons|1
-Quel est l'animal national de l'Inde ?|Le chameau|Le cheval|Le lion|Le tigre|3
-À quel constructeur automobile Jaguar a-t-elle appartenu ?|Ford|General Motors|Chrysler|Fiat|0
-Quel animal figure sur le logo du constructeur italien Lamborghini ?|Un cheval|Un taureau|Une chauve-souris|Un serpent|1
-Combien de roues a un monocycle ?|6|3|4|1|3
-Quel fabricant de pneus est célèbre pour sa gamme « P Zero » ?|Michelin|Bridgestone|Goodyear|Pirelli|3
-Quel est le modèle de voiture électrique le plus populaire de Nissan ?|La Tree|La Roots|La Leaf|La Deer|2
-Quel animal figure sur le logo du constructeur automobile Porsche ?|Un taureau|Un cheval|Un lion|Un guépard|1
+Dans quelle rue le grand incendie de Londres de 1666 a-t-il commencé ?|Pudding Lane|Baker Street|Fleet Street|Westminster|0
+Quel pays moderne est surnommé « le cimetière des empires » ?|La Chine|La Russie|L'Irak|L'Afghanistan|3
+En quelle année Nelson Mandela a-t-il été libéré de prison ?|1992|1990|1980|1994|1
+En 1945, les États-Unis ont largué des bombes atomiques sur Hiroshima et sur quelle autre ville japonaise ?|Kawasaki|Nagasaki|Kagoshima|Tokyo|1
+À quelle guerre George Orwell s'est-il engagé comme volontaire, au point d'y frôler la mort ?|La guerre civile russe|La Seconde Guerre mondiale|La guerre d'Espagne|La Première Guerre mondiale|2
+Les Védas, recueils d'hymnes en sanskrit, sont des textes sacrés de quelle religion ?|L'hindouisme|Le judaïsme|Le bouddhisme|L'islam|0
+En quelle année l'Empire byzantin s'est-il effondré ?|1353|1498|1299|1453|3
+Qui a dirigé la révolution communiste en Russie ?|Staline|Lénine|Trotski|Gorbatchev|1
+En quelle année l'Union soviétique s'est-elle effondrée ?|1891|1992|1991|1990|2
+Qui a été le premier Américain dans l'espace ?|John Glenn|Alan Shepard|Neil Armstrong|Jim Lovell|1
+Quelle grande ville est tombée en 1453 ?|Rome|Constantinople|Athènes|Hambourg|1
+Quelle reine est célèbre pour sa phrase « Qu'ils mangent de la brioche », qu'elle n'aurait sans doute jamais dite ?|Élisabeth Ire|Marie-Antoinette|Anne d'Autriche|Catherine de Médicis|1
+Sous quel nom William Frederick Cody est-il passé à la postérité ?|Pawnee Bill|Wild Bill Hickok|Buffalo Bill|Billy the Kid|2
+En quelle année a eu lieu le krach de Wall Street ?|1925|1932|1929|1930|2
+Comment appelle-t-on les anciennes routes commerciales reliant l'Orient et l'Occident ?|La route du sel|La route de l'argile|La route de la soie|La route des épices|2
+Qui a découvert la pénicilline ?|Alexander Fleming|Louis Pasteur|Alfred Nobel|Marie Curie|0
+Quel chef de guerre célèbre a traversé les Alpes avec des éléphants pendant la deuxième guerre punique ?|Alexandre le Grand|Germanicus|Hannibal|Tibère|2
+Comment Socrate a-t-il été exécuté ?|Par crucifixion|Par décapitation|Par fusillade|Par le poison|3
+Quel homme a chevauché pour prévenir les « Minutemen » que les Britanniques arrivaient ?|Nathan Hale|Thomas Paine|Paul Revere|Henry Longfellow|2
+Laquelle de ces merveilles ne fait PAS partie des Sept Merveilles du monde antique ?|La grande pyramide de Gizeh|Les jardins suspendus de Babylone|La Grande Muraille de Chine|Le colosse de Rhodes|2
+Lequel de ces pays est resté neutre pendant la Seconde Guerre mondiale ?|Le Royaume-Uni|L'Italie|La France|La Suisse|3
+Quel ancien président américain doit son surnom « Teddy » à son refus de tirer sur un ourson sans défense ?|Andrew Jackson|Theodore Roosevelt|Woodrow Wilson|Franklin Pierce|1
+De quel instrument Bill Clinton jouait-il ?|Du violon|Du cor baryton|Du piano|Du saxophone|3
+Quel tableau de Van Gogh représente la vue depuis l'asile de Saint-Rémy-de-Provence ?|Le Semeur au soleil couchant|Champ de blé aux corbeaux|La Nuit étoilée|L'Église d'Auvers|2
+Qui a peint « La Persistance de la mémoire » ?|Edgar Degas|Jackson Pollock|Salvador Dalí|Vincent van Gogh|2
+Qui a peint la fresque « La Création d'Adam » ?|Rembrandt|Léonard de Vinci|Michel-Ange|Le Caravage|2
+Qui a peint la Joconde ?|Vincent van Gogh|Léonard de Vinci|Pablo Picasso|Claude Monet|1
+Comment s'appelle l'art japonais du pliage de papier ?|Le haïku|Le sumi-e|L'ukiyo-e|L'origami|3
+Qui a sculpté la statue du David ?|Le Bernin|Auguste Rodin|Donatello|Michel-Ange|3
+Sous quel nom Ramon Estevez est-il plus connu ?|Martin Sheen|Ramon Sheen|Charlie Sheen|Emilio Estevez|0
+Sous quel nom Aubrey Graham est-il plus connu ?|2 Chainz|Travis Scott|Lil Wayne|Drake|3
+Sous quel nom Carlos Estevez est-il plus connu ?|Ricky Martin|Charlie Sheen|Bruno Mars|Joaquin Phoenix|1
+Quelle actrice a épousé Michael Douglas en 2000 ?|Catherine Zeta-Jones|Meg Ryan|Sharon Stone|Julia Roberts|0
+Le kakapo, grand perroquet nocturne qui ne vole pas, est originaire de quel pays ?|D'Afrique du Sud|De Nouvelle-Zélande|De Madagascar|D'Australie|1
+De quel pays les wombats sont-ils originaires ?|De Papouasie-Nouvelle-Guinée|D'Australie|Des Palaos|De Nouvelle-Zélande|1
+Quel est l'animal terrestre le plus rapide ?|Le guépard|L'antilope d'Amérique|La gazelle de Thomson|Le lion|0
+Combien de pattes ont les papillons ?|6|2|8|4|0
+À quelle classe d'animaux appartiennent les tritons ?|Les reptiles|Les amphibiens|Les mammifères|Les poissons|1
+Quel est l'animal national de l'Inde ?|Le chameau|Le lion|Le tigre|Le cheval|2
+À quel constructeur automobile Jaguar a-t-elle appartenu ?|Ford|General Motors|Fiat|Chrysler|0
+Quel animal figure sur le logo du constructeur italien Lamborghini ?|Un serpent|Une chauve-souris|Un taureau|Un cheval|2
+Combien de roues a un monocycle ?|1|4|3|6|0
+Quel fabricant de pneus est célèbre pour sa gamme « P Zero » ?|Michelin|Pirelli|Bridgestone|Goodyear|1
+Quel est le modèle de voiture électrique le plus populaire de Nissan ?|La Deer|La Roots|La Tree|La Leaf|3
+Quel animal figure sur le logo du constructeur automobile Porsche ?|Un guépard|Un lion|Un cheval|Un taureau|2
 Comment appelle-t-on les pièces cylindriques qui montent et descendent dans le moteur ?|Les radiateurs|Les ressorts à lames|Les ABS|Les pistons|3
-Quel super-héros Marvel est surnommé « l'homme sans peur » ?|Wolverine|Hulk|Daredevil|Thor|2
-Qui est Batman ?|Tony Stark|Bruce Wayne|Clark Kent|Barry Allen|1
-Lequel de ces titres est d'abord un manga ?|Gurren Lagann|High School DxD|Cowboy Bebop|Akira|3
-Qui est le Titan cuirassé dans « L'Attaque des Titans » ?|Mikasa Ackerman|Eren Jäger|Reiner Braun|Armin Arlert|2
-Kirito et Asuna sont les héros de quel anime ?|Sword Art Online|Fairy Tail|Death Note|One Piece|0
-Quel a été le deuxième Pokémon de Sacha dans la série ?|Pikachu|Roucool|Salamèche|Chenipan|3
-Quel est le nom de famille d'Edward et Alphonse dans « Fullmetal Alchemist » ?|Eliek|Ellis|Elric|Elwood|2
+Quel super-héros Marvel est surnommé « l'homme sans peur » ?|Wolverine|Daredevil|Thor|Hulk|1
+Qui est Batman ?|Barry Allen|Tony Stark|Bruce Wayne|Clark Kent|2
+Lequel de ces titres est d'abord un manga ?|Cowboy Bebop|Gurren Lagann|High School DxD|Akira|3
+Qui est le Titan cuirassé dans « L'Attaque des Titans » ?|Mikasa Ackerman|Reiner Braun|Armin Arlert|Eren Jäger|1
+Kirito et Asuna sont les héros de quel anime ?|Fairy Tail|One Piece|Sword Art Online|Death Note|2
+Quel a été le deuxième Pokémon de Sacha dans la série ?|Roucool|Pikachu|Chenipan|Salamèche|2
+Quel est le nom de famille d'Edward et Alphonse dans « Fullmetal Alchemist » ?|Elwood|Eliek|Elric|Ellis|2
 Quel âge a Sacha quand il commence son voyage dans Pokémon ?|9 ans|12 ans|11 ans|10 ans|3
-Qui a reçu le titre de « Fullmetal » dans l'anime « Fullmetal Alchemist » ?|Edward Elric|Alphonse Elric|Van Hohenheim|Izumi Curtis|0
-Dans « Inuyasha », que cherchent à rassembler les héros ?|Les pierres sacrées|Les boules de cristal|Les fragments du joyau|Les pierres de Rave|2
-Dans « Fairy Tail », quel est le surnom de Natsu Dragneel ?|Le Dragon|Le Démon|Le Tueur de dragons|La Salamandre|3
-Quel nom reçoit Chihiro dans « Le Voyage de Chihiro » (2001) ?|Sen (« mille »)|Hyaku (« cent »)|Ichiman (« dix mille »)|Jū (« dix »)|0
-Dans « One Piece », de quelle couleur est le nez de Tony Tony Chopper ?|Gris|Rouge|Noir|Bleu|3
-Comment s'appelle le lion en peluche dans « Bleach » ?|Kon|Urdiu|Chad|Jo|0
-Qui est le héros blond de l'anime « Naruto » ?|Kakashi|Sasuke|Ten Ten|Naruto|3
-Qui est l'auteur du manga « Astro Boy » ?|Yoshihiro Tatsumi|Mitsuteru Yokoyama|Osamu Tezuka|Takao Saito|2
-Dans South Park, quel est le nom de famille de Stan ?|Tweak|Broflovski|Marsh|Stotch|2
-Comment s'appelle la sorcière des mers dans « La Petite Sirène » (1989) de Disney ?|Ursula|Maléfique|Lady Trémaine|Madame Mim|0
-Qui est le méchant du « Roi lion » ?|Vada|Jafar|Scar|Fred|2
-Quelle Tortue Ninja porte traditionnellement un bandeau orange ?|Donatello|Michelangelo|Raphaël|Leonardo|1
-Butters Stotch, Pip Pirrup et Wendy Testaburger sont des personnages de quelle série d'animation ?|Bob's Burgers|South Park|Les Griffin|Les Simpson|1
-Qui double le Génie dans « Aladdin » de Disney en version originale ?|Adam Sandler|Billy Crystal|Jim Carrey|Robin Williams|3
-Dans quelle ville se déroule « Les Pierrafeu » ?|Bedrock (Pierreville)|Stoneville|Rockhampton|Boulder City|0
-Lequel de ces personnages n'est PAS un personnage de dessin animé Disney ?|Daffy Duck|Donald Duck|Balthazar Picsou|Daisy Duck|0
-Dans quel dessin animé trouve-t-on le personnage de Heinz Doofenshmirtz ?|Ben 10|Phinéas et Ferb|Batman, la série animée|Ren et Stimpy|1
+Qui a reçu le titre de « Fullmetal » dans l'anime « Fullmetal Alchemist » ?|Alphonse Elric|Edward Elric|Van Hohenheim|Izumi Curtis|1
+Dans « Inuyasha », que cherchent à rassembler les héros ?|Les boules de cristal|Les pierres sacrées|Les fragments du joyau|Les pierres de Rave|2
+Dans « Fairy Tail », quel est le surnom de Natsu Dragneel ?|Le Tueur de dragons|La Salamandre|Le Dragon|Le Démon|1
+Quel nom reçoit Chihiro dans « Le Voyage de Chihiro » (2001) ?|Jū (« dix »)|Hyaku (« cent »)|Sen (« mille »)|Ichiman (« dix mille »)|2
+Dans « One Piece », de quelle couleur est le nez de Tony Tony Chopper ?|Bleu|Rouge|Noir|Gris|0
+Comment s'appelle le lion en peluche dans « Bleach » ?|Kon|Jo|Chad|Urdiu|0
+Qui est le héros blond de l'anime « Naruto » ?|Sasuke|Ten Ten|Naruto|Kakashi|2
+Qui est l'auteur du manga « Astro Boy » ?|Osamu Tezuka|Mitsuteru Yokoyama|Yoshihiro Tatsumi|Takao Saito|0
+Dans South Park, quel est le nom de famille de Stan ?|Tweak|Marsh|Stotch|Broflovski|1
+Comment s'appelle la sorcière des mers dans « La Petite Sirène » (1989) de Disney ?|Madame Mim|Lady Trémaine|Maléfique|Ursula|3
+Qui est le méchant du « Roi lion » ?|Scar|Fred|Jafar|Vada|0
+Quelle Tortue Ninja porte traditionnellement un bandeau orange ?|Raphaël|Leonardo|Donatello|Michelangelo|3
+Butters Stotch, Pip Pirrup et Wendy Testaburger sont des personnages de quelle série d'animation ?|Les Simpson|South Park|Bob's Burgers|Les Griffin|1
+Qui double le Génie dans « Aladdin » de Disney en version originale ?|Billy Crystal|Robin Williams|Jim Carrey|Adam Sandler|1
+Dans quelle ville se déroule « Les Pierrafeu » ?|Stoneville|Rockhampton|Boulder City|Bedrock (Pierreville)|3
+Lequel de ces personnages n'est PAS un personnage de dessin animé Disney ?|Daisy Duck|Daffy Duck|Balthazar Picsou|Donald Duck|1
+Dans quel dessin animé trouve-t-on le personnage de Heinz Doofenshmirtz ?|Batman, la série animée|Ben 10|Ren et Stimpy|Phinéas et Ferb|3
 Quel type d'animal est Bambi dans le film Disney ?|Un cerf|Un loup|Un éléphant|Une souris|0
-Comment s'appelle l'âne mélancolique, ami de Winnie l'ourson ?|Porcinet|Bourriquet|Maman Gourou|Tigrou|1
-Dans « Avatar : le dernier maître de l'air », quel élément Aang apprend-il en premier après sa libération ?|L'air|L'eau|Le feu|La terre|1
-Quelle famille de dessin animé habite au 742 Evergreen Terrace, à Springfield ?|Les Simpson|Les Griffin|Les Hill|Les Pierrafeu|0
-Quel personnage des « Griffin » a eu sa propre série dérivée en 2009 ?|Joe Swanson|Glenn Quagmire|Le sourd graisseux|Cleveland Brown|3
+Comment s'appelle l'âne mélancolique, ami de Winnie l'ourson ?|Maman Gourou|Tigrou|Porcinet|Bourriquet|3
+Dans « Avatar : le dernier maître de l'air », quel élément Aang apprend-il en premier après sa libération ?|La terre|Le feu|L'eau|L'air|2
+Quelle famille de dessin animé habite au 742 Evergreen Terrace, à Springfield ?|Les Pierrafeu|Les Hill|Les Griffin|Les Simpson|3
+Quel personnage des « Griffin » a eu sa propre série dérivée en 2009 ?|Le sourd graisseux|Glenn Quagmire|Cleveland Brown|Joe Swanson|2
