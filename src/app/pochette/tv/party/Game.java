@@ -21,6 +21,8 @@ import java.util.Random;
  */
 public final class Game {
     public static final int BLIND = 0, CHAIRS = 1, LYRICS = 2;
+    /** Number left empty by the removed pixel game: the grid skips it. */
+    public static final int PIXEL_SLOT = 3;
     public static final String[] NAMES = {"Blind test", "Chaise musicale", "N'oubliez pas les paroles"};
 
     public static final int P_LOAD = 0, P_GUESS = 1, P_REVEAL = 2, P_DANCE = 3, P_STOP = 4,
