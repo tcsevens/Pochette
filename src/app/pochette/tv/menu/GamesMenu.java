@@ -136,8 +136,10 @@ public final class GamesMenu {
             if (i < favorites.list().size()) { prefs.gameFav(Ambiance.keyOf(favorites.list().get(i))); gamePick = false; menu.refresh(); }
         } else if ("pstart".equals(id)) {
             menu.hide();
+            int gs = gameSel;
+            gameSel = -1;
             partyView.setWifi(prefs.wifiQr(), prefs.wifiSsid());
-            partyView.start(gameSel - 4, prefs.gameInt("pteams", 3), gameSel == 4 ? Q_ROUNDS[Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))] : TURN_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))],
+            partyView.start(gs - 4, prefs.gameInt("pteams", 3), gs == 4 ? Q_ROUNDS[Math.max(0, Math.min(3, prefs.gameInt("pq", 1)))] : TURN_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pt", 1)))],
                     DUR_VALUES[Math.max(0, Math.min(3, prefs.gameInt("pd", 1)))], prefs.gameInt("pm", 0));
         } else if (id.startsWith("pcat:")) {
             prefs.setGameInt("pm", prefs.gameInt("pm", 0) ^ (1 << Integer.parseInt(id.substring(5))));
@@ -172,6 +174,7 @@ public final class GamesMenu {
         gameView.bind(game);
         gameView.setVisibility(View.VISIBLE);
         menu.hide();
+        gameSel = -1;
         game.start(a);
         gameView.invalidate();
     }
