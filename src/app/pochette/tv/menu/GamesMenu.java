@@ -68,7 +68,7 @@ public final class GamesMenu {
         String[] subs = {T.t("Devinez le morceau"), T.t("Dansez, stop !"), T.t("Finissez la phrase"), T.t("Reconnaissez la pochette"), T.t("Culture générale"), T.t("Faites deviner sans le dire"), T.t("Dessinez, les autres devinent")};
         int[][] cols = {{0xFF8A3FD8, 0xFF2A0F4A}, {0xFFE8674A, 0xFF6A1E12}, {0xFF2B9FD0, 0xFF0F3050}, {0xFF3FC88A, 0xFF0C4028},
                 {0xFFF0BE3A, 0xFF7A4A08}, {0xFFE8524F, 0xFF5A0E1E}, {0xFF4A9AF0, 0xFF0F3070}};
-        for (int i = 0; i < names.length; i++) out.add(new MenuOverlay.Card(T.t(names[i]), T.t(subs[i]), cols[i][0], cols[i][1], i));
+        for (int i = 0; i < names.length; i++) if (i != Game.PIXEL) out.add(new MenuOverlay.Card(T.t(names[i]), T.t(subs[i]), cols[i][0], cols[i][1], i));
         SpotifyClient sp = env.poller() != null ? env.poller().spotify : null;
         if (sp != null && sp.connected() && prefs.spotifyOn())
             out.add(new MenuOverlay.Card(T.t("File d'attente partagée"), T.t("Chacun ajoute un morceau"), 0xFF1DB954, 0xFF0B4A22, 7));
