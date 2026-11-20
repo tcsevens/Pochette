@@ -66,11 +66,12 @@ public final class VideoBg implements TextureView.SurfaceTextureListener {
                 }
             });
             m.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override public boolean onError(MediaPlayer p, int what, int extra) { if (p == mp) stop(); return true; }
+                @Override public boolean onError(MediaPlayer p, int what, int extra) { app.pochette.tv.core.Journal.w("Vidéo", "erreur de lecture " + what + "/" + extra + " : " + want); if (p == mp) stop(); return true; }
             });
             mp = m;
             m.prepareAsync();
         } catch (Exception e) {
+            app.pochette.tv.core.Journal.e("Vidéo", "impossible de lire " + want, e);
             stop();
         }
     }

@@ -258,7 +258,7 @@ public final class SpotifyClient {
     /** The next tracks of the Spotify queue (what "Up next" shows when Spotify Connect plays). */
     public List<SonosClient.Item> queue(int max) throws Exception {
         Res r = call("GET", "/me/player/queue", null);
-        android.util.Log.i("Pochette", "Spotify /queue http " + r.code + " len=" + r.body.length()
+        app.pochette.tv.core.Journal.i("Spotify", "Spotify /queue http " + r.code + " len=" + r.body.length()
             + (r.body.length() > 0 ? " " + r.body.substring(0, Math.min(160, r.body.length())) : ""));
         List<SonosClient.Item> out = new ArrayList<SonosClient.Item>();
         if (r.code == 204 || r.body.length() == 0) return out;

@@ -35,7 +35,7 @@ public final class ThemePreview {
         new Thread(new Runnable() {
             @Override public void run() {
                 Bitmap r = null;
-                try { r = build(th); } catch (Throwable ignored) { }
+                try { r = build(th); } catch (Throwable ex) { app.pochette.tv.core.Journal.w("Aperçu", ex); }
                 synchronized (ThemePreview.class) { cache.put(th, r); busy.remove(th); }
                 Runnable cb = onReady;
                 if (cb != null && r != null) cb.run();

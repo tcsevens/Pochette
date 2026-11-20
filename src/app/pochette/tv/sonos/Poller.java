@@ -118,7 +118,7 @@ public final class Poller {
         volHold = SystemClock.elapsedRealtime() + 2500;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.setGroupVolume(ip, v); } catch (Exception e) { android.util.Log.w("Pochette", "volume: " + e.getMessage()); }
+                try { SonosClient.setGroupVolume(ip, v); } catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", "volume: " + e.getMessage()); }
             }
         });
     }
@@ -131,7 +131,7 @@ public final class Poller {
         volHold = SystemClock.elapsedRealtime() + 2500;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.setGroupMute(ip, m); } catch (Exception e) { android.util.Log.w("Pochette", "mute: " + e.getMessage()); }
+                try { SonosClient.setGroupMute(ip, m); } catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", "mute: " + e.getMessage()); }
             }
         });
     }
@@ -144,7 +144,7 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.seek(ip, Math.max(0, seconds)); } catch (Exception ignored) {}
+                try { SonosClient.seek(ip, Math.max(0, seconds)); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(200);
                 poke();
             }
@@ -161,7 +161,7 @@ public final class Poller {
                     else if (what == 1) SonosClient.pause(ip);
                     else if (what == 2) SonosClient.next(ip);
                     else SonosClient.previous(ip);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(150);
                 poke();
             }
@@ -277,7 +277,7 @@ public final class Poller {
                 SonosClient.Topology t = SonosClient.topology(ip);
                 prefs.lastIp(ip);
                 return t;
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
         }
         return null;
     }
@@ -324,7 +324,7 @@ public final class Poller {
         if (spotify != null) spotify.room = st.roomName;
         st.roomsLabel = topo.roomsLabel(coord);
         if (SystemClock.elapsedRealtime() >= volHold) {      // a local change is not overwritten by an older reading
-            try { vol = SonosClient.getGroupVolume(ip); mute = SonosClient.getGroupMute(ip); } catch (Exception ignored) {}
+            try { vol = SonosClient.getGroupVolume(ip); mute = SonosClient.getGroupMute(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
         }
         st.transport = TrackState.parseTransport(SonosClient.tag(ti, "CurrentTransportState"));
         st.uri = SonosClient.unescape(SonosClient.tag(pi, "TrackURI"));
@@ -461,12 +461,12 @@ public final class Poller {
 
     private void updateQueue(TrackState st, final String ip, String trackNr) {
         try { curTrackNr = Integer.parseInt(trackNr.trim()); } catch (Exception ignored) { curTrackNr = 0; }
-        if (!fetchArt) { android.util.Log.i("Pochette", "queue: fetchArt off"); return; }
+        if (!fetchArt) { app.pochette.tv.core.Journal.i("Sonos", "queue: fetchArt off"); return; }
         int track = 0;
         try { track = Integer.parseInt(trackNr.trim()); } catch (Exception ignored) {}
         if (!mediaUri.equals(lastLoggedUri)) {
             lastLoggedUri = mediaUri;
-            android.util.Log.i("Pochette", "queue: uri=" + (mediaUri.length() > 40 ? mediaUri.substring(0, 40) : mediaUri)
+            app.pochette.tv.core.Journal.i("Sonos", "queue: uri=" + (mediaUri.length() > 40 ? mediaUri.substring(0, 40) : mediaUri)
                 + " spotifyEnabled=" + spotify.enabled() + " connected=" + spotify.connected() + " music=" + st.hasMusic());
         }
         if (mediaUri.startsWith("x-sonos-vli:") && spotify.enabled() && st.hasMusic()) {
@@ -497,7 +497,7 @@ public final class Poller {
                     poke();
                     for (SonosClient.Item it : l) if (it.thumb == null && it.artUrl != null) it.thumb = ImageUtil.download(it.artUrl, 160);
                     poke();
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
             }
         });
     }
@@ -519,7 +519,7 @@ public final class Poller {
             @Override public void run() {
                 try {
                     List<SonosClient.Item> l = spotify.queue(4);
-                    android.util.Log.i("Pochette", "Spotify queue: " + l.size() + " items");
+                    app.pochette.tv.core.Journal.i("Sonos", "Spotify queue: " + l.size() + " items");
                     for (SonosClient.Item it : l) {
                         for (SonosClient.Item o : old) if (o.thumb != null && o.artUrl != null && o.artUrl.equals(it.artUrl)) it.thumb = o.thumb;
                     }
@@ -528,7 +528,7 @@ public final class Poller {
                     for (SonosClient.Item it : l) if (it.thumb == null && it.artUrl != null) it.thumb = ImageUtil.download(it.artUrl, 160);
                     poke();
                 } catch (Exception e) {
-                    android.util.Log.w("Pochette", "Spotify queue: " + e.getMessage());
+                    app.pochette.tv.core.Journal.w("Sonos", "Spotify queue: " + e.getMessage());
                 }
             }
         });
@@ -545,7 +545,7 @@ public final class Poller {
             @Override public void run() {
                 for (int i = 0; i < n; i++) {
                     try { SonosClient.next(ip); }
-                    catch (Exception e) { android.util.Log.w("Pochette", "Spotify jump next " + (i + 1) + "/" + n + ": " + e.getMessage()); }
+                    catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", "Spotify jump next " + (i + 1) + "/" + n + ": " + e.getMessage()); }
                     if (i + 1 < n) SystemClock.sleep(450);
                 }
                 SystemClock.sleep(500);
@@ -561,7 +561,7 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.seekTrack(ip, trackNr); SonosClient.play(ip); } catch (Exception ignored) {}
+                try { SonosClient.seekTrack(ip, trackNr); SonosClient.play(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(200);
                 poke();
             }
@@ -576,11 +576,11 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.pause(ip); } catch (Exception ignored) {}
+                try { SonosClient.pause(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 if (!first) {
-                    try { SonosClient.next(ip); } catch (Exception ignored) {}
+                    try { SonosClient.next(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     SystemClock.sleep(450);
-                    try { SonosClient.pause(ip); } catch (Exception ignored) {}
+                    try { SonosClient.pause(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 }
                 SystemClock.sleep(150);
                 poke();
@@ -594,9 +594,9 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.seek(ip, Math.max(0, seconds)); } catch (Exception ignored) {}
+                try { SonosClient.seek(ip, Math.max(0, seconds)); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(120);
-                try { SonosClient.play(ip); } catch (Exception ignored) {}
+                try { SonosClient.play(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(300);
                 poke();
             }
@@ -608,7 +608,7 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.pause(ip); } catch (Exception ignored) {}
+                try { SonosClient.pause(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(150);
                 poke();
             }
@@ -620,7 +620,7 @@ public final class Poller {
         if (ip == null) return;
         cmd.execute(new Runnable() {
             @Override public void run() {
-                try { SonosClient.play(ip); } catch (Exception ignored) {}
+                try { SonosClient.play(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 SystemClock.sleep(150);
                 poke();
             }
@@ -657,7 +657,7 @@ public final class Poller {
                             it.desc = T.t("Playlist Sonos");
                             l.add(it);
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                 } catch (Exception e) {
                     err = e.getMessage();
                 }
@@ -731,21 +731,21 @@ public final class Poller {
                     for (SonosClient.Room r : wanted) ips.add(r.ip);
                     if (a.ramp) {
                         int target = a.volume;
-                        if (target < 0) { try { target = SonosClient.getVolume(ips.get(0)); } catch (Exception ignored) {} }
+                        if (target < 0) { try { target = SonosClient.getVolume(ips.get(0)); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); } }
                         if (target <= 0) target = 30;
                         int from = Math.min(5, target);
-                        for (String i : ips) { try { SonosClient.setVolume(i, from); } catch (Exception ignored) {} }
+                        for (String i : ips) { try { SonosClient.setVolume(i, from); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); } }
                         VolumeRamp.start(ips, from, target, 180000);
                     } else if (a.volume >= 0) {
-                        for (String i : ips) { try { SonosClient.setVolume(i, a.volume); } catch (Exception ignored) {} }
+                        for (String i : ips) { try { SonosClient.setVolume(i, a.volume); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); } }
                     }
 
                     // 3. music
                     if (fav.kind == 3) {
                         // keep the queue that is already loaded: only reshuffle and start from its first track
                         SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
-                        try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) {}
-                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) {}
+                        try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     } else if (fav.isStream()) {
                         SonosClient.setUri(ip, fav.uri, fav.meta);
                     } else {
@@ -769,16 +769,16 @@ public final class Poller {
                             } catch (Exception ex) { errs += " · " + ex.getMessage(); }
                         }
                         if (!queued) {
-                            android.util.Log.e("Pochette", T.t("Ambiance « ") + a.fav + " » : uri=" + fav.uri + " meta=" + fav.meta + " rebuilt=" + rebuilt + " erreurs=" + errs);
+                            app.pochette.tv.core.Journal.e("Sonos", T.t("Ambiance « ") + a.fav + " » : uri=" + fav.uri + " meta=" + fav.meta + " rebuilt=" + rebuilt + " erreurs=" + errs);
                             String u = fav.uri;
                             throw new Exception(errs + T.t(" · favori : ") + u.substring(0, Math.min(60, u.length())) + T.t(" · métadonnées ") + fav.meta.length() + " car.");
                         }
                         SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
-                        try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) {}
-                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) {}
+                        try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     }
                     SonosClient.play(ip);
-                    try { SonosClient.sleepTimer(ip, a.sleepMin); } catch (Exception ignored) {}
+                    try { SonosClient.sleepTimer(ip, a.sleepMin); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
 
                     currentIp = ip;
                     currentCoordUuid = coord.uuid;
@@ -859,7 +859,7 @@ public final class Poller {
                             try {
                                 SonosClient.avt(ip, "Seek", "<Unit>TRACK_NR</Unit><Target>" + prefs.lastTrack() + "</Target>");
                                 if (prefs.lastPos() > 5) SonosClient.seek(ip, prefs.lastPos());
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                         }
                         SonosClient.play(ip);
                     }

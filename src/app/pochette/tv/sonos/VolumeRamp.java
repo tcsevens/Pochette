@@ -37,7 +37,7 @@ public final class VolumeRamp {
                         int v = Math.round(rampFrom + (rampTo - rampFrom) * f);
                         if (v != last) {
                             last = v;
-                            for (String ip : ips) { try { SonosClient.setVolume(ip, v); } catch (Exception ignored) {} }
+                            for (String ip : ips) { try { SonosClient.setVolume(ip, v); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); } }
                         }
                         if (f >= 1f) break;
                         Thread.sleep(1000);

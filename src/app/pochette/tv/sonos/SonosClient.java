@@ -113,7 +113,7 @@ public final class SonosClient {
             InputStream is = code >= 400 ? c.getErrorStream() : c.getInputStream();
             String resp = is == null ? "" : readAll(is);
             if (code >= 400) {
-                android.util.Log.e("Pochette", action + " -> HTTP " + code + " " + resp + " | args: " + (args.length() > 1500 ? args.substring(0, 1500) : args));
+                app.pochette.tv.core.Journal.e("Sonos", action + " -> HTTP " + code + " " + resp + " | args: " + (args.length() > 1500 ? args.substring(0, 1500) : args));
                 String ec = tag(resp, "errorCode");
                 throw new Exception(action + T.t(" refusé par Sonos (HTTP ") + code + (ec.length() > 0 ? T.t(", erreur ") + ec : "") + ")");
             }
@@ -393,7 +393,7 @@ public final class SonosClient {
                             if (isSonos(ip)) found.add(ip);
                         } catch (Exception ignored) {
                         } finally {
-                            try { so.close(); } catch (Exception ignored) {}
+                            try { so.close(); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                         }
                     }
                 });
@@ -435,7 +435,7 @@ public final class SonosClient {
                     }
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
         return out;
     }
 
@@ -486,9 +486,9 @@ public final class SonosClient {
                     else if (ent.equals("quot")) rep = "\"";
                     else if (ent.equals("apos")) rep = "'";
                     else if (ent.startsWith("#x") || ent.startsWith("#X")) {
-                        try { rep = new String(Character.toChars(Integer.parseInt(ent.substring(2), 16))); } catch (Exception ignored) {}
+                        try { rep = new String(Character.toChars(Integer.parseInt(ent.substring(2), 16))); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     } else if (ent.startsWith("#")) {
-                        try { rep = new String(Character.toChars(Integer.parseInt(ent.substring(1)))); } catch (Exception ignored) {}
+                        try { rep = new String(Character.toChars(Integer.parseInt(ent.substring(1)))); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     }
                     if (rep != null) {
                         sb.append(rep);

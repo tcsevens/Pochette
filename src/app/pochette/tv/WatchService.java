@@ -48,6 +48,7 @@ public class WatchService extends Service implements Poller.Listener {
 
     @Override public void onCreate() {
         super.onCreate();
+        app.pochette.tv.core.Journal.init(getFilesDir());
         T.set(new Prefs(this).lang());
         goForeground();
         poller = new Poller(new Prefs(this), 4000, this);

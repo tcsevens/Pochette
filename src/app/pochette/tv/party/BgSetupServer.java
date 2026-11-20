@@ -56,7 +56,7 @@ public final class BgSetupServer {
                 s.setSoTimeout(15000);
                 new Thread(new Runnable() {
                     @Override public void run() {
-                        try { handle(s); } catch (Exception ignored) { }
+                        try { handle(s); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Serveur", ignored); }
                         try { s.close(); } catch (Exception ignored) { }
                     }
                 }).start();
@@ -126,6 +126,8 @@ public final class BgSetupServer {
             error = "";
             received++;
             reply(out, "200 OK", "text/plain", "ok");
+        } else if (path.startsWith("/log")) {
+            reply(out, "200 OK", "text/plain", app.pochette.tv.core.Journal.full());
         } else if ("POST".equals(method) && path.startsWith("/del")) {
             int slot = slotOf(path);
             if (slot >= 0) { CustomBg.delete(slot); ThemePreview.forget(CustomBg.themeOf(slot)); received++; }

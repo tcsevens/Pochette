@@ -27,6 +27,7 @@ public final class ShareView extends View {
     private QueueServer server;
     private WifiSetupServer setup;
     private BgSetupServer bgSrv;
+    private boolean logMode;
     private String wifiQr = "", wifiName = "";
     private int stage;
 
@@ -48,7 +49,7 @@ public final class ShareView extends View {
     /** The screen with the address where the phone enters the Wi-Fi name and password. */
     public void openSetup(WifiSetupServer w) { setup = w; server = null; setVisibility(VISIBLE); invalidate(); }
     /** The screen with the address where the phone sends custom background videos. */
-    public void openBg(BgSetupServer b) { bgSrv = b; setup = null; server = null; setVisibility(VISIBLE); invalidate(); }
+    public void openBg(BgSetupServer b, boolean log) { logMode = log; bgSrv = b; setup = null; server = null; setVisibility(VISIBLE); invalidate(); }
     public void close() {
         if (setup != null) { setup.stop(); setup = null; }
         if (bgSrv != null) { bgSrv.stop(); bgSrv = null; }
@@ -84,6 +85,22 @@ public final class ShareView extends View {
         c.drawRect(0, 0, W, H, fill);
         float size = 620 * s, x0 = W - 90 * s - size, y0 = 300 * s;
         if (bgSrv != null) {
+            if (logMode) {
+                txt(c, T.t("Journal"), 90 * s, 150 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT, s);
+                txt(c, T.t("Scanne le QR code pour lire tout le journal sur ton téléphone."), 90 * s, 225 * s, 30, 0xFFF2C66B, regular, Paint.Align.LEFT, s);
+                java.util.List<String> lg = app.pochette.tv.core.Journal.tail(16);
+                if (lg.isEmpty()) txt(c, T.t("Rien à signaler."), 90 * s, 310 * s, 30, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
+                for (int i = 0; i < lg.size(); i++) {
+                    tp.setTypeface(regular); tp.setTextSize(21 * s); tp.setColor(0xCCFFFFFF); tp.setTextAlign(Paint.Align.LEFT);
+                    c.drawText(android.text.TextUtils.ellipsize(lg.get(i), new android.text.TextPaint(tp), W - 90 * s - size - 160 * s, android.text.TextUtils.TruncateAt.END).toString(), 90 * s, (290 + i * 40) * s, tp);
+                }
+                String u = bgSrv.url() + "/log";
+                qr(c, u, x0, y0, size);
+                txt(c, u.replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
+                txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
+                postInvalidateDelayed(1000);
+                return;
+            }
             txt(c, T.t("Mes fonds d'écran"), 90 * s, 150 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT, s);
             txt(c, T.t("Scanne ce QR code avec ton téléphone"), 90 * s, 240 * s, 36, 0xFFF2C66B, regular, Paint.Align.LEFT, s);
             txt(c, T.t("Choisis une vidéo MP4 sur la page qui s'ouvre."), 90 * s, 292 * s, 28, 0xB0FFFFFF, regular, Paint.Align.LEFT, s);

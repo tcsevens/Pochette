@@ -63,7 +63,7 @@ public final class QueueServer {
             try {
                 Socket s = server.accept();
                 s.setSoTimeout(5000);
-                try { handle(s); } catch (Exception ignored) { }
+                try { handle(s); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Serveur", ignored); }
                 try { s.close(); } catch (Exception ignored) { }
             } catch (Exception e) {
                 if (!running) break;

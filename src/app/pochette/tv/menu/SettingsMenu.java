@@ -112,6 +112,9 @@ public final class SettingsMenu {
                     out.add(MenuOverlay.Row.action("bgadd", T.t("Ajouter une vidéo depuis le téléphone…")));
                     for (int i = 0; i < CustomBg.SLOTS; i++)
                         if (CustomBg.has(i)) out.add(MenuOverlay.Row.action("bgdel:" + i, T.t("Supprimer « Mon fond ") + (i + 1) + " »"));
+                    out.add(MenuOverlay.Row.head(T.t("Dépannage")));
+                    out.add(MenuOverlay.Row.action("logview", T.t("Voir le journal…")));
+                    out.add(MenuOverlay.Row.action("logclear", T.t("Effacer le journal")));
                     break;
                 }
                 List<SonosClient.Room> rs = env.rooms();
@@ -232,7 +235,15 @@ public final class SettingsMenu {
             if (bgServer == null) bgServer = new BgSetupServer();
             if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
             menu.hide();
-            shareView.openBg(bgServer);
+            shareView.openBg(bgServer, false);
+        } else if ("logview".equals(id)) {
+            if (bgServer == null) bgServer = new BgSetupServer();
+            if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
+            menu.hide();
+            shareView.openBg(bgServer, true);
+        } else if ("logclear".equals(id)) {
+            app.pochette.tv.core.Journal.clear();
+            menu.say("", T.t("Journal effacé."), 2500);
         } else if (id.startsWith("bgdel:")) {
             int slot = Integer.parseInt(id.substring(6));
             if (view.getTheme() == CustomBg.themeOf(slot)) { prefs.theme(0, ""); view.setTheme(0, ""); }

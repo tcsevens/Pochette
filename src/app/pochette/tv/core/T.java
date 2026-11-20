@@ -362,6 +362,13 @@ public final class T {
         add("Choisis une vidéo MP4 sur la page qui s'ouvre.", "Pick an MP4 video on the page that opens.", "Elige un vídeo MP4 en la página que se abre.");
         add("Elle reste sur cette télé.", "It stays on this TV.", "Se queda en esta tele.");
         add("Reçu : le fond est dans la liste des écrans.", "Received: the background is in the screens list.", "Recibido: el fondo está en la lista de pantallas.");
+        add("Dépannage", "Troubleshooting", "Solución de problemas");
+        add("Voir le journal…", "View the log…", "Ver el registro…");
+        add("Effacer le journal", "Clear the log", "Borrar el registro");
+        add("Journal effacé.", "Log cleared.", "Registro borrado.");
+        add("Journal", "Log", "Registro");
+        add("Rien à signaler.", "Nothing to report.", "Nada que señalar.");
+        add("Scanne le QR code pour lire tout le journal sur ton téléphone.", "Scan the QR code to read the whole log on your phone.", "Escanea el código QR para leer todo el registro en tu móvil.");
         add("Noël", "Christmas", "Navidad");
         add("Automne", "Autumn", "Otoño");
         add("Disquaire", "Record shop", "Tienda de discos");
