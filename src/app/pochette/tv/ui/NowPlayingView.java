@@ -256,6 +256,10 @@ public class NowPlayingView extends View {
     private boolean home;
     private Poller.Snapshot lastSnap;
     public boolean homeOn() { return home; }
+    private long launchUntil;
+    /** An ambiance is being started: the speaker stops and reloads, so keep the current screen (and video) instead of flashing the clock. */
+    public void holdForLaunch(long ms) { launchUntil = ms > 0 ? SystemClock.uptimeMillis() + ms : 0; }
+
     public void setHome(boolean on) {
         if (home == on) return;
         home = on;
@@ -293,6 +297,10 @@ public class NowPlayingView extends View {
             else n.idleSub = T.t("En attente de musique · ") + st.roomName;
         }
 
+        if (launchUntil > 0) {
+            if (now >= launchUntil || !n.idle) launchUntil = 0;
+            else if (!cur.idle && !home) { invalidate(); return; }
+        }
         boolean changed = n.idle != cur.idle
                 || (!n.idle && (!cur.st.trackKey().equals(st.trackKey()) || n.art != cur.art));
         // While Sonos switches tracks it briefly reports an empty/half-filled state (no title, no artwork yet):

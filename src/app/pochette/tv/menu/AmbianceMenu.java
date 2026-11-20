@@ -97,9 +97,11 @@ public final class AmbianceMenu {
         if (env.poller() == null) return;
         view.showToast(T.t("Ambiance ") + T.t(a.name) + "…", 4000);
         menu.hide();
+        view.holdForLaunch(20000);
         env.poller().launchAmbiance(a, new Poller.Done() {
             @Override public void done(String error) {
-                if (error != null) { view.showToast(T.t("Impossible de lancer « ") + a.name + T.t(" » : ") + error, 6000); return; }
+                if (error != null) {
+                    view.holdForLaunch(0); view.showToast(T.t("Impossible de lancer « ") + a.name + T.t(" » : ") + error, 6000); return; }
                 view.setHome(false);
                 prefs.theme(a.theme, a.name);
                 view.setTheme(a.theme, a.name);
