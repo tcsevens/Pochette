@@ -30,9 +30,9 @@ import java.util.List;
  * (a click makes some soundbars switch to the TV input and cut the music).
  */
 public class MenuOverlay extends View {
-    public static final int SEC_PLAY = 0, SEC_AMB = 1, SEC_GAMES = 2, SEC_ROOMS = 3, SEC_DISPLAY = 4, SEC_SETTINGS = 5, SEC_HELP = 6;
-    public static final String[] SEC_NAMES = {"Lecture", "Ambiances", "Jeux", "Pièces", "Affichage", "Réglages", "À propos"};
-    private static final int[] SEC_ICONS = {0, 5, 6, 1, 2, 3, 4};
+    public static final int SEC_PLAY = 0, SEC_AMB = 1, SEC_FAV = 2, SEC_GAMES = 3, SEC_ROOMS = 4, SEC_DISPLAY = 5, SEC_SETTINGS = 6, SEC_HELP = 7;
+    public static final String[] SEC_NAMES = {"Lecture", "Ambiances", "Favoris", "Jeux", "Pièces", "Affichage", "Réglages", "À propos"};
+    private static final int[] SEC_ICONS = {0, 5, 8, 6, 1, 2, 3, 4};
 
     /** One ambiance card of the grid. theme = Ambiance.T_*, or -1 for the "new" card. */
     public static final class Card {

@@ -6,6 +6,7 @@ import app.pochette.tv.core.TrackState;
 import app.pochette.tv.party.GameView;
 import app.pochette.tv.party.PartyView;
 import app.pochette.tv.menu.AmbianceMenu;
+import app.pochette.tv.menu.FavMenu;
 import app.pochette.tv.menu.GamesMenu;
 import app.pochette.tv.menu.MenuEnv;
 import app.pochette.tv.menu.RoomsMenu;
@@ -98,6 +99,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         infoView = new InfoView(this);
         root.addView(infoView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         amb = new AmbianceMenu(this);
+        fav = new FavMenu(this);
         games = new GamesMenu(this, gameView, partyView, shareView);
         roomsMenu = new RoomsMenu(this);
         settings = new SettingsMenu(this, spotifyView, shareView);
@@ -357,6 +359,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     private PartyView partyView;
     private ShareView shareView;
     private AmbianceMenu amb;
+    private FavMenu fav;
     private GamesMenu games;
     private RoomsMenu roomsMenu;
     private SettingsMenu settings;
@@ -373,7 +376,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public void gamePick(int index) { games.pick(index); }
 
     @Override public void onOpen(int section) {
-        if (section == MenuOverlay.SEC_SETTINGS) settings.open();
+        if (section == MenuOverlay.SEC_FAV) fav.open();
+        else if (section == MenuOverlay.SEC_SETTINGS) settings.open();
         else if (section == MenuOverlay.SEC_ROOMS) roomsMenu.open();
     }
 
@@ -389,6 +393,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public List<MenuOverlay.Row> rows(int section) {
         switch (section) {
             case MenuOverlay.SEC_AMB: return amb.rows();
+            case MenuOverlay.SEC_FAV: return fav.rows();
             case MenuOverlay.SEC_GAMES: return games.rows();
             case MenuOverlay.SEC_ROOMS: return roomsMenu.rows();
             default: return settings.rows(section);
@@ -407,6 +412,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         if (row.id == null) return;
         switch (section) {
             case MenuOverlay.SEC_AMB: amb.activate(row.id); break;
+            case MenuOverlay.SEC_FAV: fav.activate(row.id); break;
             case MenuOverlay.SEC_GAMES: games.activate(row.id); break;
             case MenuOverlay.SEC_ROOMS: roomsMenu.activate(row.id); break;
             default: settings.activate(row);

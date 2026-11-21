@@ -381,6 +381,9 @@ public final class T {
         add("Rien à signaler.", "Nothing to report.", "Nada que señalar.");
         add("Scanne le QR code pour lire tout le journal sur ton téléphone.", "Scan the QR code to read the whole log on your phone.", "Escanea el código QR para leer todo el registro en tu móvil.");
         add("Pop & geek", "Pop & geek", "Pop y friki");
+        add("Favoris", "Favourites", "Favoritos");
+        add("Lance une playlist ou un favori Sonos dans les pièces qui jouent déjà. Le volume, le fond d'écran et l'affichage ne changent pas.", "Plays a Sonos favourite or playlist in the rooms already playing. Volume, wallpaper and display stay as they are.", "Reproduce una lista o un favorito de Sonos en las habitaciones que ya suenan. El volumen, el fondo y la pantalla no cambian.");
+        add("Lecture : ", "Playing: ", "Reproduciendo: ");
         add("Catégories (rien de coché = toutes)", "Categories (none ticked = all)", "Categorías (ninguna marcada = todas)");
         add("Questions du quiz « Pop & geek » : Open Trivia DB (opentdb.com), licence CC BY-SA 4.0, sélectionnées et traduites.", "Quiz questions “Pop & geek”: Open Trivia DB (opentdb.com), CC BY-SA 4.0 licence, selected and translated.", "Preguntas del quiz «Pop y friki»: Open Trivia DB (opentdb.com), licencia CC BY-SA 4.0, seleccionadas y traducidas.");
         add("Noël", "Christmas", "Navidad");

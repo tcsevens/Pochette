@@ -154,6 +154,9 @@ final class Icons {
                 p.moveTo(12, 3); p.lineTo(14.5f, 8); p.lineTo(20, 8.8f); p.lineTo(16, 12.7f); p.lineTo(16.9f, 18.2f);
                 p.lineTo(12, 15.6f); p.lineTo(7.1f, 18.2f); p.lineTo(8, 12.7f); p.lineTo(4, 8.8f); p.lineTo(9.5f, 8); p.close();
                 break;
+            case 8:
+                p.moveTo(12, 20.5f); p.cubicTo(4, 14.5f, 2.5f, 9.5f, 5.5f, 6); p.cubicTo(8, 3.5f, 11, 4.5f, 12, 7); p.cubicTo(13, 4.5f, 16, 3.5f, 18.5f, 6); p.cubicTo(21.5f, 9.5f, 20, 14.5f, 12, 20.5f); p.close();
+                break;
             case 6:
                 irf.set(3, 3, 21, 21); c.drawRect(irf, stroke);
                 fill.setColor(color);
