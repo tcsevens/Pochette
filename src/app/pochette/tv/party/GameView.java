@@ -304,6 +304,7 @@ public final class GameView extends View {
 
     private void drawPodium(Canvas c, float W, float H, float s) {
         int[] rank = game.ranking();
+        int[] rn = game.rankNumbers();
         int top = rank.length > 0 ? game.scores[rank[0]] : 0;
         int winners = 0;
         if (top > 0) for (int i = 0; i < rank.length; i++) if (game.scores[rank[i]] == top) winners++;
@@ -326,7 +327,8 @@ public final class GameView extends View {
             int team = rank[pos];
             boolean win = winners > 0 && game.scores[team] == top;
             float x = W / 2f + (k - 1) * (colW + gap) - colW / 2f;
-            float h = H * heights[pos];
+            int rp = Math.min(rn[team] - 1, 2);
+            float h = H * heights[rp];
             int col = Game.TEAM_COLORS[team];
             rect(c, x, baseY - h, x + colW, baseY, win && flash ? mix(col, 0xFFFFFFFF, 0.35f) : col);
             if (win) {
@@ -337,10 +339,11 @@ public final class GameView extends View {
                 rect(c, x - t, baseY - h, x, baseY, fc);
                 rect(c, x + colW, baseY - h, x + colW + t, baseY, fc);
             }
-            fill.setColor(medal[Math.min(pos, 2)]);
+            fill.setColor(medal[rp]);
             c.drawCircle(x + colW / 2f, baseY - h + 52f * s, 34f * s, fill);
-            text(c, String.valueOf(pos + 1), x + colW / 2f, baseY - h + 52f * s + 13f * s, 38f * s, 0xFF3A2A00, bold, Paint.Align.CENTER, 0);
+            text(c, String.valueOf(rn[team]), x + colW / 2f, baseY - h + 52f * s + 13f * s, 38f * s, 0xFF3A2A00, bold, Paint.Align.CENTER, 0);
             text(c, T.t(Game.TEAM_NAMES[team]), x + colW / 2f, baseY - h + 116f * s, 28f * s, 0xFFFFFFFF, medium, Paint.Align.CENTER, colW - 16f * s);
+            if (rn[team] > 1 && game.tied(team)) text(c, T.t("ex æquo"), x + colW / 2f, baseY - h + 150f * s, 22f * s, 0xFFFFFFFF, regular, Paint.Align.CENTER, colW - 16f * s);
             text(c, String.valueOf(game.scores[team]), x + colW / 2f, baseY + 78f * s, 64f * s, 0xFFFFFFFF, bold, Paint.Align.CENTER, 0);
             text(c, (game.scores[team] > 1 ? T.t(" points") : T.t(" point")).trim(), x + colW / 2f, baseY + 112f * s, 24f * s, LABEL, regular, Paint.Align.CENTER, 0);
         }
@@ -348,7 +351,7 @@ public final class GameView extends View {
             StringBuilder sb = new StringBuilder();
             for (int i = 3; i < rank.length; i++) {
                 if (sb.length() > 0) sb.append("   ·   ");
-                sb.append(i + 1).append(". ").append(T.t(Game.TEAM_NAMES[rank[i]])).append(' ').append(game.scores[rank[i]]);
+                sb.append(rn[rank[i]]).append(game.tied(rank[i]) ? "e " + T.t("ex æquo") + " " : ". ").append(T.t(Game.TEAM_NAMES[rank[i]])).append(' ').append(game.scores[rank[i]]);
             }
             text(c, sb.toString(), W / 2f, baseY + 170f * s, 24f * s, 0xAAFFFFFF, regular, Paint.Align.CENTER, W * 0.85f);
         }

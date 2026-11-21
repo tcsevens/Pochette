@@ -179,7 +179,7 @@ public class NowPlayingView extends View {
     private VideoHost videoHost;
     private String videoNow;
     public void setVideoHost(VideoHost h) { videoHost = h; notifyVideo(); }
-    private boolean videoOn() { return videoHost != null && Themes.video(theme) != null && !cur.idle; }
+    private boolean videoOn() { return videoHost != null && Themes.video(theme) != null && !cur.idle && !sleeping; }
     private void notifyVideo() {
         if (videoHost == null) return;
         String r = videoOn() ? Themes.video(theme) : null;
@@ -446,7 +446,7 @@ public class NowPlayingView extends View {
     private void drawScene(Canvas c, Scene sc, int W, int H, float alpha, long now, int part) {
         int save = -1;
         if (alpha < 0.999f) save = c.saveLayerAlpha(0, 0, W, H, (int) (alpha * 255), Canvas.ALL_SAVE_FLAG);
-        if (sc.idle && sleeping) {
+        if (sleeping) {
             if (part != PART_BG) drawSleepClock(c, W, H);
         } else if (sc.idle) {
             if (part != PART_FG) idle.drawBackground(c, W, H);
@@ -476,14 +476,20 @@ public class NowPlayingView extends View {
 
     public void touch() {
         idleSince = SystemClock.uptimeMillis();
-        if (sleeping) { sleeping = false; invalidate(); }
+        if (sleeping) { sleeping = false; notifyVideo(); invalidate(); }
     }
 
+    /** Nothing playing, or a player left paused: after SLEEP_AFTER_MS the screen goes dark (a still cover is the real burn-in risk). */
     private void updateSleep(long now) {
-        boolean idleShown = cur.idle && !home;
-        if (!idleShown) { idleSince = 0; sleeping = false; return; }
-        if (idleSince == 0) idleSince = now;
-        sleeping = now - idleSince > SLEEP_AFTER_MS;
+        boolean was = sleeping;
+        boolean paused = !cur.idle && cur.st != null && cur.st.transport == TrackState.PAUSED;
+        boolean idleShown = (cur.idle || paused) && !home;
+        if (!idleShown) { idleSince = 0; sleeping = false; }
+        else {
+            if (idleSince == 0) idleSince = now;
+            sleeping = now - idleSince > SLEEP_AFTER_MS;
+        }
+        if (was != sleeping) notifyVideo();
     }
 
     /** Saves the canvas and nudges the fixed foreground (clock, titles, bars) by a few pixels that change every few minutes. */

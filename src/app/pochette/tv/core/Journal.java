@@ -73,6 +73,7 @@ public final class Journal {
     }
 
     private static synchronized void write(String head, String msg) {
+        try { android.util.Log.i("Pochette", head + " " + msg); } catch (Throwable ignored) { }      // also visible with adb logcat
         if (dir == null) return;
         try {
             File cur = new File(dir, "journal.txt");

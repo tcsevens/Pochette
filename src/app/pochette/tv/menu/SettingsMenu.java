@@ -97,7 +97,7 @@ public final class SettingsMenu {
                 }
                 if (setSub == 2) {
                     out.add(MenuOverlay.Row.head(T.t("Avancé")));
-                    out.add(MenuOverlay.Row.toggle("sounds", T.t("Sons système de la télé") + (systemSoundsOn() ? "  ⚠" : ""), systemSoundsOn()));
+                    out.add(MenuOverlay.Row.action("sounds", T.t("Sons système de la télé") + (systemSoundsOn() ? "  ⚠" : "  ✓")));
                     String ip2 = prefs.manualIp().length() > 0 ? prefs.manualIp() : "auto";
                     out.add(MenuOverlay.Row.action("ip", T.t("Adresse IP de l'enceinte : ") + ip2));
                     out.add(MenuOverlay.Row.head(T.t("Invités")));
@@ -270,24 +270,15 @@ public final class SettingsMenu {
             return false;
         }
     }
+    /** Pochette cannot (and no longer asks to) change system settings: it only explains how to turn the sounds off. */
     private void toggleSystemSounds() {
-        boolean on = systemSoundsOn();
-        if (Settings.System.canWrite(activity)) {
-            try {
-                Settings.System.putInt(activity.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, on ? 0 : 1);
-                menu.say("", on ? T.t("Sons système désactivés") : T.t("Sons système réactivés"), 2500);
-                return;
-            } catch (Exception ignored) {}
-        }
-        String help = T.t("Autorise Pochette à « modifier les paramètres système », puis reviens ici et réessaie. ")
-                + T.t("Sinon, désactive les sons toi-même : Paramètres de la télé › Écran et son › Sons système ")
-                + T.t("(ou depuis le PC : adb shell settings put system sound_effects_enabled 0).");
-        try {
-            activity.startActivity(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + activity.getPackageName())));
-            menu.say(T.t("Autorisation nécessaire"), help, 15000);
-        } catch (Exception ex) {
-            menu.say(T.t("Impossible de les couper depuis l'appli"), help, 15000);
-        }
+        if (!systemSoundsOn()) { menu.say("", T.t("Sons système désactivés"), 2500); return; }
+        menu.say(T.t("Sons système de la télé activés"), soundsHelp(), 15000);
+    }
+    public String soundsHelp() {
+        return T.t("Si ta Sonos est une barre de son branchée sur la télé, chaque son de navigation peut couper la musique. ")
+                + T.t("Pour une utilisation optimale, désactive-les : ")
+                + T.t("Paramètres de la télé › Écran et son › Sons système. ");
     }
     private int lyrOffIndex() {
         int v = prefs.lyricsOffset();

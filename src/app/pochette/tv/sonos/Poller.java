@@ -473,6 +473,10 @@ public final class Poller {
             spotifyQueue(st);
             return;
         }
+        if (mediaUri.startsWith("x-sonos-vli:") && st.hasMusic() && !spotify.enabled()) {
+            wsNext(st);       // Spotify Connect without the Spotify link: the speaker still knows the next track
+            return;
+        }
         if (mediaUri.startsWith("x-sonos-vli:") || mediaUri.startsWith("x-rincon:") || mediaUri.startsWith("x-sonos-htastream:")
                 || st.isTv || st.isLineIn || st.isRadio || st.isPodcast || mediaUri.length() == 0 || track <= 0 || !st.hasMusic()) {
             queueKey = "";
@@ -498,6 +502,60 @@ public final class Poller {
                     for (SonosClient.Item it : l) if (it.thumb == null && it.artUrl != null) it.thumb = ImageUtil.download(it.artUrl, 160);
                     poke();
                 } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+            }
+        });
+    }
+
+    private String wsNextKey = "";
+    private long wsNextAt, wsThumbAt;
+
+    /** "Up next" with one track, from the speaker's own websocket API (no Spotify link needed). */
+    private void wsNext(final TrackState st) {
+        final String ip = currentIp;
+        final String coord = currentCoordUuid;
+        if (ip == null) return;
+        String key = st.title + "|" + st.artist;
+        long now = SystemClock.elapsedRealtime();
+        if (key.equals(wsNextKey) && now - wsNextAt < 30000) {
+            // same track: only retry the cover (the speaker may not have it yet for an upcoming title)
+            final List<SonosClient.Item> cur = upNext;
+            if (!cur.isEmpty() && cur.get(0).thumb == null && cur.get(0).artUrl != null && now - wsThumbAt > 8000) {
+                wsThumbAt = now;
+                cmd.execute(new Runnable() {
+                    @Override public void run() {
+                        SonosClient.Item it = cur.get(0);
+                        it.thumb = ImageUtil.download(it.artUrl, 160);
+                        app.pochette.tv.core.Journal.i("Sonos", "Up next cover " + (it.thumb != null ? "ok" : "unavailable") + ": " + it.artUrl);
+                        if (it.thumb != null) poke();
+                    }
+                });
+            }
+            return;
+        }
+        wsNextKey = key;
+        wsNextAt = now;
+        queueKey = "";
+        cmd.execute(new Runnable() {
+            @Override public void run() {
+                try {
+                    String hh = SonosWs.household(ip);
+                    SonosClient.Item n = SonosWs.nextTrack(ip, SonosWs.groupFor(ip, hh, coord));
+                    List<SonosClient.Item> l = new ArrayList<SonosClient.Item>();
+                    if (n != null && (n.artUrl == null || n.artUrl.length() == 0))
+                        n.artUrl = app.pochette.tv.core.CoverLookup.find(n.artist, n.title, n.album);      // the speaker gives no cover for this one
+                    if (n != null) {
+                        n.kind = 5;      // jump = skip to next
+                        l.add(n);
+                    }
+                    upNext = l;
+                    poke();
+                    app.pochette.tv.core.Journal.i("Sonos", "Up next (websocket): " + (n == null ? "none" : n.title + " | cover " + n.artUrl));
+                    for (SonosClient.Item it : l) if (it.thumb == null && it.artUrl != null) {
+                        it.thumb = ImageUtil.download(it.artUrl, 160);
+                        app.pochette.tv.core.Journal.i("Sonos", "Up next cover " + (it.thumb != null ? "ok" : "unavailable"));
+                    }
+                    poke();
+                } catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", e); }
             }
         });
     }
@@ -651,6 +709,14 @@ public final class Poller {
                         if (it.uri.length() > 0) l.add(it);   // shortcuts to Sonos menus (e.g. "Discover Sonos Radio") can't be played
                     }
                     try {
+                        // favourites UPnP cannot see or open (Spotify ones with an empty resource): ask the websocket API
+                        for (SonosClient.Item w : SonosWs.favorites(ip, SonosWs.household(ip))) {
+                            boolean have = false;
+                            for (SonosClient.Item e : l) if (e.kind == 1 && e.title.equals(w.title)) { have = true; break; }
+                            if (!have) l.add(w);
+                        }
+                    } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                    try {
                         for (SonosClient.Item it : SonosClient.browse(ip, "SQ:", 0, 100)) {
                             if (it.uri.length() == 0) continue;
                             it.kind = 2;
@@ -694,8 +760,15 @@ public final class Poller {
                     } else {
                         for (SonosClient.Item it : SonosClient.browse(anyIp, "FV:2", 0, 100)) if (it.title.equals(a.fav)) { fav = it; break; }
                     }
-                    if (fav == null) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » n'est plus dans tes favoris Sonos"));
-                    if (fav.uri.length() == 0) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » est un raccourci de menu Sonos, pas une musique : choisis une playlist ou une radio dans l'ambiance"));
+                    String wsId = null;
+                    if ((fav == null || fav.uri.length() == 0) && !Ambiance.NOW.equals(a.fav) && !a.fav.startsWith(Ambiance.PL)) {
+                        // UPnP cannot open this favourite (typical for Spotify ones): the local websocket API can
+                        try {
+                            for (SonosClient.Item w : SonosWs.favorites(anyIp, SonosWs.household(anyIp))) if (w.title.equals(a.fav)) { wsId = w.wsId; break; }
+                        } catch (Exception ex) { app.pochette.tv.core.Journal.w("Sonos", ex); }
+                    }
+                    if (wsId == null && fav == null) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » n'est plus dans tes favoris Sonos"));
+                    if (wsId == null && fav.uri.length() == 0) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » est un raccourci de menu Sonos, pas une musique : choisis une playlist ou une radio dans l'ambiance"));
 
                     // 1. rooms
                     List<SonosClient.Room> wanted = new ArrayList<SonosClient.Room>();
@@ -741,7 +814,10 @@ public final class Poller {
                     }
 
                     // 3. music
-                    if (fav.kind == 3) {
+                    if (wsId != null) {
+                        String hh = SonosWs.household(ip);
+                        SonosWs.loadFavorite(ip, SonosWs.groupFor(ip, hh, coord.uuid), wsId);
+                    } else if (fav.kind == 3) {
                         // keep the queue that is already loaded: only reshuffle and start from its first track
                         SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
                         try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }

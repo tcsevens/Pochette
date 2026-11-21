@@ -486,6 +486,7 @@ public class MenuOverlay extends View {
             long now = SystemClock.uptimeMillis();
             stripA = stripAlpha(now);
             if (host.stripOn() && stripA > 0.01f) drawTransport(c, W, H, s);
+            if (stripSec > 0 && !host.isPlaying()) postInvalidateDelayed(1000);      // paused: re-check once a second (the dark screen hides the bar)
             if (stripSec > 0 && now < stripUntil && host.isPlaying()) postInvalidateDelayed(stripUntil - now > 800 ? 250 : 40);
             return;
         }
@@ -1023,19 +1024,29 @@ public class MenuOverlay extends View {
             c.drawText("-" + rem / 60 + ":" + (rem % 60 < 10 ? "0" : "") + rem % 60, W - x0 + 60f * s, top + 24f * s, tp);
             rowCy = top + 64f * s;
         }
+        // The fewer titles are queued, the more room the controls get (and when none, they sit in the middle).
+        final float k = n >= 3 ? 1f : n == 2 ? 1.15f : n == 1 ? 1.35f : 1.5f;
+        float shift = 0f;
+        if (n == 0) shift = W / 2f - (44f * s + x0 + (188f + 152f) * k * s) / 2f + 22f * s;
         // transport icons
-        float[] cxs = {x0 + 16f * s, x0 + 80f * s, x0 + 144f * s};
+        c.save();
+        c.translate(shift, 0f);
+        float[] cxs = {x0 + 16f * k * s, x0 + 80f * k * s, x0 + 144f * k * s};
         for (int i = 0; i < 3; i++) {
             boolean f = visible && zone == Z_TRANSPORT && i == tIdx;
             int kind = i == 0 ? 10 : i == 2 ? 12 : (host.isPlaying() ? 11 : 0);
-            icons.icon(c, kind, cxs[i], rowCy, (i == 1 ? 30f : 26f) * s, al(f ? 0xFFFFFFFF : 0xCCFFFFFF));
-            if (f) { fill.setColor(al(ACCENT)); c.drawRect(cxs[i] - 16f * s, rowCy + 20f * s, cxs[i] + 16f * s, rowCy + 23f * s, fill); }
+            icons.icon(c, kind, cxs[i], rowCy, (i == 1 ? 30f : 26f) * k * s, al(f ? 0xFFFFFFFF : 0xCCFFFFFF));
+            if (f) { fill.setColor(al(ACCENT)); c.drawRect(cxs[i] - 16f * k * s, rowCy + 20f * k * s, cxs[i] + 16f * k * s, rowCy + 23f * k * s, fill); }
         }
+        c.restore();
         spotifyMark(c, W - x0 + 60f * s, rowCy + 8f * s, s, true, (int) (255 * stripA));
         roomsMark(c, W - x0 + 60f * s, rowCy - 12f * s, s, true, (int) (255 * stripA));
         {   // info: small square speech bubble with an "i", bottom left
             boolean f = visible && zone == Z_TRANSPORT && tIdx == 4;
+            c.save();
+            c.translate(shift, 0f);
             float ix = 58f * s, h = 12f * s;
+            c.scale(k, k, ix, rowCy);
             int col = al(f ? 0xFFFFFFFF : 0x99FFFFFF);
             fill.setShader(null);
             fill.setColor(col);
@@ -1054,13 +1065,17 @@ public class MenuOverlay extends View {
             c.drawRect(ix - 5f * s, rowCy - 2f * s, ix - 2f * s, rowCy, fill);                 // top serif
             c.drawRect(ix - 5f * s, rowCy + 5f * s, ix + 5f * s, rowCy + 7f * s, fill);         // foot
             if (f) { fill.setColor(al(ACCENT)); c.drawRect(ix - 16f * s, rowCy + 20f * s, ix + 16f * s, rowCy + 23f * s, fill); }
+            c.restore();
         }
         float volEnd;
         {   // volume: speaker, 10 flat squares, number
             boolean f = visible && zone == Z_TRANSPORT && tIdx == 3;
             int v = host.volume();
             boolean mute = host.muted();
-            float vx = x0 + 188f * s;
+            float vx = x0 + 188f * k * s;
+            c.save();
+            c.translate(shift, 0f);
+            c.scale(k, k, vx, rowCy);
             int col = mute ? al(ACCENT) : al(f ? 0xFFFFFFFF : 0xCCFFFFFF);
             icons.icon(c, 1, vx + 11f * s, rowCy, 22f * s, col);
             float bx = vx + 32f * s, bw = 5f * s, bh = 14f * s;
@@ -1081,6 +1096,8 @@ public class MenuOverlay extends View {
                 fill.setColor(al(ACCENT));
                 c.drawRect(vx, rowCy + 20f * s, volEnd, rowCy + 23f * s, fill);
             }
+            c.restore();
+            volEnd = vx + (volEnd - vx) * k;
         }
         if (n == 0) { qShown = 0; return; }
         float dx = volEnd + 24f * s;
@@ -1095,16 +1112,18 @@ public class MenuOverlay extends View {
         // As many titles as fit left of the room / Spotify marks, sharing the free width (3 when there is room).
         float avail = markLeft - 24f * s - qx;
         int shown = 0;
-        for (int k = n; k >= 1; k--) {
-            float w = Math.min(300f * s, avail / k);
-            if (w - ta - 36f * s >= 110f * s) { shown = k; iw = w; break; }
+        for (int cnt = n; cnt >= 1; cnt--) {
+            float w = Math.min((cnt == 1 ? 440f : 300f) * s, avail / cnt);
+            if (w - ta - 36f * s >= 110f * s) { shown = cnt; iw = w; break; }
         }
         n = shown;
         qShown = n;
         if (n == 0) return;
+        final float big = n == 1 ? 1.35f : n == 2 ? 1.12f : 1f;      // a lone title gets a bigger cover and bigger text
+        ta *= big;
         resetTp();
         tp.setTypeface(medium); tp.setTextSize(11f * s); tp.setLetterSpacing(0.12f); tp.setColor(al(0x8CFFFFFF));
-        c.drawText(T.t("À SUIVRE"), qx, rowCy - 30f * s, tp);
+        c.drawText(n == 1 ? T.t("ENSUITE") : T.t("À SUIVRE"), qx, rowCy - 30f * s - (big - 1f) * 20f * s, tp);
         for (int i = 0; i < n; i++) {
             SonosClient.Item it = q.get(i);
             float ix = qx + i * iw;
@@ -1120,11 +1139,11 @@ public class MenuOverlay extends View {
                 c.drawRect(irf, fill);
             }
             resetTp();
-            tp.setTypeface(f ? bold : medium); tp.setTextSize(15f * s); tp.setColor(al(0xFFFFFFFF));
-            c.drawText(ellipsize(it.title, mw), tx, rowCy - 3f * s, tp);
-            tp.setTypeface(regular); tp.setTextSize(12f * s); tp.setColor(al(0x99FFFFFF));
-            c.drawText(ellipsize(it.artist, mw), tx, rowCy + 15f * s, tp);
-            if (f) { fill.setColor(al(ACCENT)); c.drawRect(ix, rowCy + 27f * s, ix + iw - 24f * s, rowCy + 30f * s, fill); }
+            tp.setTypeface(f ? bold : medium); tp.setTextSize(15f * big * s); tp.setColor(al(0xFFFFFFFF));
+            c.drawText(ellipsize(it.title, mw), tx, rowCy - 3f * big * s, tp);
+            tp.setTypeface(regular); tp.setTextSize(12f * big * s); tp.setColor(al(0x99FFFFFF));
+            c.drawText(ellipsize(it.artist, mw), tx, rowCy + 15f * big * s, tp);
+            if (f) { fill.setColor(al(ACCENT)); c.drawRect(ix, rowCy + 27f * big * s, ix + iw - 24f * s, rowCy + 30f * big * s, fill); }
         }
     }
 

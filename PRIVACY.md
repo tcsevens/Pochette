@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **Pochette** is a free, open-source Android TV app that shows what your Sonos speakers are playing.
-Last updated: November 20, 2026.
+Last updated: November 21, 2026.
 
 **Short version:** Pochette has no account, no analytics, no advertising and no server of its own.
 The developer does not collect, receive or store any data about you.
@@ -22,6 +22,7 @@ Only these, and only when the related feature is used:
 |---|---|---|
 | [LRCLIB](https://lrclib.net) | Synced lyrics (can be turned off in the menu) | The title, artist, album and duration of the current track |
 | [Wikipedia](https://www.wikipedia.org) | Artist biography on the info page | The artist name, as a search query |
+| [Deezer](https://developers.deezer.com) and [iTunes Search](https://performance-partners.apple.com/search-api) | Cover of the next track, only when your speaker plays through Spotify Connect and gives no picture | The artist name and track title, as a search query (iTunes only if Deezer finds nothing) |
 | [Spotify](https://developer.spotify.com) (optional) | "Up next" with Spotify Connect and the shared queue | Requests made with **your own** Spotify developer app and your own Spotify account; see below |
 
 These services have their own privacy policies and receive your IP address like any website would.
@@ -39,11 +40,11 @@ revoke access from your Spotify account page.
 - It does not sell or share your data. There is no data to sell: the developer receives none.
 
 ## Permissions
-- **Internet and network state**: to reach your speakers, LRCLIB, Wikipedia and (optionally) Spotify.
+- **Internet and network state**: to reach your speakers, LRCLIB, Wikipedia, Deezer, iTunes Search and (optionally) Spotify.
 - **Notifications and foreground service**: to keep reading what your speaker is playing while the app is running.
 - **Start at boot**: optional, to open the app when the TV starts.
-- **Display over other apps** and **modify system settings**: optional, used only to bring the screen back when music starts and
-  to turn off system click sounds. The app works without them.
+- **Display over other apps**: optional, used only to bring the screen back when music starts. The app works without it.
+- The app does not change any system setting. If the TV's system click sounds are on, it only shows a tip explaining how to turn them off.
 
 ## Children
 Pochette is not directed at children and does not knowingly collect any personal information.

@@ -253,6 +253,8 @@ public final class SonosClient {
         public String title = "", artist = "", album = "", artUrl, uri = "", meta = "", desc = "";
         public int trackNr;
         public String objId = "";
+        /** Set when the favourite comes from the local websocket API (id for loadFavorite). */
+        public String wsId = "";
         /** 1 = Sonos favourite, 2 = Sonos playlist, 3 = "what is playing now" (the current queue). */
         public int kind = 1;
         public android.graphics.Bitmap thumb;

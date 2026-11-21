@@ -175,9 +175,9 @@ public final class PartyServer {
             + "#t{font-size:30px;font-weight:bold}canvas{display:block;margin:8px auto;background:#fff;width:96vw;max-width:520px;aspect-ratio:4/3;touch-action:none}"
             + "button{border:0;padding:14px 16px;margin:4px;font-size:18px;font-weight:bold;background:#ff7a5c;color:#200}.big{width:92%;padding:22px;font-size:24px;display:block;margin:12px auto}"
             + ".g{background:#3fb87a}.p{background:#555;color:#fff}.pal button{width:44px;height:44px;padding:0;margin:3px}"
-            + "#f div{display:inline-block;background:#e0524f;margin:4px;padding:8px 12px;font-size:20px}#msg{padding:30px;text-align:center;font-size:20px;color:#b8a8f0}</style></head><body>"
+            + "#card{display:none;margin:10px auto;width:92%;max-width:420px;padding:10px;border-radius:12px}#cw{text-align:center;font-size:34px;font-weight:bold;padding:14px 4px 16px;text-transform:uppercase;word-break:break-word}#f{background:#fff;color:#2b2b33;border-radius:6px;padding:14px 6px;text-align:center}#f div{font-size:24px;font-weight:bold;line-height:2;text-transform:uppercase}#fl{text-align:center;font-size:12px;padding-top:8px;opacity:.85}#w{text-align:center}#msg{padding:30px;text-align:center;font-size:20px;color:#b8a8f0}</style></head><body>"
             + "<div id=\"top\"><span id=\"who\">Pochette</span><span id=\"t\"></span></div><div id=\"msg\">" + esc(T.t("En attente de ton tour…")) + "</div>"
-            + "<div id=\"w\"></div><div id=\"f\" style=\"padding:0 10px\"></div>"
+            + "<div id=\"w\"></div><div id=\"card\"><div id=\"cw\"></div><div id=\"f\"></div><div id=\"fl\">" + esc(T.t("Mots interdits")) + "</div></div>"
             + "<div id=\"dr\" style=\"display:none\"><canvas id=\"c\" width=\"800\" height=\"600\"></canvas><div class=\"pal\" style=\"text-align:center\" id=\"pal\"></div>"
             + "<div style=\"text-align:center\"><button onclick=\"act('undo')\">" + esc(T.t("Annuler")) + "</button><button onclick=\"act('clear');clr()\">" + esc(T.t("Effacer")) + "</button><button class=\"g\" onclick=\"act('found')\">" + esc(T.t("Trouvé !")) + "</button></div></div>"
             + "<div id=\"tb\" style=\"display:none\"><button class=\"big g\" onclick=\"act('found')\">" + esc(T.t("Trouvé !")) + "</button><button class=\"big p\" onclick=\"act('pass')\">" + esc(T.t("Passer")) + "</button></div>"
@@ -193,7 +193,7 @@ public final class PartyServer {
             + "cv.addEventListener('touchstart',dn);cv.addEventListener('touchmove',mv);cv.addEventListener('touchend',up);cv.addEventListener('mousedown',dn);cv.addEventListener('mousemove',mv);window.addEventListener('mouseup',up);"
             + "function poll(){fetch('/s?t='+T).then(function(r){return r.json()}).then(function(s){"
             + "$('msg').style.display=s.mode=='none'?'block':'none';$('dr').style.display=s.mode=='draw'?'block':'none';$('tb').style.display=s.mode=='taboo'?'block':'none';"
-            + "$('w').textContent=s.word;$('w').style.color=s.col;$('t').textContent=s.mode=='none'?'':s.sec+' s';"
+            + "$('w').textContent=s.mode=='draw'?s.word:'';$('w').style.color=s.col;$('card').style.display=s.mode=='taboo'?'block':'none';$('card').style.background=s.col;$('cw').textContent=s.mode=='taboo'?s.word:'';$('t').textContent=s.mode=='none'?'':s.sec+' s';"
             + "$('f').innerHTML=s.mode=='taboo'?s.f.map(function(x){return '<div>'+x+'</div>'}).join(''):'';"
             + "if(s.gen!=gen){gen=s.gen;clr()}}).catch(function(){})}setInterval(poll,700);poll();</script></body></html>";
         return h;

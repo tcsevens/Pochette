@@ -60,6 +60,9 @@ public final class T {
         add("Si ta Sonos est une barre de son branchée sur la télé, chaque son de navigation peut couper la musique. ", "If your Sonos is a soundbar connected to the TV, every navigation sound can interrupt the music. ", "Si tu Sonos es una barra de sonido conectada a la tele, cada sonido de navegación puede cortar la música. ");
         add("Pour une utilisation optimale, désactive-les : Menu › Réglages › Sons système, ", "For the best experience, turn them off: Menu › Settings › System sounds, ", "Para un uso óptimo, desactívalos: Menú › Ajustes › Sonidos del sistema, ");
         add("ou Paramètres de la télé › Écran et son › Sons système.", "or TV Settings › Display & sound › System sounds.", "o Ajustes de la tele › Pantalla y sonido › Sonidos del sistema.");
+        add("Pour une utilisation optimale, désactive-les : ", "For the best experience, turn them off: ", "Para un uso óptimo, desactívalos: ");
+        add("Paramètres de la télé › Écran et son › Sons système. ", "TV Settings › Display & sound › System sounds. ", "Ajustes de la tele › Pantalla y sonido › Sonidos del sistema. ");
+        add("avertissement ", "warning ", "aviso ");
         add("Sons système désactivés", "System sounds off", "Sonidos del sistema desactivados");
         add("Sons système réactivés", "System sounds back on", "Sonidos del sistema reactivados");
         add("Autorise Pochette à « modifier les paramètres système », puis reviens ici et réessaie. ", "Allow Pochette to “modify system settings”, then come back here and try again. ", "Permite a Pochette «modificar los ajustes del sistema», luego vuelve aquí y reinténtalo. ");
@@ -500,5 +503,9 @@ public final class T {
         add("Renouveler le lien d'invitation", "Renew the invitation link", "Renovar el enlace de invitación");
         add("Nouveau lien : les anciens ne marchent plus.", "New link: the old ones no longer work.", "Enlace nuevo: los anteriores ya no funcionan.");
         add("Astuce : ajoute cette page à tes favoris ou à l'écran d'accueil pour revenir quand tu veux.", "Tip: add this page to your bookmarks or home screen to come back any time.", "Consejo: añade esta página a tus favoritos o a la pantalla de inicio para volver cuando quieras.");
+        add("ex æquo", "tied", "empate");
+        add("Mots interdits", "Forbidden words", "Palabras prohibidas");
+        add("OK : commencer", "OK: start", "OK: empezar");
+        add("ENSUITE", "NEXT", "SIGUIENTE");
     }
 }

@@ -71,8 +71,8 @@ Option dans Réglages : « Relancer la dernière musique à l'ouverture ». La m
 ## Sons système de la télé
 
 Si les sons de navigation de la télé sont actifs, Pochette l'indique au lancement : avec une barre de son, chaque son peut couper la musique.
-Menu › Réglages › Sons système permet de les couper (la télé demande une fois l'autorisation « modifier les paramètres système »).
-Sinon : Paramètres › Écran et son › Sons système, ou `adb shell settings put system sound_effects_enabled 0`.
+Pochette n'y touche pas : elle te prévient au démarrage s'ils sont activés.
+Pour les couper : Paramètres › Écran et son › Sons système, ou `adb shell settings put system sound_effects_enabled 0`.
 
 ## Dépannage
 
@@ -108,7 +108,7 @@ Sources dans `src/app/pochette/tv/`:
 
 ## v2.0 — Ambiances et À suivre
 - **Ambiances** (1re section du menu) : un OK sur une carte lance la playlist (un *favori Sonos*, ajoutez vos playlists Spotify aux favoris dans l'app Sonos), les pièces, le volume et le thème d'écran. OK maintenu = modifier. Aucun son ajouté.
-- **À suivre** : ▲ depuis les boutons de lecture, OK sur un titre pour y sauter. Fonctionne pour la lecture par file d'attente Sonos (pas Spotify Connect).
+- **À suivre** : ▲ depuis les boutons de lecture, OK sur un titre pour y sauter. Fonctionne pour la lecture par file d'attente Sonos. Avec Spotify Connect, le titre suivant s'affiche sans compte Spotify (API locale de l'enceinte, pochette cherchée par artiste et titre sur Deezer puis iTunes) ; la liste complète demande la liaison Spotify.
 
 
 ## Ambiances, jeux et invités

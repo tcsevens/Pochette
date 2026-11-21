@@ -148,12 +148,13 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override protected void onResume() {
         super.onResume();
         videoBg.resume();
-        if (!soundsWarned && settings.systemSoundsOn()) {
+        // Shown at the first three launches only (a launch counts when the sounds were on); the menu row explains it any time.
+        int warned = prefs.gameInt("soundwarn", 0);
+        if (!soundsWarned && warned < 3 && settings.systemSoundsOn()) {
             soundsWarned = true;
-            view.showNotice(T.t("Sons système de la télé activés"),
-                    T.t("Si ta Sonos est une barre de son branchée sur la télé, chaque son de navigation peut couper la musique. ")
-                            + T.t("Pour une utilisation optimale, désactive-les : Menu › Réglages › Sons système, ")
-                            + T.t("ou Paramètres de la télé › Écran et son › Sons système."), 14000);
+            prefs.setGameInt("soundwarn", warned + 1);
+            view.showNotice(T.t("Sons système de la télé activés") + "  (" + T.t("avertissement ") + (warned + 1) + T.t(" sur ") + "3)",
+                    settings.soundsHelp(), 14000);
         }
         menu.refresh();
     }
@@ -189,7 +190,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         try { return getPackageManager().getPackageInfo(getPackageName(), 0).versionName; } catch (Exception e) { return "?"; }
     }
 
-    @Override public boolean stripOn() { return view.isShowingMusic(); }
+    @Override public boolean stripOn() { return view.isShowingMusic() && !view.isSleeping(); }   // dark screen: the bar steps aside too
 
     @Override public int spotifyState() {
         SpotifyClient sp = poller != null ? poller.spotify : null;
@@ -213,7 +214,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     }
 
     @Override public boolean onKeyDown(int code, KeyEvent e) {
-        if (view.isSleeping()) { view.touch(); return true; }   // the first key only wakes the screen
+        if (view.isSleeping()) { view.touch(); menu.invalidate(); return true; }   // the first key only wakes the screen
         view.touch();
         if (shareView != null && shareView.active()) {
             if (e.getRepeatCount() == 0) { shareView.handleKey(code); if (code == KeyEvent.KEYCODE_BACK) backEaten = true; }
@@ -349,7 +350,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public void queueJump(int index) {
         List<SonosClient.Item> q = upNext();
         if (poller == null || index < 0 || index >= q.size()) return;
-        if (q.get(index).kind == 4) poller.spotifyJump(q.get(index).trackNr);
+        if (q.get(index).kind == 5) poller.next();
+        else if (q.get(index).kind == 4) poller.spotifyJump(q.get(index).trackNr);
         else poller.jumpTo(q.get(index).trackNr);
     }
 

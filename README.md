@@ -16,7 +16,7 @@ Tested on a Google TV Chromecast; interface in English, French and Spanish.
 - **Your own wallpapers**: send up to three videos (MP4/MOV or MKV, H.264 or HEVC, 720p to 4K) from your phone and name them.
 - **Troubleshooting log**: Settings › Advanced shows the app's local journal, handy to report a problem.
 - **Shared queue** (optional, needs Spotify): guests add a song from their phone.
-- **Up next**, rooms picker, screensaver mode, clock when idle, and a menu drawn by the app (no system click sounds).
+- **Up next**, rooms picker, screensaver mode, clock when idle, and a menu drawn by the app (it warns you if the TV's system click sounds are on, and how to turn them off).
 
 ## Install
 Download `Pochette.apk` from the Releases page and install it on the TV.
@@ -34,7 +34,9 @@ The TV and the Sonos must be on the same network. If no speaker is found, enter 
 | Back (during playback) | Ambiance home; Back again quits |
 
 ## Spotify (optional)
-Create an app on the [Spotify developer dashboard](https://developer.spotify.com/dashboard), then Settings › More › Spotify and follow the phone page. Pochette uses your own Client ID; the Spotify Web API needs a Premium account. It enables Spotify Connect "up next" and the shared queue.
+Favourites and the next track work without any Spotify account: Pochette also talks to your speaker's local websocket API (the idea came from a Reddit comment), which opens Spotify favourites that UPnP cannot and shows the next track while Spotify Connect plays. If Sonos gives no cover for that next track, Pochette looks it up by artist and title on Deezer, then iTunes Search (see `PRIVACY.md`).
+
+For a longer "up next" list and the shared queue (guests search and add songs), create an app on the [Spotify developer dashboard](https://developer.spotify.com/dashboard), then Settings › More › Spotify and follow the phone page. Pochette uses your own Client ID; the Spotify Web API needs a Premium account.
 
 ## Build
 ```
@@ -47,7 +49,7 @@ The ambiance videos in `res/raw/` are not under the MIT license: they come from 
 ## Layout of the code
 Sources live in `src/app/pochette/tv/`:
 - `core/` preferences, translations (`T`), track state, ambiance list, helpers
-- `sonos/` `SonosClient` (local UPnP/SOAP) and `Poller` (state, queue, ambiances)
+- `sonos/` `SonosClient` (local UPnP/SOAP), `SonosWs` (local websocket API) and `Poller` (state, queue, ambiances)
 - `spotify/` Web API client and the phone-based setup flow
 - `media/` lyrics (LRCLIB) and artist bio
 - `ui/` `NowPlayingView` (rendering), `MenuOverlay`, drawing helpers (`IdleScreen`, `DiscArt`, `RadioScene`, `Icons`, `Draw`), info/share views, video background
@@ -71,3 +73,6 @@ Quiz questions come from [Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), s
 <img src="docs/screenshots/Ambience.png" width="49%"> <img src="docs/screenshots/Games.png" width="49%">
 <img src="docs/screenshots/Karaoke.png" width="49%"> <img src="docs/screenshots/Quiz.png" width="49%">
 <img src="docs/screenshots/Settings.png" width="49%">
+
+## Privacy
+Pochette collects no data. See [PRIVACY.md](PRIVACY.md).

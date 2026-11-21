@@ -335,17 +335,19 @@ public final class PartyView extends View {
             for (int r = 0; r < n; r++) for (int k = 0; k < n; k++) if (m[r][k]) c.drawRect(x0 + (k + 2) * q, 300 * s + (r + 2) * q, x0 + (k + 3) * q, 300 * s + (r + 3) * q, fill);
             return;
         }
-        fill.setColor(PartyColors.team(tc)); c.drawRect(90 * s, 220 * s, 100 * s, 560 * s, fill);
-        txt(teamName(tc).toUpperCase(T.locale()), 130 * s, 290 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT);
-        wrap(what, 130 * s, 330 * s, 900 * s, 38, 0xE0FFFFFF, regular, Layout.Alignment.ALIGN_NORMAL);
-        if (!serverOk) { txt(T.t("Impossible de démarrer la page pour téléphone"), 130 * s, 640 * s, 32, 0xFFFFB199, medium, Paint.Align.LEFT); return; }
+        fill.setColor(PartyColors.team(tc)); c.drawRect(90 * s, 90 * s, 102 * s, 230 * s, fill);
+        txt(teamName(tc).toUpperCase(T.locale()), 130 * s, 150 * s, 60, 0xFFFFFFFF, bold, Paint.Align.LEFT);
+        wrap(what, 130 * s, 170 * s, 1500 * s, 30, 0xE0FFFFFF, regular, Layout.Alignment.ALIGN_NORMAL);
+        if (!serverOk) { txt(T.t("Impossible de démarrer la page pour téléphone"), W / 2f, 600 * s, 36, 0xFFFFB199, medium, Paint.Align.CENTER); return; }
         boolean con = server.connected();
-        txt(con ? T.t("Téléphone connecté") : T.t("Scanne ce QR code avec ton téléphone"), 130 * s, 700 * s, 32, con ? 0xFF7CFF8A : 0xFFFFFFFF, medium, Paint.Align.LEFT);
-        txt(T.t("(même Wi-Fi que la télé)"), 130 * s, 740 * s, 24, 0x90FFFFFF, regular, Paint.Align.LEFT);
-        txt(T.t("OK : démarrer le tour"), 130 * s, 860 * s, 40, 0xFFF2C66B, bold, Paint.Align.LEFT);
-        if (wifiQr.length() > 0) txt(T.t("◀ : QR code du Wi-Fi"), 130 * s, 920 * s, 24, 0x90FFFFFF, regular, Paint.Align.LEFT);
-        drawQr(c, W - 90 * s - 560 * s, 260 * s, 560 * s);
-        txt(server.url().replace("http://", "").replaceAll("/\\?t=.*", ""), W - 90 * s - 280 * s, 860 * s, 22, 0x90FFFFFF, regular, Paint.Align.CENTER);
+        txt(con ? T.t("Téléphone connecté") : T.t("Scanne ce QR code avec ton téléphone"), W / 2f, 330 * s, 48, con ? 0xFF7CFF8A : 0xFFFFFFFF, bold, Paint.Align.CENTER);
+        float qs = 500 * s;
+        drawQr(c, (W - qs) / 2f, 360 * s, qs);
+        txt(server.url().replace("http://", "").replaceAll("/\\?t=.*", "") + "   ·   " + T.t("(même Wi-Fi que la télé)"), W / 2f, 895 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER);
+        float bw = 520 * s, bx = (W - bw) / 2f;
+        fill.setColor(0xFF3FB87A); c.drawRect(bx, 925 * s, bx + bw, 1010 * s, fill);
+        txt(T.t("OK : commencer"), W / 2f, 982 * s, 42, 0xFF05200F, bold, Paint.Align.CENTER);
+        if (wifiQr.length() > 0) txt(T.t("◀ : QR code du Wi-Fi"), 90 * s, 1050 * s, 22, 0x90FFFFFF, regular, Paint.Align.LEFT);
     }
 
     // ---- taboo
@@ -432,8 +434,10 @@ public final class PartyView extends View {
             int i = idx[r];
             float w = (W - 500 * s) * (0.15f + 0.85f * sc[i] / (float) max);
             fill.setColor(PartyColors.team(i)); c.drawRect(250 * s, y, 250 * s + w, y + rowH - 14 * s, fill);
-            txt(String.valueOf(r + 1), 190 * s, y + rowH * 0.66f, 48, 0xFFFFFFFF, bold, Paint.Align.CENTER);
-            txt(teamName(i) + "  ·  " + sc[i], 280 * s, y + rowH * 0.66f, 36, 0xFFFFFFFF, bold, Paint.Align.LEFT);
+            int rk = 1; boolean tie = false;
+            for (int j = 0; j < teams; j++) { if (sc[j] > sc[i]) rk++; if (j != i && sc[j] == sc[i]) tie = true; }
+            txt(String.valueOf(rk), 190 * s, y + rowH * 0.66f, 48, 0xFFFFFFFF, bold, Paint.Align.CENTER);
+            txt(teamName(i) + "  ·  " + sc[i] + (tie ? "  ·  " + T.t("ex æquo") : ""), 280 * s, y + rowH * 0.66f, 36, 0xFFFFFFFF, bold, Paint.Align.LEFT);
             y += rowH;
         }
         txt(T.t("OK pour fermer"), W / 2f, 1010 * s, 28, 0xB0FFFFFF, regular, Paint.Align.CENTER);

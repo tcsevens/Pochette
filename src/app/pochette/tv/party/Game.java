@@ -479,4 +479,16 @@ public final class Game {
         for (int i = 0; i < teams; i++) out[i] = idx[i];
         return out;
     }
+
+    /** Rank number per team (1 = best); equal scores share a rank (1, 1, 3). */
+    public int[] rankNumbers() {
+        int[] r = new int[teams];
+        for (int i = 0; i < teams; i++) { int n = 1; for (int j = 0; j < teams; j++) if (scores[j] > scores[i]) n++; r[i] = n; }
+        return r;
+    }
+
+    public boolean tied(int team) {
+        for (int j = 0; j < teams; j++) if (j != team && scores[j] == scores[team]) return true;
+        return false;
+    }
 }
