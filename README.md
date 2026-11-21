@@ -3,7 +3,7 @@
 # Pochette — a "now playing" screen for Sonos on Android TV
 
 Pochette fills your TV with what your Sonos is playing: cover art, title, artist, progress bar and optional synced lyrics.
-It talks straight to your speakers on the local network. No account, no cloud. Plain Java, no Gradle, no AndroidX, Android 6+.
+It talks straight to your speakers on the local network. No account, no cloud. Plain Java, no Gradle, no AndroidX, Android 6+ (targets Android 14).
 Tested on a Google TV Chromecast; interface in English, French and Spanish.
 
 ## Features
@@ -11,7 +11,10 @@ Tested on a Google TV Chromecast; interface in English, French and Spanish.
 - **Four display styles**: classic, illustrated (record, radio), lyrics, and wallpaper only. Up/Down switches style.
 - **Synced lyrics** from [LRCLIB](https://lrclib.net) (optional, can be turned off).
 - **Ambiances**: one OK starts a Sonos favourite (playlist), the rooms, the volume and a wallpaper (looping video or drawn scene), with an optional wake-up volume ramp and sleep timer. Back during playback opens the ambiance home.
-- **Games with the TV as game master**: blind test, musical chairs, finish-the-lyrics, pixelated cover, quiz (general, France, Québec), guess-the-word and draw-and-guess. Phones join by QR code on the same Wi-Fi.
+- **Favourites**: play a Sonos favourite or playlist in the rooms already playing, without touching volume, rooms or wallpaper.
+- **Games with the TV as game master**: blind test (with a blinking winner podium), musical chairs, finish-the-lyrics, quiz with tick-box categories (general culture, France, Québec, geek, pop; French, English and Spanish), guess-the-word and draw-and-guess. Phones join by QR code on the same Wi-Fi.
+- **Your own wallpapers**: send up to three videos (MP4/MOV or MKV, H.264 or HEVC, 720p to 4K) from your phone and name them.
+- **Troubleshooting log**: Settings › Advanced shows the app's local journal, handy to report a problem.
 - **Shared queue** (optional, needs Spotify): guests add a song from their phone.
 - **Up next**, rooms picker, screensaver mode, clock when idle, and a menu drawn by the app (no system click sounds).
 
@@ -54,7 +57,9 @@ Sources live in `src/app/pochette/tv/`:
 - `MainActivity` wires everything and routes remote-control keys
 
 ## Not affiliated
-Independent project, not affiliated with Sonos or Spotify. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Developed with the Claude AI.
+Independent project, not affiliated with Sonos, Inc. or Spotify AB. Sonos and Spotify are trademarks of their owners, named here only to say what Pochette works with. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Developed with the Claude AI.
 
 ## Credits
-Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney and BackgroundsCHAIR (links in `NOTICE.md`).
+Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR and victorsteep (links in `NOTICE.md`).
+
+Quiz questions come from [Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), selected and translated into French and Spanish, plus original geek questions. The quiz files stay under CC BY-SA 4.0, except the original questions (see `NOTICE.md`).

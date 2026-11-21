@@ -32,7 +32,7 @@ Pochette apparaît ensuite dans la rangée de tes applis.
 | Touches lecture / suivant / précédent | Agissent directement |
 | Retour (menu fermé) | Quitter |
 
-Sections : **Lecture**, **Pièces** (choisir où joue la musique), **Affichage** (style, couleur du vinyle, paroles, horloge),
+Sections : **Lecture**, **Ambiances**, **Favoris**, **Jeux**, **Pièces** (choisir où joue la musique), **Affichage** (style, couleur du vinyle, paroles, horloge),
 **Réglages** (enceinte suivie, affichage auto, interface, Spotify, avancé), **À propos**.
 Le menu est dessiné par l'appli : il ne fait aucun son système.
 
@@ -113,11 +113,16 @@ Sources dans `src/app/pochette/tv/`:
 
 ## Ambiances, jeux et invités
 - **Ambiances** : cartes avec aperçu du fond d'écran. Retour pendant la lecture ouvre l'accueil des ambiances.
-- **Jeux** : blind test, chaise musicale, n'oubliez pas les paroles, pochette pixellisée, quiz (culture générale, France, Québec), Devine-moi, Dessine-moi. Les téléphones se connectent par QR code, sur le même Wi-Fi.
+- **Favoris** : lance un favori ou une playlist Sonos dans les pièces qui jouent déjà, sans toucher au volume, aux pièces ni au fond d'écran.
+- **Jeux** : blind test (podium avec le vainqueur qui clignote), chaise musicale, n'oubliez pas les paroles, quiz avec catégories à cocher (culture générale, France, Québec, geek, pop ; en français, anglais et espagnol), Devine-moi, Dessine-moi. Les téléphones se connectent par QR code, sur le même Wi-Fi.
+- **Tes propres fonds d'écran** : envoie jusqu'à trois vidéos (MP4/MOV ou MKV, H.264 ou HEVC, de 720p à 4K) depuis ton téléphone et donne-leur un nom.
+- **Journal de dépannage** : Réglages › Avancé affiche le journal local de l'appli, pratique pour signaler un problème.
 - **File d'attente partagée** (avec Spotify) : les invités ajoutent un morceau depuis leur téléphone.
 
 ## Licence
-Code sous licence MIT (voir `LICENSE`), sauf les vidéos (voir `NOTICE.md`). Contenus tiers et marques : voir `NOTICE.md`.
+Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB (marques de leurs propriétaires, citées seulement pour dire avec quoi Pochette fonctionne). Code sous licence MIT (voir `LICENSE`), sauf les vidéos et les questions du quiz (voir `NOTICE.md`).
 
 ## Crédits
-Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney et BackgroundsCHAIR (liens dans `NOTICE.md`).
+Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR et victorsteep (liens dans `NOTICE.md`).
+
+Les questions du quiz viennent d'[Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), sélectionnées et traduites en français et en espagnol, plus des questions geek originales. Les fichiers du quiz restent sous CC BY-SA 4.0, sauf les questions originales (voir `NOTICE.md`).
