@@ -42,13 +42,15 @@ public class MenuOverlay extends View {
         public Card(String name, String sub, int theme) { this.name = name; this.sub = sub; this.theme = theme; }
         public Card(String name, String sub, int c0, int c1, int icon) { this.name = name; this.sub = sub; this.theme = -2; this.c0 = c0; this.c1 = c1; this.icon = icon; }
     }
-    public static final int ROW_CHIPS = 0, ROW_TOGGLE = 1, ROW_ACTION = 2, ROW_CHECK = 3, ROW_TEXT = 4, ROW_BUTTON = 5;
+    public static final int ROW_CHIPS = 0, ROW_TOGGLE = 1, ROW_ACTION = 2, ROW_CHECK = 3, ROW_TEXT = 4, ROW_BUTTON = 5, ROW_SLIDER = 6;
 
     public static final class Row {
         public String id, label;
         public int kind;
         public String[] options;
         public int selected;
+        /** Slider rows: selected goes from 0 to max. */
+        public int max;
         public boolean on;
         /** Chips row drawn as a strip of preview cards instead of pills. */
         public boolean cards;
@@ -64,6 +66,7 @@ public class MenuOverlay extends View {
         }
         public static Row cards(String id, String label, String[] opts, int sel) { Row r = chips(id, label, opts, sel); r.cards = true; return r; }
         public static Row toggle(String id, String label, boolean on) { Row r = make(id, ROW_TOGGLE, label); r.on = on; return r; }
+        public static Row slider(String id, String label, int value, int max) { Row r = make(id, ROW_SLIDER, label); r.selected = value; r.max = max; return r; }
         public static Row action(String id, String label) { return make(id, ROW_ACTION, label); }
         public static Row check(String id, String label, boolean on) { Row r = make(id, ROW_CHECK, label); r.on = on; return r; }
         public static Row button(String id, String label) { return make(id, ROW_BUTTON, label); }
@@ -192,12 +195,11 @@ public class MenuOverlay extends View {
 
     private int railAlpha = 0xD9, panelAlpha = 0xCC;
 
-    /** 0 = very transparent, 1 = medium, 2 = almost opaque. */
-    public void setOpacity(int level) {
-        int[] rail = {0x8C, 0xD9, 0xF7}, panel = {0x80, 0xCC, 0xF5};
-        int l = Math.max(0, Math.min(2, level));
-        railAlpha = rail[l];
-        panelAlpha = panel[l];
+    /** Transparency from 0 (almost opaque) to 10 (very transparent). */
+    public void setTransparency(int t) {
+        int v = Math.max(0, Math.min(10, t));
+        railAlpha = 0xFA - v * (0xFA - 0x59) / 10;
+        panelAlpha = 0xF8 - v * (0xF8 - 0x50) / 10;
         invalidate();
     }
 
@@ -403,6 +405,10 @@ public class MenuOverlay extends View {
                 chipCursor = -1;
                 zone = Z_RAIL;
             }
+        } else if (r.kind == ROW_SLIDER && (toContent || toEdge)) {
+            int nv = Math.max(0, Math.min(r.max, r.selected + (code == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1)));
+            if (nv != r.selected) { r.selected = nv; host.onChoice(railIdx, r, nv); }
+            else if (toEdge && first) zone = Z_RAIL;
         } else if (toEdge && first) {
             zone = Z_RAIL;
         } else if (ok && first) {
@@ -410,7 +416,7 @@ public class MenuOverlay extends View {
                 int pick = chipCursor < 0 ? r.selected : chipCursor;
                 if (pick != r.selected) host.onChoice(railIdx, r, pick);
                 chipCursor = -1;
-            } else if (r.focusable()) {
+            } else if (r.focusable() && r.kind != ROW_SLIDER) {
                 host.onActivate(railIdx, r);
             }
             rows = host.rows(railIdx);
@@ -706,6 +712,7 @@ public class MenuOverlay extends View {
         switch (r.kind) {
             case ROW_CHIPS: if (r.cards) return 130f * s; return 14f * s + 12f * s + chipLines(r, cw, s) * (40f * s) + (chipLines(r, cw, s) - 1) * 8f * s;
             case ROW_TOGGLE: return 46f * s;
+            case ROW_SLIDER: return 70f * s;
             case ROW_BUTTON: return 84f * s;
             case ROW_ACTION: case ROW_CHECK: return 50f * s;
             default: return r.dot == -1 ? 44f * s : textLayout(r.label, cw, s).getHeight();
@@ -825,6 +832,26 @@ public class MenuOverlay extends View {
     private void drawRow(Canvas c, Row r, float x, float y, float cw, float h, float s, boolean focused) {
         if (r.kind != ROW_TEXT && r.kind != ROW_BUTTON && !(r.kind == ROW_CHIPS && r.cards)) plate(c, x, y, cw, h, s, focused);
         if (r.kind == ROW_CHIPS && r.cards) { drawCardStrip(c, r, x, y, cw, s, focused); return; }
+        if (r.kind == ROW_SLIDER) {
+            resetTp();
+            tp.setTypeface(medium); tp.setTextSize(14f * s); tp.setLetterSpacing(0.1f);
+            tp.setColor(focused ? 0xFFFFFFFF : 0x99FFFFFF);
+            c.drawText(r.label.toUpperCase(T.locale()), x, y + 12f * s, tp);
+            tp.setLetterSpacing(0f);
+            float tx0 = x, tx1 = x + cw - 80f * s, ty = y + 44f * s, th = 6f * s;
+            float frac = r.max > 0 ? r.selected / (float) r.max : 0f;
+            rf.set(tx0, ty - th / 2f, tx1, ty + th / 2f);
+            fill.setColor(0x33FFFFFF); c.drawRoundRect(rf, th / 2f, th / 2f, fill);
+            rf.set(tx0, ty - th / 2f, tx0 + (tx1 - tx0) * frac, ty + th / 2f);
+            fill.setColor(0xFFFFFFFF); c.drawRoundRect(rf, th / 2f, th / 2f, fill);
+            float kx = tx0 + (tx1 - tx0) * frac;
+            fill.setColor(0xFFFFFFFF); c.drawCircle(kx, ty, 11f * s, fill);
+            if (focused) { stroke.setColor(FOCUS); stroke.setStrokeWidth(3f * s); c.drawCircle(kx, ty, 15f * s, stroke); }
+            tp.setTypeface(medium); tp.setTextSize(16f * s); tp.setColor(0xFFFFFFFF); tp.setTextAlign(Paint.Align.RIGHT);
+            c.drawText((r.max > 0 ? r.selected * 100 / r.max : 0) + " %", x + cw, ty + 6f * s, tp);
+            tp.setTextAlign(Paint.Align.LEFT);
+            return;
+        }
         if (r.kind == ROW_CHIPS) {
             resetTp();
             tp.setTypeface(medium); tp.setTextSize(14f * s); tp.setLetterSpacing(0.1f);

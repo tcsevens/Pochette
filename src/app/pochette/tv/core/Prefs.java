@@ -83,8 +83,13 @@ public final class Prefs {
     /** Menu opacity: 0 = very transparent, 1 = medium, 2 = almost opaque. */
     public int stripSec() { return p.getInt("strip_sec", 10); }
     public void stripSec(int v) { p.edit().putInt("strip_sec", v).apply(); }
-    public int menuOpacity() { return p.getInt("menu_opacity", 1); }
-    public void menuOpacity(int v) { p.edit().putInt("menu_opacity", v).apply(); }
+    /** Menu transparency, 0 (almost opaque) to 10. Older builds stored three levels under another key. */
+    public int menuTransparency() {
+        if (p.contains("menu_transp")) return p.getInt("menu_transp", 3);
+        int[] fromOld = {7, 3, 0};
+        return fromOld[Math.max(0, Math.min(2, p.getInt("menu_opacity", 1)))];
+    }
+    public void menuTransparency(int v) { p.edit().putInt("menu_transp", v).apply(); }
 
     /** Lyrics offset in ms (positive = lyrics later). */
     public int lyricsOffset() { return p.getInt("lyrics_offset", 0); }

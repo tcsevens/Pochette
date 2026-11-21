@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         view.setClockEnabled(prefs.showClock());
         menu = new MenuOverlay(this, this);
         menu.setRight(prefs.menuRight());
-        menu.setOpacity(prefs.menuOpacity());
+        menu.setTransparency(prefs.menuTransparency());
         menu.setAutoHide(prefs.stripSec());
         view.setLyricsOffset(prefs.lyricsOffset());
         app.pochette.tv.core.Journal.init(getFilesDir());

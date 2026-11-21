@@ -137,7 +137,7 @@ public final class SettingsMenu {
                 out.add(MenuOverlay.Row.head(T.t("Interface")));
                 out.add(MenuOverlay.Row.chips("lang", T.t("Langue"), new String[]{T.t("Automatique"), "Français", "English", "Español"}, prefs.lang()));
                 out.add(MenuOverlay.Row.chips("side", T.t("Position du menu"), new String[]{T.t("Gauche"), T.t("Droite")}, prefs.menuRight() ? 1 : 0));
-                out.add(MenuOverlay.Row.chips("opacity", T.t("Transparence du menu"), new String[]{T.t("Forte"), T.t("Moyenne"), T.t("Faible")}, prefs.menuOpacity()));
+                out.add(MenuOverlay.Row.slider("opacity", T.t("Transparence du menu"), prefs.menuTransparency(), 10));
                 out.add(MenuOverlay.Row.head(T.t("Plus")));
                 out.add(MenuOverlay.Row.action("sub1", T.t("Spotify…")));
                 out.add(MenuOverlay.Row.action("sub2", T.t("Avancé…")));
@@ -172,7 +172,7 @@ public final class SettingsMenu {
         }
         else if ("lang".equals(id)) { prefs.lang(index); T.set(index); activity.recreate(); }
         else if ("strip".equals(id)) { int v = index == 0 ? 0 : 10; prefs.stripSec(v); menu.setAutoHide(v); }
-        else if ("opacity".equals(id)) { prefs.menuOpacity(index); menu.setOpacity(index); }
+        else if ("opacity".equals(id)) { prefs.menuTransparency(index); menu.setTransparency(index); }
         else if ("lyroff".equals(id)) { prefs.lyricsOffset(LYR_OFF_MS[index]); view.setLyricsOffset(LYR_OFF_MS[index]); }
         else if ("side".equals(id)) { prefs.menuRight(index == 1); menu.setRight(index == 1); }
         else if ("follow".equals(id)) {
