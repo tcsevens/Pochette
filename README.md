@@ -63,3 +63,11 @@ Independent project, not affiliated with Sonos, Inc. or Spotify AB. Sonos and Sp
 Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR and victorsteep (links in `NOTICE.md`).
 
 Quiz questions come from [Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), selected and translated into French and Spanish, plus original geek questions. The quiz files stay under CC BY-SA 4.0, except the original questions (see `NOTICE.md`).
+
+## Screenshots
+
+<img src="docs/screenshots/Home_page.png" width="49%"> <img src="docs/screenshots/Soul_illustrated.png" width="49%">
+<img src="docs/screenshots/Soul_with_controller.png" width="49%"> <img src="docs/screenshots/Cabin_screenshot.png" width="49%">
+<img src="docs/screenshots/Ambience.png" width="49%"> <img src="docs/screenshots/Games.png" width="49%">
+<img src="docs/screenshots/Karaoke.png" width="49%"> <img src="docs/screenshots/Quiz.png" width="49%">
+<img src="docs/screenshots/Settings.png" width="49%">

@@ -126,3 +126,11 @@ Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB (marques de leurs 
 Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR et victorsteep (liens dans `NOTICE.md`).
 
 Les questions du quiz viennent d'[Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), sélectionnées et traduites en français et en espagnol, plus des questions geek originales. Les fichiers du quiz restent sous CC BY-SA 4.0, sauf les questions originales (voir `NOTICE.md`).
+
+## Captures d'écran
+
+<img src="docs/screenshots/Home_page.png" width="49%"> <img src="docs/screenshots/Soul_illustrated.png" width="49%">
+<img src="docs/screenshots/Soul_with_controller.png" width="49%"> <img src="docs/screenshots/Cabin_screenshot.png" width="49%">
+<img src="docs/screenshots/Ambience.png" width="49%"> <img src="docs/screenshots/Games.png" width="49%">
+<img src="docs/screenshots/Karaoke.png" width="49%"> <img src="docs/screenshots/Quiz.png" width="49%">
+<img src="docs/screenshots/Settings.png" width="49%">
