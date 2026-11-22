@@ -94,7 +94,7 @@ public final class ShareView extends View {
                     tp.setTypeface(regular); tp.setTextSize(21 * s); tp.setColor(0xCCFFFFFF); tp.setTextAlign(Paint.Align.LEFT);
                     c.drawText(android.text.TextUtils.ellipsize(lg.get(i), new android.text.TextPaint(tp), W - 90 * s - size - 160 * s, android.text.TextUtils.TruncateAt.END).toString(), 90 * s, (290 + i * 40) * s, tp);
                 }
-                String u = bgSrv.url() + "/log";
+                String u = bgSrv.url() + "/report";
                 qr(c, u, x0, y0, size);
                 txt(c, u.replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
                 txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);

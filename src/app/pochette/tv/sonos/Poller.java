@@ -216,6 +216,28 @@ public final class Poller {
 
     // ------------------------------------------------------------ loop
 
+    /** Journal what the speaker really plays 5 s after a favourite was started. */
+    private void verifyLater(final String ip, final String coordUuid, final String fav, final boolean shuffle) {
+        new Thread(new Runnable() { @Override public void run() {
+            try {
+                Thread.sleep(5000);
+                String hh = SonosWs.household(ip);
+                app.pochette.tv.core.Journal.i("Sonos", "5 s after \"" + fav + "\": playing " + SonosWs.nowPlaying(ip, SonosWs.groupFor(ip, hh, coordUuid))
+                        + " (shuffle asked: " + (shuffle ? "on" : "off") + ", speaker play mode: " + playMode(ip) + ")");
+            } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+        } }).start();
+    }
+
+    private static String playMode(String ip) {
+        try { return SonosClient.tag(SonosClient.avt(ip, "GetTransportSettings", null), "PlayMode"); }
+        catch (Exception e) { return "?"; }
+    }
+
+    /** The speaker we polled is no longer the group coordinator (the group changed): refresh the topology, show nothing meanwhile. */
+    private static final class StaleTopology extends Exception {
+        StaleTopology(String m) { super(m); }
+    }
+
     private void loop() {
         while (running) {
             long wait = intervalMs;
@@ -237,6 +259,10 @@ public final class Poller {
                 updateArt(st);
                 failures = 0;
                 post(st, null);
+            } catch (StaleTopology e) {
+                app.pochette.tv.core.Journal.i("Sonos", "group changed (" + e.getMessage() + "): refreshing the speakers");
+                synchronized (wake) { topo = null; }
+                wait = 300;
             } catch (Exception e) {
                 failures++;
                 if (failures >= 3) {
@@ -324,7 +350,11 @@ public final class Poller {
         if (spotify != null) spotify.room = st.roomName;
         st.roomsLabel = topo.roomsLabel(coord);
         if (SystemClock.elapsedRealtime() >= volHold) {      // a local change is not overwritten by an older reading
-            try { vol = SonosClient.getGroupVolume(ip); mute = SonosClient.getGroupMute(ip); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+            try { vol = SonosClient.getGroupVolume(ip); mute = SonosClient.getGroupMute(ip); }
+            catch (Exception ex) {
+                if (String.valueOf(ex.getMessage()).contains("701")) throw new StaleTopology("not the coordinator any more");
+                app.pochette.tv.core.Journal.w("Sonos", ex);
+            }
         }
         st.transport = TrackState.parseTransport(SonosClient.tag(ti, "CurrentTransportState"));
         st.uri = SonosClient.unescape(SonosClient.tag(pi, "TrackURI"));
@@ -364,6 +394,7 @@ public final class Poller {
             }
             lastUri = st.uri;
         }
+        if (mediaUri.startsWith("x-rincon:")) throw new StaleTopology("this speaker follows another one");
 
         st.source = TrackState.sourceFor(st.uri);
         String cls = SonosClient.tag(didl, "class").toLowerCase();
@@ -461,7 +492,7 @@ public final class Poller {
 
     private void updateQueue(TrackState st, final String ip, String trackNr) {
         try { curTrackNr = Integer.parseInt(trackNr.trim()); } catch (Exception ignored) { curTrackNr = 0; }
-        if (!fetchArt) { app.pochette.tv.core.Journal.i("Sonos", "queue: fetchArt off"); return; }
+        if (!fetchArt) return;
         int track = 0;
         try { track = Integer.parseInt(trackNr.trim()); } catch (Exception ignored) {}
         if (!mediaUri.equals(lastLoggedUri)) {
@@ -506,6 +537,7 @@ public final class Poller {
         });
     }
 
+    /** Diagnostic switch (Settings > Troubleshooting): UPnP only, with the 1004206c container prefix. */
     private String wsNextKey = "";
     private long wsNextAt, wsThumbAt;
 
@@ -761,12 +793,15 @@ public final class Poller {
                         for (SonosClient.Item it : SonosClient.browse(anyIp, "FV:2", 0, 100)) if (it.title.equals(a.fav)) { fav = it; break; }
                     }
                     String wsId = null;
+                    boolean spotifyFav = false;
                     if ((fav == null || fav.uri.length() == 0) && !Ambiance.NOW.equals(a.fav) && !a.fav.startsWith(Ambiance.PL)) {
-                        // UPnP cannot open this favourite (typical for Spotify ones): the local websocket API can
+                        // Spotify favourites are refused by UPnP on many setups (HTTP 500 / error 804): the local websocket API opens them
                         try {
                             for (SonosClient.Item w : SonosWs.favorites(anyIp, SonosWs.household(anyIp))) if (w.title.equals(a.fav)) { wsId = w.wsId; break; }
                         } catch (Exception ex) { app.pochette.tv.core.Journal.w("Sonos", ex); }
+                        app.pochette.tv.core.Journal.i("Sonos", "websocket lookup for favourite \"" + a.fav + "\": " + (wsId == null ? "not found" : "id " + wsId) + (spotifyFav ? " (Spotify favourite)" : ""));
                     }
+                    app.pochette.tv.core.Journal.i("Sonos", "launch \"" + a.fav + "\": " + (fav == null ? "not in UPnP list" : "kind=" + fav.kind + " uri=" + fav.uri + " meta=" + fav.meta.length() + " chars") + " ws=" + (wsId == null ? "no" : "yes") + " rooms=" + t.rooms.size() + " shuffle=" + (a.shuffle ? "on" : "off"));
                     if (wsId == null && fav == null) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » n'est plus dans tes favoris Sonos"));
                     if (wsId == null && fav.uri.length() == 0) throw new Exception(T.t("le favori « ") + a.fav + T.t(" » est un raccourci de menu Sonos, pas une musique : choisis une playlist ou une radio dans l'ambiance"));
 
@@ -814,9 +849,21 @@ public final class Poller {
                     }
 
                     // 3. music
+                    boolean wsDone = false;
                     if (wsId != null) {
-                        String hh = SonosWs.household(ip);
-                        SonosWs.loadFavorite(ip, SonosWs.groupFor(ip, hh, coord.uuid), wsId);
+                        try {
+                            String hh = SonosWs.household(ip);
+                            SonosWs.loadFavorite(ip, SonosWs.groupFor(ip, hh, coord.uuid), wsId);
+                            wsDone = true;
+                            app.pochette.tv.core.Journal.i("Sonos", "favourite started through the websocket API: " + a.fav);
+                            try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        } catch (Exception ex) {
+                            app.pochette.tv.core.Journal.w("Sonos", ex);
+                            if (fav == null || fav.uri.length() == 0) throw ex;      // nothing else to try; otherwise fall back to UPnP
+                        }
+                    }
+                    if (wsDone) {
+                        // started
                     } else if (fav.kind == 3) {
                         // keep the queue that is already loaded: only reshuffle and start from its first track
                         SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
@@ -846,14 +893,31 @@ public final class Poller {
                         }
                         if (!queued) {
                             app.pochette.tv.core.Journal.e("Sonos", T.t("Ambiance « ") + a.fav + " » : uri=" + fav.uri + " meta=" + fav.meta + " rebuilt=" + rebuilt + " erreurs=" + errs);
+                            // the speaker refuses it over UPnP (error 804 on some setups): the local websocket API can still open it
+                            try {
+                                String wid = null;
+                                for (SonosClient.Item w : SonosWs.favorites(anyIp, SonosWs.household(anyIp))) if (w.title.equals(a.fav)) { wid = w.wsId; break; }
+                                if (wid != null) {
+                                    String hh2 = SonosWs.household(ip);
+                                    SonosWs.loadFavorite(ip, SonosWs.groupFor(ip, hh2, coord.uuid), wid);
+                                    SonosClient.setShuffle(ip, a.shuffle);
+                                    wsDone = true;
+                                    app.pochette.tv.core.Journal.i("Sonos", "UPnP refused it, favourite started through the websocket API: " + a.fav);
+                                }
+                            } catch (Exception ex) { app.pochette.tv.core.Journal.w("Sonos", ex); }
+                            if (!wsDone) {
                             String u = fav.uri;
                             throw new Exception(errs + T.t(" · favori : ") + u.substring(0, Math.min(60, u.length())) + T.t(" · métadonnées ") + fav.meta.length() + " car.");
+                            }
                         }
-                        SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
-                        try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
-                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        if (!wsDone) {
+                            SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
+                            try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                            try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        }
                     }
                     SonosClient.play(ip);
+                    verifyLater(ip, coord.uuid, a.fav, a.shuffle);
                     try { SonosClient.sleepTimer(ip, a.sleepMin); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
 
                     currentIp = ip;

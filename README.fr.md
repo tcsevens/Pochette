@@ -116,7 +116,7 @@ Sources dans `src/app/pochette/tv/`:
 - **Favoris** : lance un favori ou une playlist Sonos dans les pièces qui jouent déjà, sans toucher au volume, aux pièces ni au fond d'écran.
 - **Jeux** : blind test (podium avec le vainqueur qui clignote), chaise musicale, n'oubliez pas les paroles, quiz avec catégories à cocher (culture générale, France, Québec, geek, pop ; en français, anglais et espagnol), Devine-moi, Dessine-moi. Les téléphones se connectent par QR code, sur le même Wi-Fi.
 - **Tes propres fonds d'écran** : envoie jusqu'à trois vidéos (MP4/MOV ou MKV, H.264 ou HEVC, de 720p à 4K) depuis ton téléphone et donne-leur un nom.
-- **Journal de dépannage** : Réglages › Avancé affiche le journal local de l'appli, pratique pour signaler un problème.
+- **Signaler un bug** : Réglages › Avancé › « Journal et signaler un bug… » affiche un QR code. Sur ton téléphone, tu obtiens un rapport avec les dernières lignes du journal (les identifiants de ta maison, comme les adresses IP et les identifiants Sonos, sont masqués), avec un bouton « Copier » et un bouton « Envoyer par e-mail » vers pochette.support@gmail.com. Rien n'est envoyé tant que tu ne l'envoies pas toi-même.
 - **File d'attente partagée** (avec Spotify) : les invités ajoutent un morceau depuis leur téléphone.
 
 ## Licence

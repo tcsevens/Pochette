@@ -219,6 +219,16 @@ public final class SonosWs {
         call(ip, "favorites:1", "loadFavorite", null, groupId, body);
     }
 
+    /** What the group is playing now, for the journal: "container | track". */
+    public static String nowPlaying(String ip, String groupId) throws Exception {
+        JSONArray r = call(ip, "playbackMetadata:1", "getMetadataStatus", null, groupId, null);
+        JSONObject b = r.getJSONObject(1);
+        JSONObject c = b.optJSONObject("container");
+        JSONObject cur = b.optJSONObject("currentItem");
+        JSONObject tr = cur == null ? null : cur.optJSONObject("track");
+        return (c == null ? "?" : c.optString("name", "?")) + " | " + (tr == null ? "?" : tr.optString("name", "?"));
+    }
+
     /** The track after the current one, or null. */
     public static SonosClient.Item nextTrack(String ip, String groupId) throws Exception {
         JSONArray r = call(ip, "playbackMetadata:1", "getMetadataStatus", null, groupId, null);

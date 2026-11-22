@@ -40,6 +40,10 @@ public final class Journal {
         });
     }
 
+    private static String version = "";
+    public static void setVersion(String v) { version = v == null ? "" : v; }
+    public static String appVersion() { return version; }
+
     public static void i(String tag, String msg) { add("I", tag, msg); }
     public static void w(String tag, String msg) { add("W", tag, msg); }
     public static void e(String tag, String msg) { add("E", tag, msg); }

@@ -506,6 +506,13 @@ public final class T {
         add("ex æquo", "tied", "empate");
         add("Mots interdits", "Forbidden words", "Palabras prohibidas");
         add("OK : commencer", "OK: start", "OK: empezar");
+        add("Journal et signaler un bug…", "Log and report a bug…", "Registro e informar de un error…");
+        add("Signaler un problème", "Report a problem", "Informar de un problema");
+        add("Ce rapport est un résumé du journal : les identifiants de ta maison (Sonos, adresses) sont masqués. Rien n'est envoyé tant que tu ne l'envoies pas toi-même.", "This report is a summary of the log: your home identifiers (Sonos, addresses) are masked. Nothing is sent unless you send it yourself.", "Este informe es un resumen del registro: los identificadores de tu casa (Sonos, direcciones) están ocultos. No se envía nada hasta que lo envíes tú.");
+        add("Copier le rapport", "Copy the report", "Copiar el informe");
+        add("Envoyer par e-mail", "Send by e-mail", "Enviar por correo");
+        add("Copié.", "Copied.", "Copiado.");
+        add("Sélectionne le texte et copie-le.", "Select the text and copy it.", "Selecciona el texto y cópialo.");
         add("ENSUITE", "NEXT", "SIGUIENTE");
     }
 }

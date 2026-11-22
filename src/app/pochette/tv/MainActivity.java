@@ -65,6 +65,7 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         menu.setAutoHide(prefs.stripSec());
         view.setLyricsOffset(prefs.lyricsOffset());
         app.pochette.tv.core.Journal.init(getFilesDir());
+        try { app.pochette.tv.core.Journal.setVersion(getPackageManager().getPackageInfo(getPackageName(), 0).versionName); } catch (Exception ignored) {}
         app.pochette.tv.core.Journal.i("App", "démarrage v" + ver() + " Android " + android.os.Build.VERSION.RELEASE + " " + android.os.Build.MODEL);
         Themes.probe(this);
         ThemePreview.init(this, new Runnable() { @Override public void run() { runOnUiThread(new Runnable() { @Override public void run() { view.invalidate(); menu.invalidate(); } }); } });

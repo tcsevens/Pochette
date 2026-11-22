@@ -14,7 +14,7 @@ Tested on a Google TV Chromecast; interface in English, French and Spanish.
 - **Favourites**: play a Sonos favourite or playlist in the rooms already playing, without touching volume, rooms or wallpaper.
 - **Games with the TV as game master**: blind test (with a blinking winner podium), musical chairs, finish-the-lyrics, quiz with tick-box categories (general culture, France, Québec, geek, pop; French, English and Spanish), guess-the-word and draw-and-guess. Phones join by QR code on the same Wi-Fi.
 - **Your own wallpapers**: send up to three videos (MP4/MOV or MKV, H.264 or HEVC, 720p to 4K) from your phone and name them.
-- **Troubleshooting log**: Settings › Advanced shows the app's local journal, handy to report a problem.
+- **Report a bug**: Settings › Advanced › "Log and report a bug…" shows a QR code. On your phone you get a report with the last journal lines (home identifiers such as IP addresses and Sonos IDs are masked), with a Copy button and a "Send by e-mail" button to pochette.support@gmail.com. Nothing is sent unless you send it yourself.
 - **Shared queue** (optional, needs Spotify): guests add a song from their phone.
 - **Up next**, rooms picker, screensaver mode, clock when idle, and a menu drawn by the app (it warns you if the TV's system click sounds are on, and how to turn them off).
 
@@ -34,7 +34,7 @@ The TV and the Sonos must be on the same network. If no speaker is found, enter 
 | Back (during playback) | Ambiance home; Back again quits |
 
 ## Spotify (optional)
-Favourites and the next track work without any Spotify account: Pochette also talks to your speaker's local websocket API (the idea came from a Reddit comment), which opens Spotify favourites that UPnP cannot and shows the next track while Spotify Connect plays. If Sonos gives no cover for that next track, Pochette looks it up by artist and title on Deezer, then iTunes Search (see `PRIVACY.md`).
+Favourites and the next track work without any Spotify account: Pochette also talks to your speaker's local websocket API (the idea came from a Reddit comment), which opens Spotify favourites when UPnP refuses them (some setups answer error 804) and shows the next track while Spotify Connect plays. If Sonos gives no cover for that next track, Pochette looks it up by artist and title on Deezer, then iTunes Search (see `PRIVACY.md`).
 
 For a longer "up next" list and the shared queue (guests search and add songs), create an app on the [Spotify developer dashboard](https://developer.spotify.com/dashboard), then Settings › More › Spotify and follow the phone page. Pochette uses your own Client ID; the Spotify Web API needs a Premium account.
 

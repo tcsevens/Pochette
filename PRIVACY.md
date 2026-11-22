@@ -13,7 +13,7 @@ The developer does not collect, receive or store any data about you.
 - When you use the party games, the shared queue or the setup pages, the app runs small web servers on your TV so that
   phones on the same Wi-Fi network can connect (by QR code). This traffic stays on your local network.
 - Settings, your favourites, your game scores and the videos you add are stored only on your TV, in the app's private storage.
-- A small error log (at most 256 KB) is kept in the app's private storage to help diagnose crashes. It is never sent anywhere.
+- A small error log (at most 256 KB) is kept in the app's private storage to help diagnose crashes. It is never sent anywhere on its own. Settings › Advanced › "Log and report a bug…" can show a redacted copy of it on your phone (IP addresses, Sonos household and speaker IDs and serial numbers are masked); it leaves your devices only if you copy it or press "Send by e-mail" yourself, which opens your e-mail app addressed to pochette.support@gmail.com.
 
 ### Requests sent to the Internet
 Only these, and only when the related feature is used:
@@ -53,6 +53,6 @@ Pochette is not directed at children and does not knowingly collect any personal
 If this policy changes, the new version will be published in this repository with an updated date.
 
 ## Contact
-Open an issue at <https://github.com/tcsevens/Pochette/issues>.
+Open an issue at <https://github.com/tcsevens/Pochette/issues> or write to pochette.support@gmail.com.
 
 *Sonos is a trademark of Sonos, Inc. and Spotify is a trademark of Spotify AB. Pochette is an independent project, not affiliated with or endorsed by either company.*

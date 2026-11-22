@@ -176,6 +176,8 @@ public final class BgSetupServer {
             error = "";
             received++;
             reply(out, "200 OK", "text/plain", "ok");
+        } else if (path.startsWith("/report")) {
+            reply(out, "200 OK", "text/html", reportPage());
         } else if (path.startsWith("/log")) {
             reply(out, "200 OK", "text/plain", app.pochette.tv.core.Journal.full());
         } else if ("POST".equals(method) && path.startsWith("/name")) {
@@ -189,6 +191,31 @@ public final class BgSetupServer {
         } else {
             reply(out, "200 OK", "text/html", page());
         }
+    }
+
+    private String reportPage() {
+        String r = app.pochette.tv.core.Support.report(contextLine(), 250);
+        StringBuilder h = new StringBuilder();
+        h.append("<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">")
+         .append("<title>Pochette</title><style>body{font-family:sans-serif;background:#16102e;color:#eee;margin:0;padding:18px;max-width:700px}")
+         .append("h1{font-size:22px}textarea{width:100%;height:340px;background:#0e0a20;color:#ddd;border:1px solid #443a78;font-size:12px;box-sizing:border-box}")
+         .append("button,a.b{display:inline-block;padding:12px 18px;background:#ff7a5c;color:#200;border:0;font-size:16px;margin:8px 8px 0 0;text-decoration:none}a.g{background:#443a78;color:#eee}p{line-height:1.45}</style></head><body>")
+         .append("<h1>Pochette · ").append(esc(T.t("Signaler un problème"))).append("</h1>")
+         .append("<p>").append(esc(T.t("Ce rapport est un résumé du journal : les identifiants de ta maison (Sonos, adresses) sont masqués. Rien n'est envoyé tant que tu ne l'envoies pas toi-même."))).append("</p>")
+         .append("<textarea id=\"r\" readonly>").append(esc(r)).append("</textarea><br>")
+         .append("<button onclick=\"cp()\">").append(esc(T.t("Copier le rapport"))).append("</button>");
+        if (app.pochette.tv.core.Support.EMAIL.length() > 0)
+            h.append("<a class=\"b g\" href=\"#\" onclick=\"return mail()\">").append(esc(T.t("Envoyer par e-mail"))).append("</a>");
+        h.append("<div id=\"m\"></div><script>function cp(){var t=document.getElementById('r');t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}")
+         .append("if(!ok&&navigator.clipboard){navigator.clipboard.writeText(t.value);ok=true}document.getElementById('m').textContent=ok?'").append(T.t("Copié.").replace("'", "\\'")).append("':'");
+        h.append(T.t("Sélectionne le texte et copie-le.").replace("'", "\\'")).append("'}")
+         .append("function mail(){var b=document.getElementById('r').value;if(b.length>1800)b=b.substring(b.length-1800);")
+         .append("location.href='mailto:").append(app.pochette.tv.core.Support.EMAIL).append("?subject='+encodeURIComponent('Pochette: problem report')+'&body='+encodeURIComponent(b);return false}</script></body></html>");
+        return h.toString();
+    }
+
+    private String contextLine() {
+        return "App v" + app.pochette.tv.core.Journal.appVersion() + " · Android " + android.os.Build.VERSION.RELEASE + " · " + android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL;
     }
 
     private static String esc(String s) { return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;"); }
