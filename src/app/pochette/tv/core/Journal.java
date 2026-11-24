@@ -69,7 +69,7 @@ public final class Journal {
         String key = level + tag + msg;
         synchronized (Journal.class) {
             Long t = last.get(key);
-            if (t != null && now - t < 60000) return;          // same line again within a minute: skip
+            if (t != null && now - t < ("I".equals(level) ? 3000 : 60000)) return;   // same line again: skip (3 s for information, 1 min for warnings and errors)
             if (last.size() > 200) last.clear();
             last.put(key, now);
         }

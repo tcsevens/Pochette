@@ -49,7 +49,7 @@ public final class Poller {
     private Thread thread;
 
     private SonosClient.Topology topo;
-    private long topoAt;
+    private volatile long topoAt;
     private volatile String currentCoordUuid;
     private volatile String currentIp;
     private String lastUri = "", mediaTitle = "", mediaArt = null, mediaUri = "", mediaMeta = "";
@@ -206,7 +206,7 @@ public final class Poller {
                     err = e.getMessage();
                 }
                 SystemClock.sleep(800);
-                synchronized (wake) { topo = null; }
+                synchronized (wake) { topoAt = 0; }
                 poke();
                 final String fe = err;
                 main.post(new Runnable() { @Override public void run() { cb.done(fe); } });
@@ -217,6 +217,16 @@ public final class Poller {
     // ------------------------------------------------------------ loop
 
     /** Journal what the speaker really plays 5 s after a favourite was started. */
+    /** A random track number of the queue loaded on the speaker (1 when it cannot be read). */
+    private int randomTrack(String ip) {
+        try {
+            String mi = SonosClient.avt(ip, "GetMediaInfo", null);
+            int n = Integer.parseInt(SonosClient.tag(mi, "NrTracks").trim());
+            if (n > 1) { int r = 1 + new java.util.Random().nextInt(n); app.pochette.tv.core.Journal.i("Sonos", "game: starting on track " + r + " of " + n); return r; }
+        } catch (Exception ex) { app.pochette.tv.core.Journal.w("Sonos", ex); }
+        return 1;
+    }
+
     private void verifyLater(final String ip, final String coordUuid, final String fav, final boolean shuffle) {
         new Thread(new Runnable() { @Override public void run() {
             try {
@@ -261,7 +271,7 @@ public final class Poller {
                 post(st, null);
             } catch (StaleTopology e) {
                 app.pochette.tv.core.Journal.i("Sonos", "group changed (" + e.getMessage() + "): refreshing the speakers");
-                synchronized (wake) { topo = null; }
+                synchronized (wake) { topoAt = 0; }
                 wait = 300;
             } catch (Exception e) {
                 failures++;
@@ -857,6 +867,7 @@ public final class Poller {
                             wsDone = true;
                             app.pochette.tv.core.Journal.i("Sonos", "favourite started through the websocket API: " + a.fav);
                             try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                            if (a.randomStart) { SystemClock.sleep(1200); try { SonosClient.seekTrack(ip, randomTrack(ip)); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); } }
                         } catch (Exception ex) {
                             app.pochette.tv.core.Journal.w("Sonos", ex);
                             if (fav == null || fav.uri.length() == 0) throw ex;      // nothing else to try; otherwise fall back to UPnP
@@ -868,7 +879,7 @@ public final class Poller {
                         // keep the queue that is already loaded: only reshuffle and start from its first track
                         SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
                         try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
-                        try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                        try { SonosClient.seekTrack(ip, a.randomStart ? randomTrack(ip) : 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                     } else if (fav.isStream()) {
                         SonosClient.setUri(ip, fav.uri, fav.meta);
                     } else {
@@ -913,7 +924,7 @@ public final class Poller {
                         if (!wsDone) {
                             SonosClient.setUri(ip, "x-rincon-queue:" + coord.uuid + "#0", "");
                             try { SonosClient.setShuffle(ip, a.shuffle); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
-                            try { SonosClient.seekTrack(ip, 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
+                            try { SonosClient.seekTrack(ip, a.randomStart ? randomTrack(ip) : 1); } catch (Exception ignored) { app.pochette.tv.core.Journal.w("Sonos", ignored); }
                         }
                     }
                     SonosClient.play(ip);
@@ -927,7 +938,7 @@ public final class Poller {
                     err = e.getMessage() == null ? T.t("erreur réseau") : e.getMessage();
                 }
                 SystemClock.sleep(600);
-                synchronized (wake) { topo = null; }
+                synchronized (wake) { topoAt = 0; }
                 poke();
                 final String fe = err;
                 main.post(new Runnable() { @Override public void run() { cb.done(fe); } });

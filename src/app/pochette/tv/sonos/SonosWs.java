@@ -42,8 +42,12 @@ public final class SonosWs {
         return ctx;
     }
 
+    /** Tests only: lets the app talk to a simulated speaker on this machine. Never set in the app. */
+    public static volatile boolean allowLoopback;
+
     static boolean isLan(String ip) {
         if (ip == null) return false;
+        if (allowLoopback && ip.startsWith("127.")) return true;
         if (ip.startsWith("192.168.") || ip.startsWith("10.")) return true;
         if (ip.startsWith("172.")) {
             try { int b = Integer.parseInt(ip.split("\\.")[1]); return b >= 16 && b <= 31; } catch (Exception e) { return false; }

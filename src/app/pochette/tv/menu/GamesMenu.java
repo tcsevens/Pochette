@@ -123,6 +123,7 @@ public final class GamesMenu {
         out.add(MenuOverlay.Row.action("gpick", T.t("Playlist : ") + (fav.length() > 0 ? Ambiance.label(fav) : T.t("à choisir"))));
         if (mode != Game.CHAIRS) out.add(MenuOverlay.Row.chips("gteams", T.t("Équipes"), new String[]{"2", "3", "4", "5", "6"}, Math.max(0, Math.min(4, prefs.gameInt("teams", 3) - 2))));
         out.add(MenuOverlay.Row.chips("grounds", T.t("Manches"), ROUND_NAMES, Choices.indexOf(ROUND_VALUES, prefs.gameInt("rounds", 20))));
+        out.add(MenuOverlay.Row.toggle("gshuffle", T.t("Lecture aléatoire"), prefs.gameInt("gshuffle", 1) == 1));
         if (mode == Game.CHAIRS) out.add(MenuOverlay.Row.chips("gstart", T.t("Départ du morceau"), new String[]{T.t("Début"), T.t("Milieu"), T.t("Au hasard")}, prefs.gameInt("start", 1)));
         if (mode == Game.LYRICS) out.add(MenuOverlay.Row.chips("gdiff", T.t("Difficulté"), new String[]{T.t("Facile"), T.t("Difficile")}, prefs.gameInt("diff", 0)));
         String help;
@@ -151,6 +152,9 @@ public final class GamesMenu {
         } else if (id.startsWith("pcat:")) {
             prefs.setGameInt("pm", prefs.gameInt("pm", 0) ^ (1 << Integer.parseInt(id.substring(5))));
             menu.refresh();
+        } else if ("gshuffle".equals(id)) {
+            prefs.setGameInt("gshuffle", prefs.gameInt("gshuffle", 1) == 1 ? 0 : 1);
+            menu.refresh();
         } else if ("glaunch".equals(id)) {
             launchGame();
         }
@@ -167,7 +171,8 @@ public final class GamesMenu {
         Ambiance a = new Ambiance();
         a.name = T.t("Jeu");
         a.fav = prefs.gameFav();
-        a.shuffle = true;
+        a.shuffle = prefs.gameInt("gshuffle", 1) == 1;
+        a.randomStart = a.shuffle;
         a.volume = -1;
         game = new Game(env.poller(), new Game.Host() {
             @Override public void gameFinished() {

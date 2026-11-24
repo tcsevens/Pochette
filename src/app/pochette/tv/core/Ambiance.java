@@ -43,6 +43,8 @@ public final class Ambiance {
     /** Start volume in %, -1 = leave as is. */
     public int volume = -1;
     public boolean shuffle = true;
+    /** Not saved: start on a random track of the queue (music games, so the first song is never the same). */
+    public boolean randomStart;
     /** Volume rises slowly to the target over 3 minutes. */
     public boolean ramp;
     public int sleepMin;

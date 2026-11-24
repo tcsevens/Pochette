@@ -11,7 +11,7 @@ B=build; rm -rf $B; mkdir -p $B/gen $B/classes $B/dex
 aapt package -f -m -J $B/gen -M AndroidManifest.xml -S res -I "$AAPT_JAR" -F $B/unsigned.apk
 javac -nowarn -Xlint:-options -source 8 -target 8 -encoding UTF-8 -bootclasspath "$ANDROID_JAR" -classpath "$ANDROID_JAR" \
       -d $B/classes $(find src $B/gen -name '*.java')
-dalvik-exchange --dex --min-sdk-version=23 --output=$B/dex/classes.dex $B/classes
+dalvik-exchange --dex --min-sdk-version=24 --output=$B/dex/classes.dex $B/classes
 (cd $B/dex && aapt add ../unsigned.apk classes.dex >/dev/null)
 zipalign -f -p 4 $B/unsigned.apk $B/aligned.apk
 KS=${KEYSTORE:-pochette.keystore}

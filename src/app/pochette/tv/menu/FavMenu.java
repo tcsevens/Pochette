@@ -51,6 +51,7 @@ public final class FavMenu {
             a.name = label;
             a.fav = Ambiance.keyOf(f);
             a.shuffle = env.prefs().gameInt("favshuffle", 0) == 1;
+            a.randomStart = a.shuffle;
             a.volume = -1;
             env.view().showToast(T.t("Lecture : ") + label + "…", 4000);
             env.menu().hide();
