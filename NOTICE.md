@@ -1,13 +1,13 @@
 # Third-party content and trademarks
 
-The MIT license (see `LICENSE`) covers the source code and the artwork drawn in code.
+The GNU GPL v3 (see `LICENSE`) covers the source code and the artwork drawn in code, from 24 November 2026 on. Versions published before that date (up to 1.0.32) were released under the MIT license and stay under it.
 **It does not cover the ambiance videos or anything else listed below.**
 
 ## Ambiance videos (`res/raw/vid_*.mp4`)
 
 The videos come from [Pixabay](https://pixabay.com). They remain under the
 [Pixabay Content License](https://pixabay.com/service/license-summary/),
-**not** under this project's MIT license. They are included only as backgrounds of the app. They have been resized to
+**not** under this project's license. They are included only as backgrounds of the app. They have been resized to
 720p, muted and re-encoded to keep the app small. Do not extract them to redistribute them on their own.
 Thanks to their authors for the beautiful footage. The videos come from Pixabay only.
 
@@ -29,7 +29,7 @@ If you fork this project, replace the videos with your own or keep these credits
 The "Pop & geek" quiz category uses questions from [Open Trivia DB](https://opentdb.com), released under the
 [Creative Commons Attribution-ShareAlike 4.0 International licence](https://creativecommons.org/licenses/by-sa/4.0/).
 They were selected, edited and translated into French and Spanish for this project (`res/raw/quiz_open_fr.txt` and `quiz_open_es.txt`, with the English
-originals in `res/raw/quiz_open_en.txt`). These three files stay under CC BY-SA 4.0 (not MIT), except the original questions numbered 9001 and up, which are MIT: if you reuse or adapt them,
+originals in `res/raw/quiz_open_en.txt`). These three files stay under CC BY-SA 4.0 (not GPL), except the original questions numbered 9001 and up, which follow the project license (GPL v3): if you reuse or adapt them,
 credit Open Trivia DB, mention your changes and share them under the same licence.
 
 ## Other

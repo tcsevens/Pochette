@@ -44,7 +44,7 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 ./build.sh
 ```
 `build.sh` creates a signing key (`pochette.keystore`) on first run. Keep it: updates only install over an older build signed with the same key.
-The ambiance videos in `res/raw/` are not under the MIT license: they come from Pixabay and keep their own license (see `NOTICE.md`). Without them the app still builds and the ambiances show a gradient.
+The ambiance videos in `res/raw/` are not under the GPL license: they come from Pixabay and keep their own license (see `NOTICE.md`). Without them the app still builds and the ambiances show a gradient.
 
 ## Layout of the code
 Sources live in `src/app/pochette/tv/`:
@@ -59,7 +59,7 @@ Sources live in `src/app/pochette/tv/`:
 - `MainActivity` wires everything and routes remote-control keys
 
 ## Not affiliated
-Independent project, not affiliated with Sonos, Inc. or Spotify AB. Sonos and Spotify are trademarks of their owners, named here only to say what Pochette works with. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the MIT license (`LICENSE`), except the videos (see `NOTICE.md`). Developed with the Claude AI.
+Independent project, not affiliated with Sonos, Inc. or Spotify AB. Sonos and Spotify are trademarks of their owners, named here only to say what Pochette works with. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the GNU GPL v3 (`LICENSE`), except the videos and the quiz questions (see `NOTICE.md`): if you distribute a modified version, you must share its source code under the same license. Copyright (C) 2026 Pochette contributors. Versions published before 24 November 2026 (up to 1.0.32) were released under the MIT license and stay under it. Developed with the Claude AI.
 
 ## Credits
 Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR and victorsteep (links in `NOTICE.md`).

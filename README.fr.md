@@ -92,7 +92,7 @@ sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-
 ./build.sh
 ```
 `build.sh` crée une clé de signature `pochette.keystore` au premier lancement. Garde-la : sans elle, les mises à jour ne s'installent pas par-dessus l'ancienne version.
-Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence MIT : elles viennent de Pixabay et gardent leur licence (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
+Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence GPL : elles viennent de Pixabay et gardent leur licence (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
 
 ### Organisation du code
 Sources dans `src/app/pochette/tv/`:
@@ -120,7 +120,7 @@ Sources dans `src/app/pochette/tv/`:
 - **File d'attente partagée** (avec Spotify) : les invités ajoutent un morceau depuis leur téléphone.
 
 ## Licence
-Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB (marques de leurs propriétaires, citées seulement pour dire avec quoi Pochette fonctionne). Code sous licence MIT (voir `LICENSE`), sauf les vidéos et les questions du quiz (voir `NOTICE.md`).
+Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB (marques de leurs propriétaires, citées seulement pour dire avec quoi Pochette fonctionne). Code sous licence GNU GPL v3 (voir `LICENSE`), sauf les vidéos et les questions du quiz (voir `NOTICE.md`) : si tu distribues une version modifiée, tu dois en partager le code source sous la même licence. Copyright (C) 2026 Pochette contributors. Les versions publiées avant le 24 novembre 2026 (jusqu'à la 1.0.32) l'ont été sous licence MIT et le restent.
 
 ## Crédits
 Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR et victorsteep (liens dans `NOTICE.md`).
