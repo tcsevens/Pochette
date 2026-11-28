@@ -27,7 +27,13 @@ public class NowPlayingDream extends DreamService implements Poller.Listener {
         view.setVinylStyle(prefs.vinylStyle());
         view.setNoLyricsStyle(prefs.noLyricsStyle());
         view.setClockEnabled(prefs.showClock());
-        if (System.currentTimeMillis() - prefs.themeAt() < 12 * 3600 * 1000L) view.setTheme(prefs.theme(), prefs.themeName());
+        view.setBurnIn(prefs.burnIn());
+        if (prefs.theme() == app.pochette.tv.core.Ambiance.T_WEATHER || System.currentTimeMillis() - prefs.themeAt() < 12 * 3600 * 1000L) view.setTheme(prefs.theme(), prefs.themeName());
+        view.setWeatherCard(prefs.weatherCard(), app.pochette.tv.core.Weather.fahrenheit(prefs));
+        if (view.getTheme() == app.pochette.tv.core.Ambiance.T_WEATHER) {
+            app.pochette.tv.theme.Themes.probe(this);
+            app.pochette.tv.core.Weather.refresh(prefs, new Runnable() { @Override public void run() { view.post(new Runnable() { @Override public void run() { view.weatherChanged(); } }); } });
+        }
         setContentView(view);
         poller = new Poller(prefs, 1000, this);
     }

@@ -21,6 +21,11 @@ Thanks to their authors for the beautiful footage. The videos come from Pixabay 
 | Automne | `vid_automne.mp4` | Pixabay | [Joe_hackney](https://pixabay.com/users/joe_hackney-15024843/) |
 | Halloween | `vid_halloween.mp4` | Pixabay | [victorsteep](https://pixabay.com/users/victorsteep-9526460/) |
 
+### Weather wallpapers
+
+The weather ambiance uses more Pixabay videos (`vid_beau_temps.mp4`, `vid_nuages.mp4`, `vid_brouillard.mp4`, `vid_pluie_jour.mp4`, `vid_pluie_nuit.mp4`, `vid_orage.mp4`, `vid_neige.mp4`) under the same Pixabay Content License, with the same conditions as above. Authors: doktorkleinmusic, Girl_From_Nowhere, Phile-Rain, Nils_Vega, dlabiebrzy and Pauline_17.
+The cloud and fog images (`wx_*.png`) are drawn for this project.
+
 If you fork this project, replace the videos with your own or keep these credits. The app also works without them
 (the ambiances then show a plain gradient).
 
@@ -34,6 +39,7 @@ credit Open Trivia DB, mention your changes and share them under the same licenc
 
 ## Other
 
+- **Weather** forecasts come from [Open-Meteo](https://open-meteo.com) (free for non-commercial use, data under CC BY 4.0). City names are looked up with its geocoding service.
 - **Lyrics** are fetched at run time from [LRCLIB](https://lrclib.net) and belong to their rights holders. Nothing is
   stored or redistributed by this project; the feature can be turned off in the menu.
 - **Biographies** shown on the info page come from Wikipedia and are available under CC BY-SA 4.0.

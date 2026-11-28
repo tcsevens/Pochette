@@ -27,7 +27,7 @@ public final class ShareView extends View {
     private QueueServer server;
     private WifiSetupServer setup;
     private BgSetupServer bgSrv;
-    private boolean logMode;
+    private boolean logMode, backupMode;
     private String wifiQr = "", wifiName = "";
     private int stage;
 
@@ -49,11 +49,16 @@ public final class ShareView extends View {
     /** The screen with the address where the phone enters the Wi-Fi name and password. */
     public void openSetup(WifiSetupServer w) { setup = w; server = null; setVisibility(VISIBLE); invalidate(); }
     /** The screen with the address where the phone sends custom background videos. */
-    public void openBg(BgSetupServer b, boolean log) { logMode = log; bgSrv = b; setup = null; server = null; setVisibility(VISIBLE); invalidate(); }
+    public void openBg(BgSetupServer b, boolean log) { logMode = log; backupMode = false; bgSrv = b; setup = null; server = null; setVisibility(VISIBLE); invalidate(); }
+    /** The screen with the address of the page where a backup is downloaded or restored from a phone. */
+    public void openBackup(BgSetupServer b) { logMode = false; backupMode = true; bgSrv = b; setup = null; server = null; setVisibility(VISIBLE); invalidate(); }
     public void close() {
+        boolean reload = backupMode && bgSrv != null && bgSrv.restored() > 0;
+        backupMode = false;
         if (setup != null) { setup.stop(); setup = null; }
         if (bgSrv != null) { bgSrv.stop(); bgSrv = null; }
         setVisibility(GONE);
+        if (reload && getContext() instanceof android.app.Activity) ((android.app.Activity) getContext()).recreate();
     }
     public void handleKey(int code) {
         boolean ok = code == KeyEvent.KEYCODE_DPAD_CENTER || code == KeyEvent.KEYCODE_ENTER;
@@ -69,6 +74,20 @@ public final class ShareView extends View {
         c.drawText(t, x, y, tp);
     }
 
+    /** Wrapped paragraph in the left column; returns the next free y. */
+    private float wrap(Canvas c, String t, float x, float y, float size, int color, Typeface tf, float maxW, float s) {
+        tp.setTypeface(tf); tp.setTextSize(size * s); tp.setColor(color); tp.setTextAlign(Paint.Align.LEFT);
+        String rest = t;
+        while (rest.length() > 0) {
+            int n = tp.breakText(rest, true, maxW, null);
+            if (n < rest.length()) { int sp = rest.lastIndexOf(' ', n); if (sp > 0) n = sp; }
+            c.drawText(rest.substring(0, n).trim(), x, y, tp);
+            rest = rest.substring(n).trim();
+            y += size * 1.45f * s;
+        }
+        return y;
+    }
+
     private void qr(Canvas c, String text, float x0, float y0, float size) {
         boolean[][] m = QrCode.encode(text);
         int n = m.length;
@@ -76,6 +95,17 @@ public final class ShareView extends View {
         fill.setColor(0xFFFFFFFF); c.drawRect(x0, y0, x0 + size, y0 + size, fill);
         fill.setColor(0xFF000000);
         for (int r = 0; r < n; r++) for (int k = 0; k < n; k++) if (m[r][k]) c.drawRect(x0 + (k + 2) * q, y0 + (r + 2) * q, x0 + (k + 3) * q, y0 + (r + 3) * q, fill);
+    }
+
+    /** Why the guest Wi-Fi is worth setting up (left column, under the setup instructions). */
+    private float txtBelow(Canvas c, float s, float x0) {
+        float maxW = x0 - 90 * s - 70 * s;
+        float y = 470 * s;
+        txt(c, T.t("À quoi ça sert ?"), 90 * s, y, 34, 0xFFF2C66B, bold, Paint.Align.LEFT, s);
+        y += 52 * s;
+        y = wrap(c, T.t("Quand tes invités rejoignent un jeu (blind test, quiz…) ou ajoutent une chanson à la file, leur téléphone doit être sur le même Wi-Fi que la télé."), 90 * s, y, 28, 0xB0FFFFFF, regular, maxW, s) + 14 * s;
+        y = wrap(c, T.t("Avec ce QR code, ils s'y connectent d'un seul scan, sans que tu leur donnes le mot de passe."), 90 * s, y, 28, 0xB0FFFFFF, regular, maxW, s);
+        return y;
     }
 
     @Override protected void onDraw(Canvas c) {
@@ -95,6 +125,19 @@ public final class ShareView extends View {
                     c.drawText(android.text.TextUtils.ellipsize(lg.get(i), new android.text.TextPaint(tp), W - 90 * s - size - 160 * s, android.text.TextUtils.TruncateAt.END).toString(), 90 * s, (290 + i * 40) * s, tp);
                 }
                 String u = bgSrv.url() + "/report";
+                qr(c, u, x0, y0, size);
+                txt(c, u.replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
+                txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
+                postInvalidateDelayed(1000);
+                return;
+            }
+            if (backupMode) {
+                txt(c, T.t("Sauvegarde et restauration"), 90 * s, 150 * s, 72, 0xFFFFFFFF, bold, Paint.Align.LEFT, s);
+                txt(c, T.t("Scanne ce QR code avec ton téléphone ou ton ordinateur"), 90 * s, 240 * s, 36, 0xFFF2C66B, regular, Paint.Align.LEFT, s);
+                txt(c, T.t("Télécharge tes ambiances et réglages, ou restaure un fichier."), 90 * s, 292 * s, 28, 0xB0FFFFFF, regular, Paint.Align.LEFT, s);
+                txt(c, T.t("Ni mots de passe, ni Spotify, ni tes vidéos."), 90 * s, 336 * s, 28, 0xB0FFFFFF, regular, Paint.Align.LEFT, s);
+                if (bgSrv.restored() > 0) txt(c, T.t("Restauré : appuie sur OK pour recharger l'écran."), 90 * s, 440 * s, 34, 0xFF34D27B, bold, Paint.Align.LEFT, s);
+                String u = bgSrv.url() + "/backup";
                 qr(c, u, x0, y0, size);
                 txt(c, u.replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
                 txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);
@@ -123,6 +166,7 @@ public final class ShareView extends View {
                 txt(c, T.t("Tape le nom et le mot de passe du réseau invités sur la page qui s'ouvre."), 90 * s, 292 * s, 28, 0xB0FFFFFF, regular, Paint.Align.LEFT, s);
                 txt(c, T.t("Ils restent sur cette télé."), 90 * s, 336 * s, 28, 0xB0FFFFFF, regular, Paint.Align.LEFT, s);
             }
+            txtBelow(c, s, x0);
             qr(c, setup.url(), x0, y0, size);
             txt(c, setup.url().replace("http://", ""), x0 + size / 2f, y0 + size + 50 * s, 24, 0x90FFFFFF, regular, Paint.Align.CENTER, s);
             txt(c, T.t("OK ou Retour : fermer"), 90 * s, 1030 * s, 26, 0x90FFFFFF, regular, Paint.Align.LEFT, s);

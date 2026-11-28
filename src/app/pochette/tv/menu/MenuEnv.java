@@ -26,4 +26,11 @@ public interface MenuEnv {
     void setAutoLaunch(boolean on);
     /** The Games section controller (also owns the shared-queue page). */
     GamesMenu games();
+    /** Weather mode: refresh now and restart the timer. */
+    void weatherRefresh(boolean menuAfter);
+    /** Starts or stops the demo that walks through every weather background. */
+    void weatherDemo(boolean on);
+    /** Kitchen timer: start one (milliseconds) or cancel the running one. */
+    void timerStart(long ms);
+    void timerCancel();
 }

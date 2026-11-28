@@ -27,11 +27,15 @@ public final class BgSetupServer {
     private volatile boolean running;
     private volatile int received;       // number of videos received since start
     private volatile String error = "";
+    private volatile int restored;       // settings restored from a backup file since start
+    private app.pochette.tv.core.Prefs prefs;
     private int port;
 
     public boolean isRunning() { return running; }
     public int received() { return received; }
     public String error() { return error; }
+    public int restored() { return restored; }
+    public void prefs(app.pochette.tv.core.Prefs p) { prefs = p; }
     public String url() { return "http://" + LocalNet.ip() + ":" + port; }
 
     public synchronized boolean start() {
@@ -40,7 +44,7 @@ public final class BgSetupServer {
             try { server = new ServerSocket(p); port = p; break; } catch (Exception ignored) { server = null; }
         }
         if (server == null) return false;
-        received = 0; error = "";
+        received = 0; restored = 0; error = "";
         running = true;
         Thread t = new Thread(new Runnable() { @Override public void run() { loop(); } }, "pochette-bg");
         t.setDaemon(true);
@@ -176,6 +180,23 @@ public final class BgSetupServer {
             error = "";
             received++;
             reply(out, "200 OK", "text/plain", "ok");
+        } else if ("POST".equals(method) && path.startsWith("/restore")) {
+            if (prefs == null || len <= 0 || len > 1048576) { reply(out, "400 Bad Request", "text/plain", T.t("Fichier de sauvegarde non valide.")); return; }
+            byte[] b = new byte[(int) len];
+            int got = 0;
+            while (got < len) { int n = in.read(b, got, (int) len - got); if (n < 0) break; got += n; }
+            int n = got == len ? app.pochette.tv.core.Backup.restore(prefs.raw(), new String(b, 0, got, "UTF-8")) : -1;
+            if (n < 0) { reply(out, "400 Bad Request", "text/plain", T.t("Fichier de sauvegarde non valide.")); return; }
+            restored = n;
+            reply(out, "200 OK", "text/plain", T.t("Sauvegarde restaurée. Pochette redémarre son écran."));
+        } else if (path.startsWith("/backup.json")) {
+            String js = prefs == null ? "" : app.pochette.tv.core.Backup.export(prefs.raw(), app.pochette.tv.core.Journal.appVersion());
+            byte[] b = js.getBytes("UTF-8");
+            out.write(("HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=utf-8\r\nContent-Disposition: attachment; filename=\"pochette-sauvegarde.json\"\r\nContent-Length: " + b.length + "\r\nConnection: close\r\n\r\n").getBytes("UTF-8"));
+            out.write(b);
+            out.flush();
+        } else if (path.startsWith("/backup")) {
+            reply(out, "200 OK", "text/html", backupPage());
         } else if (path.startsWith("/report")) {
             reply(out, "200 OK", "text/html", reportPage());
         } else if (path.startsWith("/log")) {
@@ -191,6 +212,25 @@ public final class BgSetupServer {
         } else {
             reply(out, "200 OK", "text/html", page());
         }
+    }
+
+    private String backupPage() {
+        StringBuilder h = new StringBuilder();
+        h.append("<!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">")
+         .append("<title>Pochette</title><style>body{font-family:sans-serif;background:#16102e;color:#eee;margin:0;padding:18px;max-width:640px}")
+         .append("h1{font-size:22px}h2{font-size:17px;margin-top:26px;color:#ffb199}p{line-height:1.45}.s{background:#2a2250;padding:12px;margin:12px 0}")
+         .append("button,a.b{display:inline-block;padding:12px 18px;background:#ff7a5c;color:#200;border:0;font-size:16px;text-decoration:none;margin-top:8px}</style></head><body>")
+         .append("<h1>Pochette · ").append(esc(T.t("Sauvegarde et restauration"))).append("</h1>")
+         .append("<h2>").append(esc(T.t("Sauvegarder"))).append("</h2><p>")
+         .append(esc(T.t("Télécharge un fichier avec tes ambiances et tes réglages. Il ne contient ni mot de passe, ni connexion Spotify, ni tes vidéos de fonds d'écran."))).append("</p>")
+         .append("<a class=\"b\" href=\"/backup.json\">").append(esc(T.t("Télécharger la sauvegarde"))).append("</a>")
+         .append("<h2>").append(esc(T.t("Restaurer"))).append("</h2><p>")
+         .append(esc(T.t("Choisis un fichier de sauvegarde Pochette. Il remplace les réglages et ambiances de cette télé."))).append("</p>")
+         .append("<input type=\"file\" id=\"f\" accept=\".json,application/json\"><br><button onclick=\"go()\">").append(esc(T.t("Restaurer"))).append("</button>")
+         .append("<div class=\"s\" id=\"m\" style=\"display:none\"></div>")
+         .append("<script>function go(){var f=document.getElementById('f').files[0];if(!f)return;var r=new FileReader();r.onload=function(){var x=new XMLHttpRequest();x.open('POST','/restore');")
+         .append("x.onload=function(){var m=document.getElementById('m');m.style.display='block';m.textContent=x.responseText};x.send(r.result)};r.readAsText(f)}</script></body></html>");
+        return h.toString();
     }
 
     private String reportPage() {

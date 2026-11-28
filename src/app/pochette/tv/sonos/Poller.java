@@ -123,6 +123,82 @@ public final class Poller {
         });
     }
 
+    // ------------------------------------------------------------ per-room volume (only the rooms of the playing group)
+    private volatile int[] roomVol = new int[0];
+
+    /** The rooms of the group that is playing, the coordinator first. */
+    public List<SonosClient.Room> groupRooms() {
+        List<SonosClient.Room> out = new ArrayList<SonosClient.Room>();
+        SonosClient.Topology t = topo;
+        String coord = currentCoordUuid;
+        if (t == null || coord == null) return out;
+        for (SonosClient.Room r : t.rooms) if (coord.equals(r.coordinatorUuid) && r.uuid.equals(coord)) out.add(r);
+        for (SonosClient.Room r : t.rooms) if (coord.equals(r.coordinatorUuid) && !r.uuid.equals(coord)) out.add(r);
+        return out;
+    }
+
+    public int[] roomVolumes() { return roomVol; }
+
+    /** Reads each room's own volume, then calls back (the caller redraws). */
+    public void loadRoomVolumes(final Runnable done) {
+        final List<SonosClient.Room> rooms = groupRooms();
+        roomVol = new int[rooms.size()];
+        for (int i = 0; i < roomVol.length; i++) roomVol[i] = -1;
+        cmd.execute(new Runnable() {
+            @Override public void run() {
+                for (int i = 0; i < rooms.size(); i++) {
+                    try { roomVol[i] = SonosClient.getVolume(rooms.get(i).ip); } catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", "room volume: " + e.getMessage()); }
+                    if (done != null) done.run();
+                }
+            }
+        });
+    }
+
+    public void setRoomVolume(final int idx, int v) {
+        final List<SonosClient.Room> rooms = groupRooms();
+        if (idx < 0 || idx >= rooms.size() || idx >= roomVol.length) return;
+        final int nv = Math.max(0, Math.min(100, v));
+        roomVol[idx] = nv;
+        volHold = SystemClock.elapsedRealtime() + 2500;
+        final String ip = rooms.get(idx).ip;
+        cmd.execute(new Runnable() {
+            @Override public void run() {
+                try { SonosClient.setVolume(ip, nv); } catch (Exception e) { app.pochette.tv.core.Journal.w("Sonos", "room volume: " + e.getMessage()); }
+            }
+        });
+    }
+
+    // ------------------------------------------------------------ kitchen timer chime
+    /**
+     * Rings the speakers' own chime on each room of the playing group: the speaker lowers the music, rings, and
+     * brings the music back by itself. {@code fallback} runs on a worker thread when that is not possible.
+     */
+    public void chime(final Runnable fallback) {
+        final String ip = currentIp;
+        final List<SonosClient.Room> rooms = groupRooms();
+        cmd.execute(new Runnable() {
+            @Override public void run() {
+                try {
+                    if (ip == null || rooms.isEmpty()) throw new Exception("no speaker");
+                    String hh = SonosWs.household(ip);
+                    for (int pass = 0; pass < 2; pass++) {
+                        for (SonosClient.Room r : rooms) {
+                            org.json.JSONObject b = new org.json.JSONObject();
+                            b.put("name", "Pochette");
+                            b.put("appId", "app.pochette.tv");
+                            b.put("clipType", "CHIME");
+                            SonosWs.call(r.ip, "audioClip:1", "loadAudioClip", hh, null, r.uuid, b);
+                        }
+                        if (pass == 0) SystemClock.sleep(2600);
+                    }
+                } catch (Exception e) {
+                    app.pochette.tv.core.Journal.w("Minuteur", "clip: " + e.getMessage());
+                    if (fallback != null) fallback.run();
+                }
+            }
+        });
+    }
+
     public void toggleMute() {
         final String ip = currentIp;
         if (ip == null) return;

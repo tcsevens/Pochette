@@ -41,7 +41,7 @@ public final class Prefs {
 
     /** Display style: 0 Classic, 1 Illustrated, 2 Lyrics (the old "Immersif" was removed; old saved values are mapped). */
     public int mode() {
-        if (p.getInt("mode_v", 0) >= 2) return Math.max(0, Math.min(2, p.getInt("mode2", 0)));
+        if (p.getInt("mode_v", 0) >= 2) return Math.max(0, Math.min(4, p.getInt("mode2", 0)));
         int old = p.getInt("mode", 0);
         return old == 2 ? 1 : old == 3 ? 2 : 0;
     }
@@ -81,6 +81,12 @@ public final class Prefs {
     public void resumeOnOpen(boolean v) { p.edit().putBoolean("resume_open", v).apply(); }
 
     /** Menu opacity: 0 = very transparent, 1 = medium, 2 = almost opaque. */
+    /** Burn-in protection for OLED screens (on by default). */
+    public boolean burnIn() { return p.getBoolean("burn_in", true); }
+    public void burnIn(boolean v) { p.edit().putBoolean("burn_in", v).apply(); }
+    /** Controller bar transparency, 0 (most solid) to 10 (see-through); 2 = 20 % by default. */
+    public int stripTransparency() { return Math.max(0, Math.min(10, p.getInt("strip_transp", 2))); }
+    public void stripTransparency(int v) { p.edit().putInt("strip_transp", v).apply(); }
     public int stripSec() { return p.getInt("strip_sec", 10); }
     public void stripSec(int v) { p.edit().putInt("strip_sec", v).apply(); }
     /** Menu transparency, 0 (almost opaque) to 10. Older builds stored three levels under another key. */
@@ -121,11 +127,41 @@ public final class Prefs {
         p.edit().putInt("theme", t).putString("theme_name", name).putLong("theme_at", System.currentTimeMillis()).apply();
     }
 
-    public boolean menuRight() { return p.getBoolean("menu_right", false); }
-    public void menuRight(boolean v) { p.edit().putBoolean("menu_right", v).apply(); }
 
     public boolean showClock() { return p.getBoolean("clock", true); }
     public void showClock(boolean v) { p.edit().putBoolean("clock", v).apply(); }
+
+    /** The quick guide has been shown once (it stays reachable from Settings). */
+    public boolean guideSeen() { return p.getBoolean("guide_seen", false); }
+    public void guideSeen(boolean v) { p.edit().putBoolean("guide_seen", v).apply(); }
+
+    // Weather mode (Open-Meteo; place typed in Settings, else found from the IP address)
+    public String weatherCity() { return p.getString("wx_city", ""); }
+    public String weatherLat() { return p.getString("wx_lat", ""); }
+    public String weatherLon() { return p.getString("wx_lon", ""); }
+    /** Fixes the place; empty strings go back to the automatic (IP) place. */
+    public void weatherPlace(String city, String lat, String lon) { p.edit().putString("wx_city", city).putString("wx_lat", lat).putString("wx_lon", lon).apply(); }
+    public String weatherAutoLat() { return p.getString("wx_alat", ""); }
+    public String weatherAutoLon() { return p.getString("wx_alon", ""); }
+    public String weatherAutoCity() { return p.getString("wx_acity", ""); }
+    public long weatherAutoAt() { return p.getLong("wx_aat", 0); }
+    public void weatherAuto(String lat, String lon, String city) { p.edit().putString("wx_alat", lat).putString("wx_alon", lon).putString("wx_acity", city).putLong("wx_aat", System.currentTimeMillis()).apply(); }
+    /** 0 = by country, 1 = Celsius, 2 = Fahrenheit. */
+    public int weatherUnits() { return Math.max(0, Math.min(2, p.getInt("wx_units", 0))); }
+    public void weatherUnits(int v) { p.edit().putInt("wx_units", v).apply(); }
+    /** Index into Weather.REFRESH_MIN. */
+    public int weatherRefresh() { return Math.max(0, Math.min(Weather.REFRESH_MIN.length - 1, p.getInt("wx_refresh", 2))); }
+    public void weatherRefresh(int v) { p.edit().putInt("wx_refresh", v).apply(); }
+    public boolean weatherCard() { return p.getBoolean("wx_card", false); }
+    public void weatherCard(boolean v) { p.edit().putBoolean("wx_card", v).apply(); }
+
+    /** Index into KitchenTimer.MINUTES of the last duration used. */
+    public int timerIdx() { return Math.max(0, Math.min(app.pochette.tv.core.KitchenTimer.MINUTES.length - 1, p.getInt("kt_idx", 2))); }
+    public int timerMin() { return Math.max(1, Math.min(240, p.getInt("kt_min", 10))); }
+    public void timerMin(int v) { p.edit().putInt("kt_min", Math.max(1, Math.min(240, v))).apply(); }
+    public void timerIdx(int v) { p.edit().putInt("kt_idx", v).apply(); }
+
+    public SharedPreferences raw() { return p; }
 
     public boolean hintShown() { return p.getBoolean("hint", false); }
     public void hintShown(boolean v) { p.edit().putBoolean("hint", v).apply(); }

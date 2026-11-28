@@ -17,6 +17,7 @@ import app.pochette.tv.spotify.SpotifySetupView;
 import app.pochette.tv.spotify.SpotifyClient;
 import app.pochette.tv.theme.ThemePreview;
 import app.pochette.tv.theme.Themes;
+import app.pochette.tv.ui.GuideView;
 import app.pochette.tv.ui.InfoView;
 import app.pochette.tv.ui.MenuOverlay;
 import app.pochette.tv.ui.NowPlayingView;
@@ -59,17 +60,21 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         view.setVinylStyle(prefs.vinylStyle());
         view.setNoLyricsStyle(prefs.noLyricsStyle());
         view.setClockEnabled(prefs.showClock());
+        view.setBurnIn(prefs.burnIn());
         menu = new MenuOverlay(this, this);
-        menu.setRight(prefs.menuRight());
         menu.setTransparency(prefs.menuTransparency());
         menu.setAutoHide(prefs.stripSec());
+        menu.setStripTransparency(prefs.stripTransparency());
         view.setLyricsOffset(prefs.lyricsOffset());
         app.pochette.tv.core.Journal.init(getFilesDir());
         try { app.pochette.tv.core.Journal.setVersion(getPackageManager().getPackageInfo(getPackageName(), 0).versionName); } catch (Exception ignored) {}
         app.pochette.tv.core.Journal.i("App", "démarrage v" + ver() + " Android " + android.os.Build.VERSION.RELEASE + " " + android.os.Build.MODEL);
         Themes.probe(this);
         ThemePreview.init(this, new Runnable() { @Override public void run() { runOnUiThread(new Runnable() { @Override public void run() { view.invalidate(); menu.invalidate(); } }); } });
-        if (prefs.theme() != 0 && System.currentTimeMillis() - prefs.themeAt() < 12 * 3600 * 1000L) {
+        view.setWeatherCard(prefs.weatherCard(), app.pochette.tv.core.Weather.fahrenheit(prefs));
+        if (prefs.theme() == app.pochette.tv.core.Ambiance.T_WEATHER) {      // the weather mode stays until it is switched off
+            view.setTheme(prefs.theme(), "");
+        } else if (prefs.theme() != 0 && System.currentTimeMillis() - prefs.themeAt() < 12 * 3600 * 1000L) {
             view.setTheme(prefs.theme(), prefs.themeName());
         } else if (prefs.theme() != 0) {
             prefs.theme(0, "");     // an ambiance screen does not stay forever
@@ -99,16 +104,24 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         root.addView(partyView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         infoView = new InfoView(this);
         root.addView(infoView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        guideView = new GuideView(this);
+        guideView.setHost(new GuideView.Host() {
+            @Override public void guideClosed() { backEaten = true; guideClosedAt = android.os.SystemClock.uptimeMillis(); menu.invalidate(); view.invalidate(); }
+        });
+        root.addView(guideView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         amb = new AmbianceMenu(this);
         fav = new FavMenu(this);
         games = new GamesMenu(this, gameView, partyView, shareView);
         roomsMenu = new RoomsMenu(this);
-        settings = new SettingsMenu(this, spotifyView, shareView);
+        settings = new SettingsMenu(this, spotifyView, shareView, guideView);
         view.setShortcuts(amb.list());
         setContentView(root);
         hideSystemUi();
         if (prefs.autoLaunch()) WatchService.start(this);
-        if (!prefs.hintShown()) {
+        if (!prefs.guideSeen()) {
+            prefs.guideSeen(true);
+            guideView.open();
+        } else if (!prefs.hintShown()) {
             view.showToast(T.t("Appuie sur OK ou sur une flèche pour afficher le menu"), 8000);
             prefs.hintShown(true);
         }
@@ -126,11 +139,95 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         poller = new Poller(prefs, 1000, this);
         poller.start();
         games.keepQueue();
+        weatherRefresh(false);
+    }
+
+    // ---- weather mode: refreshed at the chosen period while the screen is on
+    private final android.os.Handler wxHandler = new android.os.Handler();
+    private final Runnable wxTick = new Runnable() {
+        @Override public void run() {
+            if (visible && wxWanted()) {
+                app.pochette.tv.core.Weather.refresh(prefs, new Runnable() { @Override public void run() { runOnUiThread(new Runnable() { @Override public void run() { view.weatherChanged(); } }); } });
+            }
+            wxHandler.postDelayed(this, app.pochette.tv.core.Weather.REFRESH_MIN[prefs.weatherRefresh()] * 60000L);
+        }
+    };
+
+    // ---- kitchen timer: rings once when the time is up, music comes back on its own
+    private final Runnable ktTick = new Runnable() {
+        @Override public void run() {
+            if (app.pochette.tv.core.KitchenTimer.expired()) {
+                if (poller != null) poller.chime(new Runnable() { @Override public void run() { app.pochette.tv.core.Chime.play(); } });
+                else app.pochette.tv.core.Chime.play();
+                view.invalidate();
+            }
+            if (app.pochette.tv.core.KitchenTimer.running()) wxHandler.postDelayed(this, 500);
+            else view.invalidate();
+        }
+    };
+    @Override public int timerMin() { return prefs.timerMin(); }
+    @Override public void timerMin(int minutes) { prefs.timerMin(minutes); }
+    @Override public void timerStart(long ms) {
+        app.pochette.tv.core.KitchenTimer.start(ms);
+        wxHandler.removeCallbacks(ktTick);
+        wxHandler.postDelayed(ktTick, 500);
+        view.invalidate();
+    }
+    @Override public void timerCancel() {
+        app.pochette.tv.core.KitchenTimer.cancel();
+        wxHandler.removeCallbacks(ktTick);
+        view.invalidate();
+    }
+
+    // ---- demo of the weather backgrounds
+    private int wxDemoStep = -1, wxDemoPrevTheme;
+    private final Runnable wxDemoTick = new Runnable() {
+        @Override public void run() {
+            if (wxDemoStep < 0) return;
+            if (wxDemoStep >= app.pochette.tv.core.Weather.DEMO_STEPS) { weatherDemo(false); return; }
+            app.pochette.tv.core.Weather.demoStep(wxDemoStep++);
+            app.pochette.tv.core.Weather.Data d = app.pochette.tv.core.Weather.data();
+            view.weatherChanged();
+            view.showToast(T.t("Démo") + " : " + T.t(app.pochette.tv.core.Weather.COND_NAMES[d.cond]) + (d.cond == app.pochette.tv.core.Weather.SNOW || d.cond == app.pochette.tv.core.Weather.STORM ? "" : " · " + T.t(d.day ? "jour" : "nuit")), 2500);
+            wxHandler.postDelayed(this, 6000);
+        }
+    };
+
+    @Override public void weatherDemo(boolean on) {
+        wxHandler.removeCallbacks(wxDemoTick);
+        if (on) {
+            wxDemoPrevTheme = view.getTheme();
+            wxDemoStep = 0;
+            view.setTheme(app.pochette.tv.core.Ambiance.T_WEATHER, "");
+            menu.hide();
+            wxHandler.post(wxDemoTick);
+        } else {
+            wxDemoStep = -1;
+            app.pochette.tv.core.Weather.demoStep(-1);
+            view.setTheme(wxDemoPrevTheme, prefs.themeName());
+            view.weatherChanged();
+            menu.refresh();
+        }
+    }
+
+    private boolean wxWanted() { return view.getTheme() == app.pochette.tv.core.Ambiance.T_WEATHER || prefs.weatherCard(); }
+
+    /** Refreshes now and restarts the timer; menuAfter redraws the menu when the answer is in. */
+    @Override public void weatherRefresh(final boolean menuAfter) {
+        wxHandler.removeCallbacks(wxTick);
+        view.setWeatherCard(prefs.weatherCard(), app.pochette.tv.core.Weather.fahrenheit(prefs));
+        if (visible && wxWanted()) {
+            app.pochette.tv.core.Weather.refresh(prefs, new Runnable() {
+                @Override public void run() { runOnUiThread(new Runnable() { @Override public void run() { view.weatherChanged(); if (menuAfter) menu.refresh(); } }); }
+            });
+        } else view.weatherChanged();
+        wxHandler.postDelayed(wxTick, app.pochette.tv.core.Weather.REFRESH_MIN[prefs.weatherRefresh()] * 60000L);
     }
 
     @Override protected void onStop() {
         super.onStop();
         visible = false;
+        wxHandler.removeCallbacks(wxTick);
         games.shutdown();
         if (spotifyView != null && spotifyView.active()) spotifyView.close(false);
         if (infoView != null && infoView.active()) infoView.close();
@@ -209,6 +306,19 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         menu.invalidate();
     }
 
+    @Override public String[] roomNames() {
+        if (poller == null) return new String[0];
+        List<SonosClient.Room> r = poller.groupRooms();
+        String[] n = new String[r.size()];
+        for (int i = 0; i < n.length; i++) n[i] = r.get(i).name;
+        return n;
+    }
+    @Override public int[] roomVolumes() { return poller == null ? new int[0] : poller.roomVolumes(); }
+    @Override public void roomVolumeSet(int idx, int vol) { if (poller != null) { poller.setRoomVolume(idx, vol); menu.invalidate(); } }
+    @Override public void roomVolumesLoad() {
+        if (poller != null) poller.loadRoomVolumes(new Runnable() { @Override public void run() { menu.postInvalidate(); } });
+    }
+
     @Override public String roomsLabel() {
         TrackState st = view.state();
         return st == null || st.roomsLabel == null ? "" : st.roomsLabel;
@@ -217,6 +327,10 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     @Override public boolean onKeyDown(int code, KeyEvent e) {
         if (view.isSleeping()) { view.touch(); menu.invalidate(); return true; }   // the first key only wakes the screen
         view.touch();
+        if (guideView != null && guideView.active()) {
+            if (e.getRepeatCount() == 0) guideView.handleKey(code);
+            return true;
+        }
         if (shareView != null && shareView.active()) {
             if (e.getRepeatCount() == 0) { shareView.handleKey(code); if (code == KeyEvent.KEYCODE_BACK) backEaten = true; }
             return true;
@@ -278,7 +392,11 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         }
         if (!menu.isOpen() && view.isIdle() && view.hasShortcuts()) {
             if (code == KeyEvent.KEYCODE_DPAD_LEFT || code == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                if (e.getRepeatCount() == 0) view.idleMove(code == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1);
+                int d = code == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1;
+                if (e.getRepeatCount() == 0) {
+                    if (view.idleAtEdge(d)) { view.idleClear(); menu.show(true); }   // past the last tile, toward the menu: open it
+                    else view.idleMove(d);
+                }
                 return true;
             }
             if ((code == KeyEvent.KEYCODE_DPAD_CENTER || code == KeyEvent.KEYCODE_ENTER) && view.idleActive()) {
@@ -291,7 +409,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
             if (code == KeyEvent.KEYCODE_DPAD_UP || code == KeyEvent.KEYCODE_DPAD_DOWN) {
                 if (e.getRepeatCount() == 0) {
                     int n = view.modeCount();
-                    view.setMode((view.getMode() + (code == KeyEvent.KEYCODE_DPAD_DOWN ? 1 : n - 1)) % n);
+                    int[] ids = view.visibleModes();
+                    view.setMode(ids[(view.modePosition() + (code == KeyEvent.KEYCODE_DPAD_DOWN ? 1 : n - 1)) % n]);
                     prefs.mode(view.getMode());
                     view.showToast(T.t("Affichage : ") + T.t(NowPlayingView.MODE_NAMES[view.getMode()]));
                 }
@@ -328,6 +447,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
         if (code == KeyEvent.KEYCODE_DPAD_CENTER || code == KeyEvent.KEYCODE_ENTER || code == KeyEvent.KEYCODE_NUMPAD_ENTER) {
             if (menu.onKeyUp(code)) return true;
         }
+        if (guideView != null && guideView.active()) return true;
+        if (android.os.SystemClock.uptimeMillis() - guideClosedAt < 500) return true;   // the key that closed the guide must not act again
         if (partyView != null && partyView.active()) return true;
         if (shareView != null && shareView.active()) return true;
         if (code == KeyEvent.KEYCODE_BACK && (backEaten || (!e.isCanceled() && menu.isOpen()))) { backEaten = false; return true; }
@@ -361,6 +482,8 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     private VideoBg videoBg;
     private PartyView partyView;
     private ShareView shareView;
+    private GuideView guideView;
+    private long guideClosedAt;
     private AmbianceMenu amb;
     private FavMenu fav;
     private GamesMenu games;
@@ -370,6 +493,11 @@ public class MainActivity extends Activity implements Poller.Listener, MenuOverl
     private boolean backEaten;
 
     @Override public boolean ambRows() { return amb.editing(); }
+    @Override public boolean ambReorder() { return amb.reordering(); }
+    @Override public boolean ambGrabbed() { return amb.grabbed(); }
+    @Override public void ambGrab() { amb.grab(); }
+    @Override public int ambMove(int from, int to) { return amb.move(from, to); }
+    @Override public void ambReorderBack() { amb.reorderBack(); }
     @Override public List<MenuOverlay.Card> cards() { return amb.cards(); }
     @Override public void cardLaunch(int index) { amb.cardLaunch(index); }
     @Override public void cardEdit(int index) { amb.cardEdit(index); }

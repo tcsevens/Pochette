@@ -8,9 +8,15 @@ Tested on a Google TV Chromecast; interface in English, French and Spanish.
 
 ## Features
 - **Guest Wi-Fi QR**: optional first step of the invitation screen (set the network once from your phone in Settings › Advanced › Guests).
-- **Four display styles**: classic, illustrated (record, radio), lyrics, and wallpaper only. Up/Down switches style.
+- **Five display styles**: classic, illustrated (record, radio), lyrics, clean (the cover alone) and wallpaper only. Up/Down switches style.
 - **Synced lyrics** from [LRCLIB](https://lrclib.net) (optional, can be turned off).
 - **Ambiances**: one OK starts a Sonos favourite (playlist), the rooms, the volume and a wallpaper (looping video or drawn scene), with an optional wake-up volume ramp and sleep timer. Back during playback opens the ambiance home.
+- **Weather mode**: a wallpaper that follows the weather and the time of day where you live (clear, clouds, rain, fog, storm, snow, sunset). Your city is typed once in Settings, or found from your approximate location (IP address). °C or °F, an optional weather card, and a demo that shows every background.
+- **Kitchen timer**: alarm-clock icon at the far right of the bottom bar. Pick any duration from 1 to 240 minutes; the countdown shows above the bar in the last minute, and the chime plays on your Sonos speakers.
+- **Volume**: arrows adjust it, one press mutes, a long press opens a per-room volume panel.
+- **Back up and restore**: Settings › Backup and restore shows a QR code; from your phone, download a file with your ambiances and settings, or restore one. It holds no password and no Spotify connection.
+- **Reorder ambiances**: pick one up with OK, move it with the arrows.
+- **Guide**: a short in-app tour of the remote control and the menu (Settings › Guide).
 - **Favourites**: play a Sonos favourite or playlist in the rooms already playing, without touching volume, rooms or wallpaper.
 - **Games with the TV as game master**: blind test (with a blinking winner podium), musical chairs, finish-the-lyrics, quiz with tick-box categories (general culture, France, Québec, geek, pop; French, English and Spanish), guess-the-word and draw-and-guess. Phones join by QR code on the same Wi-Fi.
 - **Your own wallpapers**: send up to three videos (MP4/MOV or MKV, H.264 or HEVC, 720p to 4K) from your phone and name them.
@@ -32,6 +38,9 @@ The TV and the Sonos must be on the same network. If no speaker is found, enter 
 | Hold Left / Right | Seek in the track |
 | OK, Left or Right | Show controls and menu |
 | Back (during playback) | Ambiance home; Back again quits |
+
+## Tip: use Sonos favourites
+The most reliable way to play music is to add your playlists (Spotify, Apple Music, radios) to **My Sonos favourites** in the Sonos app, then start them from Pochette's Favourites or an ambiance. Sonos then queues the music itself, so "Up next" and skipping to a title work the same everywhere.
 
 ## Spotify (optional)
 Favourites and the next track work without any Spotify account: Pochette also talks to your speaker's local websocket API (the idea came from a Reddit comment), which opens Spotify favourites when UPnP refuses them (some setups answer error 804) and shows the next track while Spotify Connect plays. If Sonos gives no cover for that next track, Pochette looks it up by artist and title on Deezer, then iTunes Search (see `PRIVACY.md`).
@@ -62,7 +71,7 @@ Sources live in `src/app/pochette/tv/`:
 Independent project, not affiliated with Sonos, Inc. or Spotify AB. Sonos and Spotify are trademarks of their owners, named here only to say what Pochette works with. Sonos relies on an unofficial local API that may change. See `NOTICE.md`. Code under the GNU GPL v3 (`LICENSE`), except the videos and the quiz questions (see `NOTICE.md`): if you distribute a modified version, you must share its source code under the same license. Copyright (C) 2026 Pochette contributors. Versions published before 24 November 2026 (up to 1.0.32) were released under the MIT license and stay under it. Developed with the Claude AI.
 
 ## Credits
-Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR and victorsteep (links in `NOTICE.md`).
+Ambiance videos from [Pixabay](https://pixabay.com), under the Pixabay Content License. Thanks to their authors: Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR, victorsteep, doktorkleinmusic, Girl_From_Nowhere, Phile-Rain, Nils_Vega, dlabiebrzy and Pauline_17 (links in `NOTICE.md`). Weather forecasts come from [Open-Meteo](https://open-meteo.com).
 
 Quiz questions come from [Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), selected and translated into French and Spanish, plus original geek questions. The quiz files stay under CC BY-SA 4.0, except the original questions (see `NOTICE.md`).
 
@@ -75,4 +84,4 @@ Quiz questions come from [Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), s
 <img src="docs/screenshots/Settings.png" width="49%">
 
 ## Privacy
-Pochette collects no data. See [PRIVACY.md](PRIVACY.md).
+Pochette collects no data. The weather feature asks a public weather service for your city's weather; see [PRIVACY.md](PRIVACY.md).

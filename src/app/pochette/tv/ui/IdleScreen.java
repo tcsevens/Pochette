@@ -47,6 +47,11 @@ final class IdleScreen {
         idleSel = was ? (idleSel + dir + shortcuts.size()) % shortcuts.size() : 0;
         idleSelAt = SystemClock.uptimeMillis();
     }
+    /** True when the highlighted tile is the one nearest the menu, and dir points toward the menu (left). */
+    boolean atEdge(int dir) {
+        if (!active()) return false;
+        return dir < 0 && idleSel == 0;
+    }
     Ambiance selected() { return active() ? shortcuts.get(idleSel) : null; }
 
     private void resetTp() {

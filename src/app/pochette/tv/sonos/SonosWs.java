@@ -57,12 +57,18 @@ public final class SonosWs {
 
     /** Sends one command and returns the reply: [header, body]. */
     public static JSONArray call(String ip, String namespace, String command, String household, String groupId, JSONObject body) throws Exception {
+        return call(ip, namespace, command, household, groupId, null, body);
+    }
+
+    /** Same, aimed at one player (the audio clip API works on a player, not a group). */
+    public static JSONArray call(String ip, String namespace, String command, String household, String groupId, String playerId, JSONObject body) throws Exception {
         if (!isLan(ip)) throw new Exception("not a LAN address");
         JSONObject h = new JSONObject();
         h.put("namespace", namespace);
         h.put("command", command);
         if (household != null) h.put("householdId", household);
         if (groupId != null) h.put("groupId", groupId);
+        if (playerId != null) h.put("playerId", playerId);
         String msg = "[" + h.toString() + "," + (body == null ? "{}" : body.toString()) + "]";
 
         SSLSocket s = (SSLSocket) ctx().getSocketFactory().createSocket();

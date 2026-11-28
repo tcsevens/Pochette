@@ -3,6 +3,7 @@ package app.pochette.tv.menu;
 import app.pochette.tv.core.Ambiance;
 import app.pochette.tv.core.CustomBg;
 import app.pochette.tv.core.Prefs;
+import app.pochette.tv.core.Weather;
 import app.pochette.tv.core.T;
 import app.pochette.tv.sonos.SonosClient;
 import app.pochette.tv.spotify.SetupServer;
@@ -12,6 +13,7 @@ import app.pochette.tv.party.BgSetupServer;
 import app.pochette.tv.party.WifiSetupServer;
 import app.pochette.tv.ui.MenuOverlay;
 import app.pochette.tv.ui.ShareView;
+import app.pochette.tv.ui.GuideView;
 import app.pochette.tv.ui.NowPlayingView;
 
 import android.app.Activity;
@@ -43,10 +45,12 @@ public final class SettingsMenu {
     /** Settings page shown: 0 main, 1 Spotify, 2 advanced. */
     private int setSub;
     private final ShareView shareView;
+    private final GuideView guideView;
     private WifiSetupServer wifiServer;
     private BgSetupServer bgServer;
 
-    public SettingsMenu(MenuEnv env, SpotifySetupView spotifyView, ShareView shareView) {
+    public SettingsMenu(MenuEnv env, SpotifySetupView spotifyView, ShareView shareView, GuideView guideView) {
+        this.guideView = guideView;
         this.shareView = shareView;
         this.env = env;
         activity = env.activity();
@@ -72,12 +76,20 @@ public final class SettingsMenu {
         if (wifiServer != null) wifiServer.stop();
     }
 
+    /** Style names in picker order (raw French keys, translated when drawn). */
+    private String[] styleNames() {
+        int[] ids = view.visibleModes();
+        String[] n = new String[ids.length];
+        for (int i = 0; i < ids.length; i++) n[i] = NowPlayingView.MODE_NAMES[ids[i]];
+        return n;
+    }
+
     public List<MenuOverlay.Row> rows(int section) {
         List<MenuOverlay.Row> out = new ArrayList<MenuOverlay.Row>();
         switch (section) {
             case MenuOverlay.SEC_DISPLAY:
                 out.add(MenuOverlay.Row.head(T.t("Musique")));
-                out.add(MenuOverlay.Row.cards("style", T.t("Style"), java.util.Arrays.copyOf(NowPlayingView.MODE_NAMES, view.modeCount()), view.getMode()));
+                out.add(MenuOverlay.Row.cards("style", T.t("Style"), styleNames(), view.modePosition()));
                 out.add(MenuOverlay.Row.chips("vinyl", T.t("Couleur du vinyle"), NowPlayingView.VINYL_NAMES, prefs.vinylStyle()));
                 out.add(MenuOverlay.Row.head(T.t("Paroles")));
                 out.add(MenuOverlay.Row.chips("lyrics", T.t("Paroles"), NowPlayingView.LYRICS_NAMES, prefs.lyricsMode()));
@@ -85,9 +97,23 @@ public final class SettingsMenu {
                 out.add(MenuOverlay.Row.chips("nolyrics", T.t("Quand il n'y a pas de paroles"), NowPlayingView.NO_LYRICS_NAMES, prefs.noLyricsStyle()));
                 out.add(MenuOverlay.Row.chips("lyroff", T.t("Décalage des paroles"), LYR_OFF_NAMES, lyrOffIndex()));
                 out.add(MenuOverlay.Row.head(T.t("Écran")));
+                out.add(MenuOverlay.Row.head(T.t("Minuteur de cuisine")));
+                if (app.pochette.tv.core.KitchenTimer.running()) {
+                    out.add(MenuOverlay.Row.action("ktstop", T.t("Annuler le minuteur") + " (" + app.pochette.tv.core.KitchenTimer.format(app.pochette.tv.core.KitchenTimer.remaining()) + ")"));
+                } else {
+                    String[] kt = new String[app.pochette.tv.core.KitchenTimer.MINUTES.length];
+                    for (int i = 0; i < kt.length; i++) kt[i] = app.pochette.tv.core.KitchenTimer.MINUTES[i] + " min";
+                    out.add(MenuOverlay.Row.chips("ktdur", T.t("Durée"), kt, prefs.timerIdx()));
+                    out.add(MenuOverlay.Row.action("ktstart", T.t("Lancer le minuteur")));
+                }
+                out.add(MenuOverlay.Row.head(T.t("Écran")));
                 out.add(MenuOverlay.Row.chips("theme", T.t("Fond d'écran"), Ambiance.shownNames(), Ambiance.toIndex(view.getTheme())));
                 out.add(MenuOverlay.Row.toggle("clock", T.t("Horloge dans le coin"), prefs.showClock()));
-                out.add(MenuOverlay.Row.chips("strip", T.t("Lecteur du bas"), new String[]{T.t("Toujours visible"), T.t("S'efface après 10 s")}, prefs.stripSec() == 0 ? 0 : 1));
+                out.add(MenuOverlay.Row.toggle("wxcard", T.t("Afficher la météo"), prefs.weatherCard()));
+                out.add(MenuOverlay.Row.chips("strip", T.t("Menu du contrôleur"), new String[]{T.t("Toujours visible"), T.t("S'efface après 10 s")}, prefs.stripSec() == 0 ? 0 : 1));
+                out.add(MenuOverlay.Row.slider("stripT", T.t("Transparence du menu du contrôleur"), prefs.stripTransparency(), 10));
+                out.add(MenuOverlay.Row.slider("opacity", T.t("Transparence du menu"), prefs.menuTransparency(), 10));
+                out.add(MenuOverlay.Row.toggle("burnin", T.t("Protection anti-rémanence (écrans OLED)"), prefs.burnIn()));
                 break;
             case MenuOverlay.SEC_SETTINGS: {
                 if (setSub == 1) {
@@ -103,11 +129,6 @@ public final class SettingsMenu {
                     out.add(MenuOverlay.Row.head(T.t("Invités")));
                     out.add(MenuOverlay.Row.toggle("qkeep", T.t("File d'attente toujours active (lien permanent)"), prefs.queueKeep()));
                     out.add(MenuOverlay.Row.action("qrenew", T.t("Renouveler le lien d'invitation")));
-                    out.add(MenuOverlay.Row.action("wifi", T.t("Wi-Fi des invités : ") + (prefs.wifiSsid().length() > 0 ? prefs.wifiSsid() : T.t("non configuré"))));
-                    if (prefs.wifiSsid().length() > 0) {
-                        out.add(MenuOverlay.Row.toggle("wifioffer", T.t("Proposer le QR Wi-Fi aux invités"), prefs.wifiOffer()));
-                        out.add(MenuOverlay.Row.action("wififorget", T.t("Oublier le Wi-Fi des invités")));
-                    }
                     out.add(MenuOverlay.Row.head(T.t("Mes fonds d'écran")));
                     out.add(MenuOverlay.Row.action("bgadd", T.t("Ajouter une vidéo depuis le téléphone…")));
                     for (int i = 0; i < CustomBg.SLOTS; i++)
@@ -136,9 +157,15 @@ public final class SettingsMenu {
                 }
                 out.add(MenuOverlay.Row.head(T.t("Interface")));
                 out.add(MenuOverlay.Row.chips("lang", T.t("Langue"), new String[]{T.t("Automatique"), "Français", "English", "Español"}, prefs.lang()));
-                out.add(MenuOverlay.Row.chips("side", T.t("Position du menu"), new String[]{T.t("Gauche"), T.t("Droite")}, prefs.menuRight() ? 1 : 0));
-                out.add(MenuOverlay.Row.slider("opacity", T.t("Transparence du menu"), prefs.menuTransparency(), 10));
+                out.add(MenuOverlay.Row.head(T.t("Invités")));
+                out.add(MenuOverlay.Row.action("wifi", T.t("Wi-Fi des invités : ") + (prefs.wifiSsid().length() > 0 ? prefs.wifiSsid() : T.t("non configuré"))));
+                if (prefs.wifiSsid().length() > 0) {
+                    out.add(MenuOverlay.Row.toggle("wifioffer", T.t("Proposer le QR Wi-Fi aux invités"), prefs.wifiOffer()));
+                    out.add(MenuOverlay.Row.action("wififorget", T.t("Oublier le Wi-Fi des invités")));
+                }
                 out.add(MenuOverlay.Row.head(T.t("Plus")));
+                out.add(MenuOverlay.Row.action("guide", T.t("Guide…")));
+                out.add(MenuOverlay.Row.action("backup", T.t("Sauvegarde et restauration…")));
                 out.add(MenuOverlay.Row.action("sub1", T.t("Spotify…")));
                 out.add(MenuOverlay.Row.action("sub2", T.t("Avancé…")));
                 break;
@@ -146,8 +173,10 @@ public final class SettingsMenu {
             case MenuOverlay.SEC_HELP:
                 out.add(MenuOverlay.Row.text("Pochette " + versionName()));
                 out.add(MenuOverlay.Row.text(T.t("Un écran « en cours de lecture » pour tes enceintes Sonos, avec des ambiances et des jeux. Projet indépendant, non affilié à Sonos ni à Spotify.")));
-                out.add(MenuOverlay.Row.text(T.t("Vie privée : Pochette parle à tes enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles (lrclib.net) et les résumés (Wikipédia, CC BY-SA) sont cherchés en ligne, et Spotify si tu l'actives.")));
-                out.add(MenuOverlay.Row.text(T.t("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, victorsteep et BackgroundsCHAIR.")));
+                out.add(MenuOverlay.Row.text(T.t("Vie privée : Pochette parle à tes enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles (lrclib.net) et les résumés (Wikipédia, CC BY-SA) sont cherchés en ligne, et Spotify si tu l'actives. Le mode météo, si tu l'actives, interroge Open-Meteo.")));
+                out.add(MenuOverlay.Row.text(T.t("Politique de confidentialité : https://github.com/tcsevens/Pochette/blob/main/PRIVACY.md")));
+                out.add(MenuOverlay.Row.text(T.t("Vidéos d'ambiance sur Pixabay, merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, victorsteep, BackgroundsCHAIR, doktorkleinmusic, Girl_From_Nowhere, Phile-Rain, Nils_Vega, dlabiebrzy et Pauline_17.")));
+                out.add(MenuOverlay.Row.text("Weather data by Open-Meteo.com (CC BY 4.0) : https://open-meteo.com/"));
                 out.add(MenuOverlay.Row.text(T.t("Questions du quiz « Pop & geek » : Open Trivia DB (opentdb.com), licence CC BY-SA 4.0, sélectionnées et traduites.")));
                 out.add(MenuOverlay.Row.text(T.t("Sonos et Spotify sont des marques de leurs propriétaires.")));
                 out.add(MenuOverlay.Row.text(T.t("Développé avec l'IA Claude.")));
@@ -159,7 +188,9 @@ public final class SettingsMenu {
     /** Option of a row changed. */
     public void choice(int section, MenuOverlay.Row row, int index) {
         String id = row.id;
-        if ("style".equals(id)) { view.setMode(index); prefs.mode(index); }
+        if ("style".equals(id)) { int[] ids = view.visibleModes(); int m = ids[Math.max(0, Math.min(ids.length - 1, index))]; view.setMode(m); prefs.mode(m); }
+        else if ("ktdur".equals(id)) { prefs.timerIdx(index); }
+        else if ("stripT".equals(id)) { prefs.stripTransparency(index); menu.setStripTransparency(index); }
         else if ("vinyl".equals(id)) { prefs.vinylStyle(index); view.setVinylStyle(index); }
         else if ("lyrics".equals(id)) { prefs.lyricsMode(index); view.setLyricsMode(index); menu.refresh(); }
         else if ("kcolor".equals(id)) { prefs.karaokeColor(index); view.setKaraokeColor(index); }
@@ -174,7 +205,6 @@ public final class SettingsMenu {
         else if ("strip".equals(id)) { int v = index == 0 ? 0 : 10; prefs.stripSec(v); menu.setAutoHide(v); }
         else if ("opacity".equals(id)) { prefs.menuTransparency(index); menu.setTransparency(index); }
         else if ("lyroff".equals(id)) { prefs.lyricsOffset(LYR_OFF_MS[index]); view.setLyricsOffset(LYR_OFF_MS[index]); }
-        else if ("side".equals(id)) { prefs.menuRight(index == 1); menu.setRight(index == 1); }
         else if ("follow".equals(id)) {
             List<SonosClient.Room> rs = env.rooms();
             prefs.roomUuid(index == 0 || index - 1 >= rs.size() ? "" : rs.get(index - 1).uuid);
@@ -188,6 +218,8 @@ public final class SettingsMenu {
         if (id == null) return;
         if ("resume".equals(id)) {
             prefs.resumeOnOpen(!prefs.resumeOnOpen());
+        } else if ("guide".equals(id)) {
+            guideView.open();
         } else if ("sounds".equals(id)) {
             toggleSystemSounds();
         } else if ("spon".equals(id)) {
@@ -203,6 +235,12 @@ public final class SettingsMenu {
         } else if ("spout".equals(id)) {
             prefs.spDisconnect();
             prefs.spotifyOn(false);
+            menu.refresh();
+        } else if ("burnin".equals(id)) {
+            boolean on = !prefs.burnIn();
+            prefs.burnIn(on);
+            view.setBurnIn(on);
+            if (!on) menu.showToast(T.t("Attention : sans cette protection, une image fixe peut marquer un écran OLED."), 6000);
             menu.refresh();
         } else if ("clock".equals(id)) {
             prefs.showClock(!prefs.showClock());
@@ -222,6 +260,10 @@ public final class SettingsMenu {
             } catch (Exception ex) {
                 menu.say("", T.t("Écran absent sur cette télé : utilise la commande adb du guide"), 5000);
             }
+        } else if ("wxcard".equals(id)) {
+            prefs.weatherCard(!prefs.weatherCard());
+            env.weatherRefresh(true);
+            menu.refresh();
         } else if ("ip".equals(id)) {
             askIp();
         } else if ("qkeep".equals(id)) {
@@ -237,6 +279,19 @@ public final class SettingsMenu {
             if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
             menu.hide();
             shareView.openBg(bgServer, false);
+        } else if ("ktstart".equals(id)) {
+            env.timerStart(app.pochette.tv.core.KitchenTimer.MINUTES[prefs.timerIdx()] * 60000L);
+            menu.hide();
+            view.showToast(T.t("Minuteur lancé"), 2000);
+        } else if ("ktstop".equals(id)) {
+            env.timerCancel();
+            menu.refresh();
+        } else if ("backup".equals(id)) {
+            if (bgServer == null) bgServer = new BgSetupServer();
+            bgServer.prefs(prefs);
+            if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }
+            menu.hide();
+            shareView.openBackup(bgServer);
         } else if ("logview".equals(id)) {
             if (bgServer == null) bgServer = new BgSetupServer();
             if (!bgServer.start()) { menu.say("", T.t("Impossible de démarrer la page pour téléphone"), 3000); return; }

@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **Pochette** is a free, open-source Android TV app that shows what your Sonos speakers are playing.
-Last updated: November 21, 2026.
+Last updated: November 27, 2026.
 
 **Short version:** Pochette has no account, no analytics, no advertising and no server of its own.
 The developer does not collect, receive or store any data about you.
@@ -23,6 +23,8 @@ Only these, and only when the related feature is used:
 | [LRCLIB](https://lrclib.net) | Synced lyrics (can be turned off in the menu) | The title, artist, album and duration of the current track |
 | [Wikipedia](https://www.wikipedia.org) | Artist biography on the info page | The artist name, as a search query |
 | [Deezer](https://developers.deezer.com) and [iTunes Search](https://performance-partners.apple.com/search-api) | Cover of the next track, only when your speaker plays through Spotify Connect and gives no picture | The artist name and track title, as a search query (iTunes only if Deezer finds nothing) |
+| [Open-Meteo](https://open-meteo.com) | Weather mode and weather card | The latitude and longitude of your city (or of your approximate location), no name or account |
+| [ipwho.is](https://ipwho.is), then [ipapi.co](https://ipapi.co) if the first fails | Finding your approximate location for the weather, only when you have not typed a city | Your IP address, as any website receives it; only the approximate position it returns is kept, on your TV |
 | [Spotify](https://developer.spotify.com) (optional) | "Up next" with Spotify Connect and the shared queue | Requests made with **your own** Spotify developer app and your own Spotify account; see below |
 
 These services have their own privacy policies and receive your IP address like any website would.
@@ -36,11 +38,11 @@ revoke access from your Spotify account page.
 
 ## What the app does not do
 - It does not use analytics, crash-reporting services, advertising or trackers.
-- It does not access your contacts, camera, microphone, location or files.
+- It does not access your contacts, camera, microphone, GPS or files. For the weather, if you do not type a city, it uses an approximate location worked out from your IP address (see above), never your GPS.
 - It does not sell or share your data. There is no data to sell: the developer receives none.
 
 ## Permissions
-- **Internet and network state**: to reach your speakers, LRCLIB, Wikipedia, Deezer, iTunes Search and (optionally) Spotify.
+- **Internet and network state**: to reach your speakers, LRCLIB, Wikipedia, Deezer, iTunes Search, the weather services and (optionally) Spotify.
 - **Notifications and foreground service**: to keep reading what your speaker is playing while the app is running.
 - **Start at boot**: optional, to open the app when the TV starts.
 - **Display over other apps**: optional, used only to bring the screen back when music starts. The app works without it.

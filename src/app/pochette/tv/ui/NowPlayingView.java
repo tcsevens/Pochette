@@ -40,8 +40,10 @@ import java.util.Map;
 
 /** Full-screen "now playing" canvas. Everything is drawn by hand and scaled to the screen height. */
 public class NowPlayingView extends View {
-    public static final int MODE_CLASSIC = 0, MODE_ILLUSTRATED = 1, MODE_LYRICS = 2, MODE_BARE = 3, MODE_IMMERSIVE = -1;   // immersive layout retired (never selected)
-    public static final String[] MODE_NAMES = {"Classique", "Illustré", "Paroles", "Fond d'écran"};
+    public static final int MODE_CLASSIC = 0, MODE_ILLUSTRATED = 1, MODE_LYRICS = 2, MODE_BARE = 3, MODE_CLEAN = 4, MODE_IMMERSIVE = -1;   // immersive layout retired (never selected)
+    public static final String[] MODE_NAMES = {"Classique", "Illustré", "Paroles", "Fond d'écran", "Épuré"};
+    /** Order shown in the style picker (ids; the wallpaper-only style stays id 3 so saved ambiances keep working). */
+    private static final int[] MODE_ORDER = {MODE_CLASSIC, MODE_ILLUSTRATED, MODE_LYRICS, MODE_CLEAN, MODE_BARE};
     public static final String[] VINYL_NAMES = {"Noir", "Couleur de l'album", "Marbré"};
     public static final String[] KARAOKE_COLOR_NAMES = {"Vert", "Blanc", "Jaune", "Corail", "Cyan", "Rose"};
     public static final int[] KARAOKE_COLORS = {0xFF3FD17A, 0xFFFFFFFF, 0xFFFFE066, 0xFFFF7A5C, 0xFF4FD8F0, 0xFFFF8FC8};
@@ -85,7 +87,7 @@ public class NowPlayingView extends View {
     private int theme = Ambiance.T_NORMAL;
     private String themeName = "";
     private final Themes themes = new Themes();
-    private float insL, insR, insB, tInsL, tInsR, tInsB;
+    private float insL, insR, insB, tInsL, tInsR, tInsB, insT, tInsT;
     private float vinylAngle;
     private long lastFrame;
     private long pausedSince = -1;
@@ -131,7 +133,26 @@ public class NowPlayingView extends View {
     private int wantMode;
 
     /** Display styles on offer: the wallpaper-only style needs a wallpaper, so the plain screen has three. */
-    public int modeCount() { return theme == Ambiance.T_NORMAL ? MODE_NAMES.length - 1 : MODE_NAMES.length; }
+    public int modeCount() { return visibleModes().length; }
+
+    /** Style ids on offer, in picker order. */
+    public int[] visibleModes() {
+        int[] out = new int[theme == Ambiance.T_NORMAL ? MODE_ORDER.length - 1 : MODE_ORDER.length];
+        int n = 0;
+        for (int id : MODE_ORDER) if (!(id == MODE_BARE && theme == Ambiance.T_NORMAL)) out[n++] = id;
+        return out;
+    }
+
+    /** Picker position of the current style. */
+    public int modePosition() {
+        int[] v = visibleModes();
+        for (int i = 0; i < v.length; i++) if (v[i] == mode) return i;
+        return 0;
+    }
+
+    /** Burn-in protection (slow drift of the music screen and small position steps); can be turned off for LCD screens. */
+    private boolean burnIn = true;
+    public void setBurnIn(boolean on) { burnIn = on; invalidate(); }
 
     public void setMode(int m) {
         int n = MODE_NAMES.length;
@@ -202,6 +223,18 @@ public class NowPlayingView extends View {
     public void setNoLyricsStyle(int v) { noLyricsStyle = v; invalidate(); }
 
     public void setClockEnabled(boolean b) { clockEnabled = b; invalidate(); }
+
+    // ---- weather mode
+    private final WeatherCard weatherCard = new WeatherCard();
+    private final TimerPill timerPill = new TimerPill();
+    private void drawTimer(Canvas c, int W, int H) {
+        if (timerPill.draw(c, tp, regular, bold, W, H, insB)) postInvalidateDelayed(250);
+    }
+    private boolean wxCard = true, wxF;
+    public void setWeatherCard(boolean show, boolean fahrenheit) { wxCard = show; wxF = fahrenheit; invalidate(); }
+    /** New weather data: the background clip may change. */
+    private boolean weatherCardShown() { return wxCard && app.pochette.tv.core.Weather.data() != null && !cur.idle; }
+    public void weatherChanged() { notifyVideo(); invalidate(); }
 
     public void showToast(String t) { showToast(t, 1800); }
 
@@ -385,10 +418,11 @@ public class NowPlayingView extends View {
 
         if (!cur.idle && cur.st != null && cur.st.isPlaying()) vinylAngle = (vinylAngle + dt * 200f) % 360f;
 
-        boolean insetsMoving = Math.abs(tInsL - insL) + Math.abs(tInsR - insR) + Math.abs(tInsB - insB) > 0.5f;
+        tInsT = weatherCardShown() ? H * 0.2f : 0f;   // the music sits below the weather card instead of under it
+        boolean insetsMoving = Math.abs(tInsL - insL) + Math.abs(tInsR - insR) + Math.abs(tInsB - insB) + Math.abs(tInsT - insT) > 0.5f;
         float ease = 1f - (float) Math.pow(0.001, dt == 0 ? 0.016 : dt);   // ~frame-rate independent smoothing
-        insL += (tInsL - insL) * ease; insR += (tInsR - insR) * ease; insB += (tInsB - insB) * ease;
-        if (!insetsMoving) { insL = tInsL; insR = tInsR; insB = tInsB; }
+        insL += (tInsL - insL) * ease; insR += (tInsR - insR) * ease; insB += (tInsB - insB) * ease; insT += (tInsT - insT) * ease;
+        if (!insetsMoving) { insL = tInsL; insR = tInsR; insB = tInsB; insT = tInsT; }
 
         updateSleep(now);
         boolean booting = !gotSnap && now - bootAt < 2500;   // plain black while Sonos is being found
@@ -401,8 +435,14 @@ public class NowPlayingView extends View {
         if (prev != null) {
             // Backgrounds cross-dissolve (no dip to black); the old text/cover fades out first,
             // then the new one fades in, so two titles are never on screen at the same time.
-            drawScene(c, prev, W, H, 1f, now, PART_BG);
-            drawScene(c, cur, W, H, fade, now, PART_BG);
+            if (videoOn()) {
+                // A clip plays behind the view and the "background" is only a dimming veil: layering the old and the new
+                // one made the screen darker during the fade and brighter again after it. Draw the veil once.
+                drawScene(c, cur, W, H, 1f, now, PART_BG);
+            } else {
+                drawScene(c, prev, W, H, 1f, now, PART_BG);
+                drawScene(c, cur, W, H, fade, now, PART_BG);
+            }
             float out = Math.max(0f, 1f - fade * 2f), in = Math.max(0f, fade * 2f - 1f);
             if (out > 0.001f) drawScene(c, prev, W, H, out, now, PART_FG);
             if (in > 0.001f) drawScene(c, cur, W, H, in, now, PART_FG);
@@ -410,6 +450,7 @@ public class NowPlayingView extends View {
             drawScene(c, cur, W, H, 1f, now, PART_ALL);
         }
 
+        drawPersistent(c, W, H);
         boolean anim = drawOverlays(c, W, H, now);
         if (introStart >= 0) {
             float k = Math.min(1f, (now - introStart) / 1100f);
@@ -449,7 +490,11 @@ public class NowPlayingView extends View {
         if (sleeping) {
             if (part != PART_BG) drawSleepClock(c, W, H);
         } else if (sc.idle) {
-            if (part != PART_FG) idle.drawBackground(c, W, H);
+            if (part != PART_FG) {
+                if (theme != Ambiance.T_NORMAL && Themes.video(theme) == null) {      // the chosen ambiance (e.g. Météo) also shows behind the clock
+                    themes.drawBackground(c, theme, W, H, now); themes.drawEffects(c, theme, W, H, now);
+                } else idle.drawBackground(c, W, H);
+            }
             if (part != PART_BG) { shifted(c, H, true); idle.drawForeground(c, sc.idleSub != null ? sc.idleSub : sc.status, W, H); c.restore(); }
         } else if (part == PART_ALL) {
             drawPlaying(c, sc, W, H, now, PART_BG);
@@ -495,7 +540,7 @@ public class NowPlayingView extends View {
     /** Saves the canvas and nudges the fixed foreground (clock, titles, bars) by a few pixels that change every few minutes. */
     private void shifted(Canvas c, int H, boolean on) {
         c.save();
-        if (!on) return;
+        if (!on || !burnIn) return;
         double t = SystemClock.uptimeMillis() / 1000.0;
         float s = H / 720f;
         c.translate(Math.round(Math.sin(t / 400.0) * 6f * s), Math.round(Math.cos(t / 620.0) * 5f * s));
@@ -521,6 +566,8 @@ public class NowPlayingView extends View {
     public void setShortcuts(List<Ambiance> l) { idle.setShortcuts(l); }
     public boolean isIdle() { return cur.idle; }
     public boolean idleActive() { return cur.idle && idle.active(); }
+    public boolean idleAtEdge(int dir) { return cur.idle && idle.atEdge(dir); }
+    public void idleClear() { idle.clearSelection(); invalidate(); }
     public void idleMove(int dir) { idle.move(dir); invalidate(); }
     public Ambiance idleSelected() { return idleActive() ? idle.selected() : null; }
     public boolean hasShortcuts() { return idle.hasShortcuts(); }
@@ -541,20 +588,20 @@ public class NowPlayingView extends View {
         }
         if (part == PART_BG) return;
         if (theme == Ambiance.T_WAKE) { drawWake(c, sc, W, H); return; }
-        if (mode == MODE_BARE) return;   // wallpaper only: nothing drawn over it
+        if (mode == MODE_BARE) return;     // wallpaper only: nothing drawn over it (the weather card, clock and timer come from drawPersistent)
 
         // When the menu is open the music shrinks into the free space instead of being covered.
         int outer = c.save();
-        float aw = W - insL - insR, ah = H - insB;
+        float aw = W - insL - insR, ah = H - insB - insT;
         float k = Math.min(1f, Math.min(aw / W, ah / H));
-        if (k < 0.999f || insL > 0.5f) {
-            c.translate(insL + (aw - W * k) / 2f, (ah - H * k) / 2f);
+        if (k < 0.999f || insL > 0.5f || insT > 0.5f) {
+            c.translate(insL + (aw - W * k) / 2f, insT + (ah - H * k) / 2f);
             c.scale(k, k);
         }
 
         double t = System.currentTimeMillis() / 1000.0;
-        float dx = (float) (H * 0.012 * Math.sin(t / 37.0));
-        float dy = (float) (H * 0.009 * Math.sin(t / 53.0 + 0.7));
+        float dx = burnIn ? (float) (H * 0.012 * Math.sin(t / 37.0)) : 0f;
+        float dy = burnIn ? (float) (H * 0.009 * Math.sin(t / 53.0 + 0.7)) : 0f;
         c.save();
         c.translate(dx, dy);
 
@@ -573,6 +620,10 @@ public class NowPlayingView extends View {
             y = drawLayout(c, sc.artist, x, y) + H * 0.03f;
             float pw = W * 0.30f;
             drawProgress(c, sc, (W - pw) / 2f, y, pw, H, true);
+        } else if (mode == MODE_CLEAN) {
+            // As clean as possible: the cover alone, centred, over its own blurred background.
+            float A = H * 0.70f;
+            drawArt(c, sc, (W - A) / 2f, (H - A) / 2f, A, paused);
         } else if (mode == MODE_LYRICS) {
             int v = lyrViewOf(sc);
             long since = now - sc.lyrViewAt;
@@ -631,7 +682,16 @@ public class NowPlayingView extends View {
         c.restore();
 
         c.restoreToCount(outer);
-        if (clockEnabled) {   // drawn outside the scaled content so it stays in the real corner
+    }
+
+    /**
+     * What stays the same from one track to the next (clock, weather card, timer): drawn once over the scenes, so it does
+     * not fade out and back in with the cover and the titles when the music changes.
+     */
+    private void drawPersistent(Canvas c, int W, int H) {
+        if (cur.idle || sleeping || theme == Ambiance.T_WAKE) return;
+        shifted(c, H, true);
+        if (clockEnabled && mode != MODE_BARE) {   // drawn outside the scaled content so it stays in the real corner
             resetTp();
             tp.setAntiAlias(true);
             tp.setTypeface(light);
@@ -640,6 +700,9 @@ public class NowPlayingView extends View {
             tp.setTextAlign(Paint.Align.RIGHT);
             c.drawText(clockFmt.format(new Date()), W * 0.985f, H * 0.075f, tp);
         }
+        if (weatherCardShown()) weatherCard.draw(c, tp, light, regular, W, H, wxF);
+        drawTimer(c, W, H);
+        c.restore();
     }
 
     /** view 0 = cover + lyrics, 1 = big cover (no lyrics). */

@@ -65,7 +65,7 @@ public final class GamesMenu {
 
     public void pick(int index) {
         if (index >= Game.PIXEL_SLOT) index++;   // the hidden slot is skipped in the grid: position -> game number
-        if (index == 7) { openShare(); return; }
+        if (index == SHARE_CARD) { openShare(); return; }
         gameSel = index;
         if (index < 4) prefs.setGameInt("mode", index);
         menu.ambChanged();
@@ -79,7 +79,7 @@ public final class GamesMenu {
         for (int i = 0; i < names.length; i++) if (i != Game.PIXEL_SLOT) out.add(new MenuOverlay.Card(T.t(names[i]), T.t(subs[i]), cols[i][0], cols[i][1], i));
         SpotifyClient sp = env.poller() != null ? env.poller().spotify : null;
         if (sp != null && sp.connected() && prefs.spotifyOn())
-            out.add(new MenuOverlay.Card(T.t("File d'attente partagée"), T.t("Chacun ajoute un morceau"), 0xFF1DB954, 0xFF0B4A22, 7));
+            out.add(new MenuOverlay.Card(T.t("File d'attente partagée"), T.t("Chacun ajoute un morceau"), 0xFF1DB954, 0xFF0B4A22, SHARE_CARD));
         return out;
     }
     public List<MenuOverlay.Row> rows() {

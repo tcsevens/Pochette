@@ -17,6 +17,7 @@ public final class Themes {
     private final Scenes scenes = new Scenes();
     private final Scenes2 scenes2 = new Scenes2();
     private final Scenes3 scenes3 = new Scenes3();
+    private final WeatherArt art = new WeatherArt();
 
     /** Name of the bundled clip (res/raw) that replaces the drawn scene, or null. */
     public static String video(int theme) {
@@ -29,6 +30,17 @@ public final class Themes {
             case Ambiance.T_XMAS: n = "vid_noel"; break;
             case Ambiance.T_AUTUMN: n = "vid_automne"; break;
             case Ambiance.T_HALLOWEEN: n = "vid_halloween"; break;
+            case Ambiance.T_FOG: n = "vid_brouillard"; break;
+            case Ambiance.T_SNOWFALL: n = "vid_neige"; break;
+            case Ambiance.T_STORM: n = "vid_orage"; break;
+            case Ambiance.T_NIGHTRAIN: n = "vid_pluie_nuit"; break;
+            case Ambiance.T_SUNSET: n = "vid_beau_temps"; break;
+            case Ambiance.T_DAYRAIN: n = "vid_pluie_jour"; break;
+            case Ambiance.T_CLOUDS: n = "vid_nuages"; break;
+            case Ambiance.T_WEATHER:
+                n = app.pochette.tv.core.Weather.videoOf(app.pochette.tv.core.Weather.kind());
+                if (n == null) return null;
+                break;
             default:
                 int cs = app.pochette.tv.core.CustomBg.slotOf(theme);
                 return cs >= 0 && app.pochette.tv.core.CustomBg.has(cs) ? "file:" + app.pochette.tv.core.CustomBg.file(cs).getPath() : null;
@@ -41,7 +53,8 @@ public final class Themes {
     /** Notes which bundled clips are absent (the source repository does not ship them). */
     public static void probe(android.content.Context c) {
         app.pochette.tv.core.CustomBg.init(c);
-        for (String n : new String[]{"vid_chalet", "vid_coin_du_feu", "vid_jazz", "vid_pluie", "vid_noel", "vid_automne", "vid_halloween"})
+        WeatherArt.ctx = c.getApplicationContext();
+        for (String n : new String[]{"vid_chalet", "vid_coin_du_feu", "vid_jazz", "vid_pluie", "vid_noel", "vid_automne", "vid_halloween", "vid_beau_temps", "vid_brouillard", "vid_pluie_nuit", "vid_neige", "vid_orage", "vid_nuages", "vid_pluie_jour"})
             if (c.getResources().getIdentifier(n, "raw", c.getPackageName()) == 0) missing.add(n);
     }
 
@@ -55,7 +68,7 @@ public final class Themes {
 
     public static boolean darkText(int theme) { return theme == Ambiance.T_MORNING; }
 
-    public static boolean animated(int theme) { return video(theme) == null && (theme == Ambiance.T_PLANET || rich2(theme)); }
+    public static boolean animated(int theme) { return video(theme) == null && (theme == Ambiance.T_PLANET || theme == Ambiance.T_WEATHER || rich2(theme)); }
 
     /** Accent colour of the theme, or the artwork's own colour for the normal screen. */
     public static int accent(int theme, int fallback) {
@@ -72,6 +85,12 @@ public final class Themes {
             case Ambiance.T_XMAS: return 0xFFFFD27A;
             case Ambiance.T_AUTUMN: return 0xFFF0A04B;
             case Ambiance.T_HALLOWEEN: return 0xFFFF8A1F;
+            case Ambiance.T_CLOUDS: return 0xFFFFFFFF;
+            case Ambiance.T_FOG: return 0xFFE8EEF2;
+            case Ambiance.T_SNOWFALL: return 0xFFCFE4FF;
+            case Ambiance.T_STORM: case Ambiance.T_NIGHTRAIN: case Ambiance.T_DAYRAIN: return 0xFF9FC4E8;
+            case Ambiance.T_SUNSET: return 0xFFFFD27A;
+            case Ambiance.T_WEATHER: { int k = app.pochette.tv.core.Weather.kind(); return k == app.pochette.tv.core.Weather.K_CLEAR_DAY ? 0xFFFFE9A8 : 0xFF9FC4E8; }
             default: return fallback;
         }
     }
@@ -92,11 +111,20 @@ public final class Themes {
             case Ambiance.T_AUTUMN: return new int[]{0xFFC4651C, 0xFF2A140A};
             case Ambiance.T_HALLOWEEN: return new int[]{0xFF5A2A7A, 0xFF120A1C};
             case Ambiance.T_RECORD: return new int[]{0xFF6B3A1F, 0xFF1A0F0A};
+            case Ambiance.T_WEATHER: return new int[]{0xFF3C5A78, 0xFF121A24};
+            case Ambiance.T_CLOUDS: return new int[]{0xFF4A82C8, 0xFF1A2C48};
+            case Ambiance.T_FOG: return new int[]{0xFF7A8890, 0xFF1C2328};
+            case Ambiance.T_SNOWFALL: return new int[]{0xFF6A8CB0, 0xFF16222E};
+            case Ambiance.T_STORM: return new int[]{0xFF3A4660, 0xFF0C1018};
+            case Ambiance.T_NIGHTRAIN: return new int[]{0xFF2C4058, 0xFF0C121A};
+            case Ambiance.T_SUNSET: return new int[]{0xFFE8844A, 0xFF3A2A4A};
+            case Ambiance.T_DAYRAIN: return new int[]{0xFF5A7690, 0xFF1A2530};
             default: return new int[]{0xFF3A3340, 0xFF1C1820};
         }
     }
 
     public void drawBackground(Canvas c, int theme, int W, int H, long nowMs) {
+        if (theme == Ambiance.T_WEATHER) theme = Ambiance.T_PLANET;       // the clips play behind; night is the starry sky
         if (theme == Ambiance.T_MORNING) scenes2.sky(c, theme, W, H, nowMs / 1000.0);
         if (bg == null || bgTheme != theme || bgW != W || bgH != H) {
             boolean rich = theme == Ambiance.T_PLANET;
@@ -165,6 +193,14 @@ public final class Themes {
 
     /** Moving details drawn above the background and behind the music. */
     public void drawEffects(Canvas c, int theme, int W, int H, long nowMs) {
+        if (theme == Ambiance.T_WEATHER) {
+            if (app.pochette.tv.core.Weather.videoOf(app.pochette.tv.core.Weather.kind()) != null) return;               // a clip is playing
+            scenes.effects(c, Ambiance.T_PLANET, W, H, nowMs / 1000.0);
+            int k = app.pochette.tv.core.Weather.kind();
+            if (k == app.pochette.tv.core.Weather.K_CLOUD_NIGHT) art.nightClouds(c, W, H, nowMs / 1000.0);
+            else if (k == app.pochette.tv.core.Weather.K_FOG_NIGHT) { art.nightClouds(c, W, H, nowMs / 1000.0 * 0.5); art.nightFog(c, W, H, nowMs / 1000.0); }
+            return;
+        }
         if (Scenes3.handles(theme)) { scenes3.effects(c, theme, W, H, nowMs / 1000.0); return; }
         if (rich2(theme)) { scenes2.effects(c, theme, W, H, nowMs / 1000.0); return; }
         if (theme == Ambiance.T_PLANET) { scenes.effects(c, theme, W, H, nowMs / 1000.0); return; }

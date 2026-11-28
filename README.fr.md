@@ -2,130 +2,78 @@
 
 # Pochette — écran « en cours de lecture » pour Sonos sur Android TV
 
-Pochette affiche en plein écran sur ta télé ce que joue ta Sonos : pochette, titre, artiste, progression, et paroles synchronisées en option.
-Elle parle directement aux enceintes sur ton réseau local, sans compte ni cloud. Seules les paroles sont cherchées en ligne, sur lrclib.net.
+Pochette remplit ta télé avec ce que joue ta Sonos : pochette, titre, artiste, barre de progression et paroles synchronisées en option.
+Elle parle directement à tes enceintes sur le réseau local. Pas de compte, pas de cloud. Java pur, sans Gradle ni AndroidX, Android 6+ (cible Android 14).
+Testée sur un Chromecast Google TV ; interface en français, anglais et espagnol.
 
-## Installer l'APK sur la télé
+## Fonctionnalités
+- **QR code du Wi-Fi des invités** : première étape facultative de l'écran d'invitation (le réseau se règle une fois depuis ton téléphone, dans Réglages › Avancé › Invités).
+- **Cinq styles d'affichage** : classique, illustré (disque, radio), paroles, épuré (la pochette seule) et fond d'écran seul. ▲ ▼ change de style.
+- **Paroles synchronisées** depuis [LRCLIB](https://lrclib.net) (facultatif, désactivable).
+- **Ambiances** : un OK lance un favori Sonos (playlist), les pièces, le volume et un fond d'écran (vidéo en boucle ou scène dessinée), avec une montée de volume au réveil et une minuterie de sommeil en option. Retour pendant la lecture ouvre l'accueil des ambiances.
+- **Mode Météo** : un fond d'écran qui suit la météo et l'heure de chez toi (dégagé, nuageux, pluie, brouillard, orage, neige, coucher de soleil). Tu tapes ta ville une fois dans les Réglages, ou elle est trouvée à partir de ta position approximative (adresse IP). °C ou °F, carte météo facultative, et une démo qui montre tous les fonds.
+- **Minuteur de cuisine** : icône de réveil tout à droite de la barre du bas. Choisis une durée de 1 à 240 minutes ; le compte à rebours s'affiche au-dessus de la barre pendant la dernière minute, et la sonnerie joue sur tes enceintes Sonos.
+- **Volume** : les flèches règlent, un appui coupe le son, un appui long ouvre le volume pièce par pièce.
+- **Sauvegarde et restauration** : Réglages › Sauvegarde et restauration affiche un QR code ; depuis ton téléphone, tu télécharges un fichier avec tes ambiances et réglages, ou tu en restaures un. Il ne contient ni mot de passe ni connexion Spotify.
+- **Réorganiser les ambiances** : prends-en une avec OK, déplace-la avec les flèches.
+- **Guide** : une courte visite dans l'app de la télécommande et du menu (Réglages › Guide).
+- **Favoris** : lance un favori ou une playlist Sonos dans les pièces qui jouent déjà, sans toucher au volume, aux pièces ni au fond d'écran.
+- **Jeux avec la télé comme maître du jeu** : blind test (avec un podium clignotant), chaises musicales, finis les paroles, quiz avec catégories à cocher (culture générale, France, Québec, geek, pop ; en français, anglais et espagnol), devine le mot et dessine-et-devine. Les téléphones se joignent par QR code, sur le même Wi-Fi.
+- **Tes propres fonds d'écran** : envoie jusqu'à trois vidéos (MP4/MOV ou MKV, H.264 ou HEVC, 720p à 4K) depuis ton téléphone et donne-leur un nom.
+- **Signaler un bogue** : Réglages › Avancé › « Journal et signaler un bogue… » affiche un QR code. Sur ton téléphone, tu obtiens un rapport avec les dernières lignes du journal (les identifiants de ta maison, comme les adresses IP et les identifiants Sonos, sont masqués), avec un bouton Copier et un bouton « Envoyer par courriel » vers pochette.support@gmail.com. Rien n'est envoyé si tu ne l'envoies pas toi-même.
+- **File d'attente partagée** (facultative, demande Spotify) : les invités ajoutent une chanson depuis leur téléphone.
+- **À suivre**, choix des pièces, mode économiseur d'écran, horloge quand rien ne joue, et un menu dessiné par l'app (elle te prévient si les sons système de la télé sont actifs, et comment les couper).
 
-**Option simple, sans ordinateur :**
-1. Sur la télé, installe **Send Files to TV** depuis le Play Store. Installe-la aussi sur ton téléphone.
-2. Envoie `Pochette.apk` du téléphone vers la télé.
-3. Sur la télé, ouvre le fichier reçu. Android demande d'autoriser l'installation d'applis inconnues pour Send Files to TV : accepte, puis installe.
+## Installation
+Télécharge `Pochette.apk` depuis la page Releases et installe-le sur la télé.
+- Avec un ordinateur : active les options pour développeurs et le débogage USB / sans fil sur la télé, puis `adb connect IP_DE_LA_TELE` et `adb install Pochette.apk`.
+- Sans ordinateur : envoie l'APK sur la télé avec une appli comme *Send Files to TV* et ouvre-le (autorise les installations depuis cette appli).
 
-**Option avec un ordinateur (adb) :**
-1. Sur la télé : Paramètres › Système › À propos. Clique 7 fois sur « Build du système d'exploitation Android TV » pour activer le mode développeur.
-2. Paramètres › Système › Options pour les développeurs : active **Débogage USB** (et **Débogage sans fil** sur Android 11 et plus).
-3. Sur l'ordinateur : `adb connect IP_DE_LA_TELE` (sur Android 11+, utilise `adb pair` avec le code affiché), puis `adb install Pochette.apk`.
+La télé et la Sonos doivent être sur le même réseau. Si aucune enceinte n'est trouvée, entre l'IP d'une enceinte dans Réglages › Plus › Avancé.
 
-Pochette apparaît ensuite dans la rangée de tes applis.
-
-## Utilisation (télécommande)
-
+## Télécommande
 | Touche | Action |
 |---|---|
-| ▲ ▼ (menu fermé) | Changer d'affichage |
-| Maintenir ◀ ▶ | Reculer / avancer dans le morceau |
-| OK, ◀ ou ▶ | Affiche les commandes (⏮ ⏯ ⏭), la barre de progression et la barre de menu |
-| Dans les commandes | ◀ ▶ choisir, OK valider ; ▲ va sur la barre de progression (maintenir ◀ ▶ pour se déplacer), ▲ encore ou ◀ depuis ⏮ va dans la barre de menu |
-| Dans la barre | ▲ ▼ choisir une section, ▶ ou OK l'ouvrir |
-| Dans une section | ▲ ▼ ◀ ▶ se déplacer, OK pour choisir l'option sous le curseur, Retour pour revenir |
-| Touches lecture / suivant / précédent | Agissent directement |
-| Retour (menu fermé) | Quitter |
+| ▲ / ▼ (menu fermé) | Changer de style d'affichage |
+| Maintenir ◀ / ▶ | Reculer / avancer dans le morceau |
+| OK, ◀ ou ▶ | Afficher les commandes et le menu |
+| Retour (pendant la lecture) | Accueil des ambiances ; Retour encore quitte |
 
-Sections : **Lecture**, **Ambiances**, **Favoris**, **Jeux**, **Pièces** (choisir où joue la musique), **Affichage** (style, couleur du vinyle, paroles, horloge),
-**Réglages** (enceinte suivie, affichage auto, interface, Spotify, avancé), **À propos**.
-Le menu est dessiné par l'appli : il ne fait aucun son système.
+## Astuce : utilise les favoris Sonos
+La façon la plus fiable de jouer de la musique est d'ajouter tes playlists (Spotify, Apple Music, radios) à **Mes favoris Sonos** dans l'appli Sonos, puis de les lancer depuis les Favoris de Pochette ou une ambiance. Sonos met alors lui-même la musique en file d'attente : « À suivre » et le saut vers un titre fonctionnent partout de la même façon.
 
-Quand rien ne joue, ou quand la barre de son est sur le son de la TV, Pochette affiche une horloge discrète qui se déplace doucement (anti-marquage).
-L'écran peut alors se mettre en veille normalement.
+## Spotify (facultatif)
+Les favoris et le titre suivant fonctionnent sans compte Spotify : Pochette parle aussi à l'API websocket locale de ton enceinte (l'idée vient d'un commentaire Reddit), qui ouvre les favoris Spotify quand UPnP les refuse (certaines installations répondent l'erreur 804) et montre le titre suivant pendant Spotify Connect. Si Sonos ne donne pas de pochette pour ce titre, Pochette la cherche par artiste et titre sur Deezer, puis iTunes Search (voir `PRIVACY.md`).
 
-## Choisir les pièces
+Pour une liste « À suivre » plus longue et la file partagée (les invités cherchent et ajoutent des chansons), crée une appli sur le [tableau de bord développeur Spotify](https://developer.spotify.com/dashboard), puis Réglages › Plus › Spotify et suis la page sur ton téléphone. Pochette utilise ton propre Client ID ; l'API Web de Spotify demande un compte Premium.
 
-Maintiens OK, puis « Diffuser sur… » : coche les pièces qui doivent jouer la musique. Si tu décoches la pièce qui joue, la musique passe sur une des pièces cochées.
-
-## Affichage automatique quand la musique démarre
-
-Activé par défaut. Pour qu'Android laisse Pochette passer au premier plan toute seule, il faut l'autorisation de superposition :
-- Réglages Pochette › « Afficher automatiquement… » › **Ouvrir les réglages**, puis autorise Pochette.
-- Si cet écran n'existe pas sur ta télé (fréquent sur Google TV), lance cette commande une seule fois depuis un ordinateur :
-  ```
-  adb shell appops set app.pochette.tv SYSTEM_ALERT_WINDOW allow
-  ```
-
-Si tu quittes avec Retour pendant la musique, Pochette ne revient pas toute seule. Elle se réarme après 45 secondes sans musique.
-
-## En économiseur d'écran (optionnel)
-
-Pochette est aussi un économiseur d'écran : la musique s'affiche quand la télé passe en veille d'écran, et une horloge sinon.
-Paramètres › Préférences de l'appareil › Économiseur d'écran › **Pochette**.
-Si Google TV ne propose pas les économiseurs tiers :
-```
-adb shell settings put secure screensaver_components app.pochette.tv/.NowPlayingDream
-```
-
-## Play et reprise
-
-Play relance la dernière musique écoutée (file d'attente, playlist ou radio), même si la barre de son est passée sur la TV.
-Option dans Réglages : « Relancer la dernière musique à l'ouverture ». La musique lancée depuis l'appli Spotify (Spotify Connect) ne peut pas être reprise par Pochette.
-
-## Sons système de la télé
-
-Si les sons de navigation de la télé sont actifs, Pochette l'indique au lancement : avec une barre de son, chaque son peut couper la musique.
-Pochette n'y touche pas : elle te prévient au démarrage s'ils sont activés.
-Pour les couper : Paramètres › Écran et son › Sons système, ou `adb shell settings put system sound_effects_enabled 0`.
-
-## Dépannage
-
-- **« Aucune enceinte trouvée »** : la télé et la Sonos doivent être sur le même réseau. Sinon, entre l'IP d'une enceinte dans les réglages Pochette.
-  L'IP se trouve dans l'appli Sonos : Réglages › Système › À propos de mon système.
-- **Plusieurs pièces** : par défaut, Pochette suit le groupe qui joue. Tu peux fixer une pièce dans les réglages.
-- **La musique se coupe quand j'appuie sur la télécommande** : certaines barres de son basculent sur l'entrée TV dès que la télé émet un son.
-  Coupe les sons de navigation de la télé (Paramètres › Préférences de l'appareil › Son › Sons système).
-- **Pas de pochette** : certaines sources (entrée ligne, certaines radios) n'en fournissent pas.
-
-## Compiler soi-même
-
-Le projet n'utilise ni Gradle ni AndroidX : Java pur et API Android du framework (min. Android 6).
-Sur Ubuntu ou Debian :
+## Compiler
 ```
 sudo apt install openjdk-17-jdk aapt zipalign apksigner dalvik-exchange android-sdk-platform-23
 ./build.sh
 ```
-`build.sh` crée une clé de signature `pochette.keystore` au premier lancement. Garde-la : sans elle, les mises à jour ne s'installent pas par-dessus l'ancienne version.
-Les vidéos d'ambiance (`res/raw/`) ne sont pas sous licence GPL : elles viennent de Pixabay et gardent leur licence (voir `NOTICE.md`). Sans elles, l'app compile et les ambiances affichent un dégradé.
+`build.sh` crée une clé de signature (`pochette.keystore`) au premier lancement. Garde-la : une mise à jour ne s'installe par-dessus une ancienne version que si elle est signée avec la même clé.
+Les vidéos d'ambiance de `res/raw/` ne sont pas sous licence GPL : elles viennent de Pixabay et gardent leur propre licence (voir `NOTICE.md`). Sans elles, l'app compile quand même et les ambiances affichent un dégradé.
 
-### Organisation du code
-Sources dans `src/app/pochette/tv/`:
-- `core/` préférences, traductions (`T`), état du morceau, liste des ambiances, utilitaires
-- `sonos/` `SonosClient` (UPnP/SOAP local) et `Poller` (état, file d'attente, ambiances)
-- `spotify/` client Web API et configuration depuis le téléphone
-- `media/` paroles (LRCLIB) et bio de l'artiste
-- `ui/` `NowPlayingView` (affichage), `MenuOverlay`, aides de dessin (`IdleScreen`, `DiscArt`, `RadioScene`, `Icons`, `Draw`), vues info/partage, fond vidéo
+## Organisation du code
+Les sources sont dans `src/app/pochette/tv/` :
+- `core/` préférences, traductions (`T`), état de la lecture, liste des ambiances, utilitaires
+- `sonos/` `SonosClient` (UPnP/SOAP local), `SonosWs` (API websocket locale) et `Poller` (état, file d'attente, ambiances)
+- `spotify/` client de l'API Web et configuration depuis le téléphone
+- `media/` paroles (LRCLIB) et biographie de l'artiste
+- `ui/` `NowPlayingView` (rendu), `MenuOverlay`, outils de dessin (`IdleScreen`, `DiscArt`, `RadioScene`, `Icons`, `Draw`), vues d'info et de partage, fond vidéo
 - `theme/` fonds d'écran : `Themes`, `Scenes*`, `ThemePreview`
-- `party/` jeux, pages téléphone et serveur de file partagée
+- `party/` jeux, pages pour téléphone et serveur de la file partagée
 - `menu/` contrôleurs de menu (ambiances, jeux, pièces, réglages, favoris)
-- `MainActivity` assemble le tout et route les touches de la télécommande
+- `MainActivity` relie le tout et aiguille les touches de la télécommande
 
-## v2.0 — Ambiances et À suivre
-- **Ambiances** (1re section du menu) : un OK sur une carte lance la playlist (un *favori Sonos*, ajoutez vos playlists Spotify aux favoris dans l'app Sonos), les pièces, le volume et le thème d'écran. OK maintenu = modifier. Aucun son ajouté.
-- **À suivre** : ▲ depuis les boutons de lecture, OK sur un titre pour y sauter. Fonctionne pour la lecture par file d'attente Sonos. Avec Spotify Connect, le titre suivant s'affiche sans compte Spotify (API locale de l'enceinte, pochette cherchée par artiste et titre sur Deezer puis iTunes) ; la liste complète demande la liaison Spotify.
-
-
-## Ambiances, jeux et invités
-- **Ambiances** : cartes avec aperçu du fond d'écran. Retour pendant la lecture ouvre l'accueil des ambiances.
-- **Favoris** : lance un favori ou une playlist Sonos dans les pièces qui jouent déjà, sans toucher au volume, aux pièces ni au fond d'écran.
-- **Jeux** : blind test (podium avec le vainqueur qui clignote), chaise musicale, n'oubliez pas les paroles, quiz avec catégories à cocher (culture générale, France, Québec, geek, pop ; en français, anglais et espagnol), Devine-moi, Dessine-moi. Les téléphones se connectent par QR code, sur le même Wi-Fi.
-- **Tes propres fonds d'écran** : envoie jusqu'à trois vidéos (MP4/MOV ou MKV, H.264 ou HEVC, de 720p à 4K) depuis ton téléphone et donne-leur un nom.
-- **Signaler un bug** : Réglages › Avancé › « Journal et signaler un bug… » affiche un QR code. Sur ton téléphone, tu obtiens un rapport avec les dernières lignes du journal (les identifiants de ta maison, comme les adresses IP et les identifiants Sonos, sont masqués), avec un bouton « Copier » et un bouton « Envoyer par e-mail » vers pochette.support@gmail.com. Rien n'est envoyé tant que tu ne l'envoies pas toi-même.
-- **File d'attente partagée** (avec Spotify) : les invités ajoutent un morceau depuis leur téléphone.
-
-## Licence
-Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB (marques de leurs propriétaires, citées seulement pour dire avec quoi Pochette fonctionne). Code sous licence GNU GPL v3 (voir `LICENSE`), sauf les vidéos et les questions du quiz (voir `NOTICE.md`) : si tu distribues une version modifiée, tu dois en partager le code source sous la même licence. Copyright (C) 2026 Pochette contributors. Les versions publiées avant le 24 novembre 2026 (jusqu'à la 1.0.32) l'ont été sous licence MIT et le restent.
+## Sans affiliation
+Projet indépendant, sans lien avec Sonos, Inc. ni Spotify AB. Sonos et Spotify sont des marques de leurs propriétaires, citées ici seulement pour dire avec quoi Pochette fonctionne. Sonos s'appuie sur une API locale non officielle qui peut changer. Voir `NOTICE.md`. Code sous GNU GPL v3 (`LICENSE`), sauf les vidéos et les questions du quiz (voir `NOTICE.md`) : si tu distribues une version modifiée, tu dois en partager le code source sous la même licence. Copyright (C) 2026 Pochette contributors. Les versions publiées avant le 24 novembre 2026 (jusqu'à la 1.0.32) l'ont été sous licence MIT et le restent. Développé avec l'IA Claude.
 
 ## Crédits
-Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la licence de contenu Pixabay. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR et victorsteep (liens dans `NOTICE.md`).
+Vidéos d'ambiance de [Pixabay](https://pixabay.com), sous la Pixabay Content License. Merci à leurs auteurs : Monk_Vadim, JusticeTran, LofiPlace, Joe_hackney, BackgroundsCHAIR, victorsteep, doktorkleinmusic, Girl_From_Nowhere, Phile-Rain, Nils_Vega, dlabiebrzy et Pauline_17 (liens dans `NOTICE.md`). Les prévisions viennent d'[Open-Meteo](https://open-meteo.com).
 
-Les questions du quiz viennent d'[Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), sélectionnées et traduites en français et en espagnol, plus des questions geek originales. Les fichiers du quiz restent sous CC BY-SA 4.0, sauf les questions originales (voir `NOTICE.md`).
+Les questions du quiz viennent d'[Open Trivia DB](https://opentdb.com) (CC BY-SA 4.0), choisies et traduites en français et en espagnol, plus des questions geek originales. Les fichiers du quiz restent sous CC BY-SA 4.0, sauf les questions originales (voir `NOTICE.md`).
 
 ## Captures d'écran
 
@@ -134,3 +82,6 @@ Les questions du quiz viennent d'[Open Trivia DB](https://opentdb.com) (CC BY-SA
 <img src="docs/screenshots/Ambience.png" width="49%"> <img src="docs/screenshots/Games.png" width="49%">
 <img src="docs/screenshots/Karaoke.png" width="49%"> <img src="docs/screenshots/Quiz.png" width="49%">
 <img src="docs/screenshots/Settings.png" width="49%">
+
+## Vie privée
+Pochette ne collecte aucune donnée. La météo demande à un service météo public le temps de ta ville ; voir [PRIVACY.md](PRIVACY.md).
